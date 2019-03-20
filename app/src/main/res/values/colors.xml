@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Main Items Color -->
+    <color name="mainBackground">#DFA80D</color>
+    <color name="mainText">#354499</color>
+    <color name="mainTextHighlight">#9C27B0</color>
+    <color name="mainSelectedSection">#9C27B0</color>
+
+    <!-- Smooth items color-->
+
+    <color name="drawerSmoothColor">#E6E5E2</color>
 </resources>

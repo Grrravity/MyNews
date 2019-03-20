@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">MyNews</string>
+
+    <string name="verification_search_field">Please enter something to search</string>
+    <string name="verification_checkbox">Please select at least one category</string>
+    <string name="verification_dates">Please make sure that \"Begin date\" is younger than \"End date\"</string>
+    <string name="list_empty">Oops, could not find any articles matching your search</string>
+    <string name="nav_drawer_open">Open</string>
+    <string name="nav_drawer_close">Close</string>
+    <string name="onErrorTopStories">onError on TopStories http request</string>
+    <string name="onCompleteTopStories">TopStories charged</string>
+    <string name="onErrorMostPopular">onError on MostPopular http request</string>
+    <string name="onCompleteMostPopular">MostPopular charged</string>
 </resources>

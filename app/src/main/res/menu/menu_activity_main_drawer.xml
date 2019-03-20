@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_activity_main_drawer"
+            android:icon="@drawable/baseline_menu_white_24dp"
+            android:title="Catégories : "
+            />
+    </group>
+
+    <item android:title="Sections : "
+        >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_drawer_arts_section"
+
+                    android:title="Arts" />
+                <item
+                    android:id="@+id/menu_drawer_sports_section"
+
+                    android:title="Sport" />
+                <item
+                    android:id="@+id/menu_drawer_politics_section"
+
+                    android:title="Politics" />
+                <item
+                    android:id="@+id/menu_drawer_travel_section"
+
+                    android:title="Travel" />
+                <item
+                    android:id="@+id/menu_drawer_technology_section"
+
+                    android:title="Technology" />
+
+                <item
+                    android:id="@+id/menu_drawer_automobiles_section"
+
+                    android:title="Automobiles" />
+                <item
+                    android:id="@+id/menu_drawer_Business_section"
+
+                    android:title="Business" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
