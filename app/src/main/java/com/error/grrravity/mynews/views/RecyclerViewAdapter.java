@@ -25,17 +25,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public RecyclerViewAdapter(List<APIResult> topStories, RequestManager glide,
                                PageFragment pageAdapterListener) {
         this.mListener = pageAdapterListener;
-        this.mTopStories = topStories;
         this.mGlide = glide;
+        this.mTopStories = topStories;
     }
 
     @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder (ViewGroup parent, int viewType){
+    public RecyclerViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
         //Create view holder and inflate the xml layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_page, parent, false);
+        View view = inflater.inflate(R.layout.fragment_page_item, parent, false);
 
         return new RecyclerViewHolder(view);
     }
