@@ -10,4 +10,4 @@
     android:background="@color/mainBackground"
 
     android:theme="@style/ToolbarTheme"
-    app:titleTextAppearance="@style/Toolbar.TitleText"/>
+    app:titleTextAppearance="@style/Toolbar.TitleText" />

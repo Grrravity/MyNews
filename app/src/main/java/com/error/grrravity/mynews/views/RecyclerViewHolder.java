@@ -11,30 +11,24 @@ import com.bumptech.glide.request.RequestOptions;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.models.APIResult;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 class RecyclerViewHolder extends RecyclerView.ViewHolder {
-    private final TextView mTextViewTitle;
-    private final TextView mTextViewDate;
-    private final ImageView mImageView;
-    private final TextView mTextViewSection;
-    private final RelativeLayout mRelativeLayout;
 
     private static final String SUBSECTION = " > ";
 
     // IDs
-    // @BindView(R.id.fragment_page_item_title) TextView mTextViewTitle;
-    // @BindView(R.id.fragment_page_item_date) TextView mTextViewDate;
-    // @BindView(R.id.fragment_page_item_image) ImageView mImageView;
-    // @BindView(R.id.fragment_page_item_section) TextView mTextViewSection;
-    // @BindView(R.id.mRelativeLayout) RelativeLayout mRelativeLayout;
-    //
+    @BindView(R.id.fragment_page_item_title) TextView mTextViewTitle;
+    @BindView(R.id.fragment_page_item_date) TextView mTextViewDate;
+    @BindView(R.id.fragment_page_item_image) ImageView mImageView;
+    @BindView(R.id.fragment_page_item_section) TextView mTextViewSection;
+    @BindView(R.id.relativeLayout) RelativeLayout mRelativeLayout;
 
     RecyclerViewHolder(View itemView) {
         super(itemView);
-        mTextViewTitle = itemView.findViewById(R.id.fragment_page_item_title);
-        mTextViewDate = itemView.findViewById(R.id.fragment_page_item_date);
-        mImageView = itemView.findViewById(R.id.fragment_page_item_image);
-        mTextViewSection = itemView.findViewById(R.id.fragment_page_item_section);
-        mRelativeLayout = itemView.findViewById(R.id.relativeLayout);
+        ButterKnife.bind(this, itemView);
+
     }
 
     //Update items

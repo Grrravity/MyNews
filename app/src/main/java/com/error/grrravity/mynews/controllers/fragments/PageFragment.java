@@ -149,6 +149,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                         executeHttpRequestMostPopular();
                         break;
                     case 2:
+                        // TODO : getbysection
                         executeHttpRequestSearchArticles(mSelectedSection);
                         break;
                 }
@@ -184,7 +185,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     }
     //API Request for MostPopular
     private void executeHttpRequestMostPopular( ){
-        mDisposable = NYTStreams.streamFetchArticlesMP( "home")
+        mDisposable = NYTStreams.streamFetchArticlesMP( "")
                 .subscribeWith(new DisposableObserver <APIArticles>() {
                     @Override
                     public void onNext(APIArticles articles) {
@@ -225,6 +226,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
             endDate = "01012019";
         }
 
+        //TODO : getbysection
         mDisposable = NYTStreams.streamFetchSearchArticles("",search, category,
                 beginDate, endDate)
                 .subscribeWith(new DisposableObserver<APISearch>() {
