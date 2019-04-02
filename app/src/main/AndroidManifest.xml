@@ -11,26 +11,42 @@
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="true"
         android:enabled="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".controllers.activities.SearchActivity"/>
-        <activity android:name=".controllers.activities.NotificationActivity" />
-        <activity android:name=".controllers.activities.HelpActivity" />
-        <activity android:name=".controllers.activities.AboutActivity" />
-        <activity android:name=".controllers.activities.ArticleActivity" />
-        <activity android:name=".controllers.activities.MainActivity">
+
+        <activity android:name=".controllers.activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".controllers.activities.ArticleActivity"
+            android:parentActivityName=".controllers.activities.MainActivity" />
+
+        <activity android:name=".controllers.activities.SearchActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".controllers.activities.NotificationActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".controllers.activities.AboutActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".controllers.activities.HelpActivity" />
+
     </application>
 
 </manifest>

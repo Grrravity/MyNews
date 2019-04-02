@@ -3,20 +3,34 @@ package com.error.grrravity.mynews.views;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
 import com.error.grrravity.mynews.controllers.fragments.PageFragment;
 
+import java.util.List;
+
 public class PagerAdapter extends FragmentPagerAdapter {
 
+    private final List<PageFragment> mPageFragment;
 
     // Default Constructor
-    public PagerAdapter(FragmentManager mgr) {
+    public PagerAdapter(FragmentManager mgr, List<PageFragment> pageFragment) {
         super(mgr);
+        mPageFragment = pageFragment;
     }
+
+    //Switch fragment depending on position
     @Override
-    public Fragment getItem(int position){
-        return PageFragment.newInstance(position);
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return mPageFragment.get(position);
+            case 1:
+                return mPageFragment.get(position);
+            case 2:
+                return mPageFragment.get(position);
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -24,10 +38,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return 3;
     }
 
-    //Set the title on Tabs
+    //Set title on Tabs
     @Override
     public CharSequence getPageTitle(int position) {
-        String title ="";
+        String title = "";
         switch (position) {
             case 0: //Page number 1
                 title = "Top Stories";
@@ -36,12 +50,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 title = "Most Popular";
                 break;
             case 2: //Page number 3
-                title = "SECTION NOT\r\nYET SELECTED";
+                title = "Section not\r\nyet selected";
                 break;
         }
         return title;
-    }
-
-    public void addOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
     }
 }

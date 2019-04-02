@@ -11,4 +11,6 @@
     <string name="onCompleteTopStories">TopStories charged</string>
     <string name="onErrorMostPopular">onError on MostPopular http request</string>
     <string name="onCompleteMostPopular">MostPopular charged</string>
+    <string name="onErrorSearch">onError on SearchedArticle http request</string>
+    <string name="onCompleteSearch">SearchedArticle charged</string>
 </resources>

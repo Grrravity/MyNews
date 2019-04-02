@@ -17,16 +17,16 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private final onPageAdapterListener mListener;
-    // DATAs
-    private RequestManager glide;
-    private List<APIResult> topStories;
+    // DATA
+    private RequestManager mGlide;
+    private List<APIResult> mTopStories;
 
     //Constructor
     public RecyclerViewAdapter(List<APIResult> topStories, RequestManager glide,
                                PageFragment pageAdapterListener) {
         this.mListener = pageAdapterListener;
-        this.topStories = topStories;
-        this.glide = glide;
+        this.mTopStories = topStories;
+        this.mGlide = glide;
     }
 
     @NonNull
@@ -43,13 +43,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     // Update viewholder with topstorie
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder viewHolder, int position) {
-        viewHolder.updateWithResult(this.topStories.get(position), this.glide, mListener);
+        viewHolder.updateWithResult(this.mTopStories.get(position), this.mGlide, mListener);
     }
 
     // Return the number of items in the list
     @Override
     public int getItemCount() {
-        return this.topStories.size();
+        return this.mTopStories.size();
     }
 
 

@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.activity_main_viewpager) public ViewPager mViewPager;
-    @BindView(R.id.activity_main_nav_view) NavigationView mNavigationView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.activity_main_tabs) TabLayout mTabLayout;
 
     private DrawerLayout mDrawerLayout;
+    private List<PageFragment> mPageFragment;
     private PagerAdapter mPagerAdapter;
 
     @Override
@@ -45,7 +45,13 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
         this.configureToolbar();
+        mPageFragment = new ArrayList<>();
+        mPageFragment.add(PageFragment.newInstance(0));
+        mPageFragment.add(PageFragment.newInstance(1));
+        mPageFragment.add(PageFragment.newInstance(2));
+
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureViewPagerAndTabs();
@@ -116,37 +122,37 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
             case R.id.menu_drawer_technology_section:
                 Log.e("test", "Technology is clicked");
                 selectedSection = "technology";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_sports_section:
                 Log.e("test", "Sport is clicked");
                 selectedSection = "sports";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_politics_section:
                 Log.e("test", "Politics is clicked");
                 selectedSection = "politics";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_travel_section:
                 Log.e("test", "Travel is clicked");
                 selectedSection = "travel";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_automobiles_section:
                 Log.e("test", "Automobiles is clicked");
                 selectedSection = "automobiles";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_arts_section:
                 Log.e("test", "Arts is clicked");
                 selectedSection = "arts";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_Business_section:
                 Log.e("test", "Business is clicked");
                 selectedSection = "business";
-                updateSelectedArticle(selectedSection);
+                updateSelectedSection(selectedSection);
                 break;
             default:
                 break;
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
     }
 
     // Update Selected article section in position 2 with the good section
-    private void updateSelectedArticle(String selectedSection) {
+    private void updateSelectedSection(String selectedSection) {
         mViewPager.setCurrentItem(2);
         Objects.requireNonNull(mTabLayout.getTabAt(2)).setText(selectedSection);
         ((PageFragment) mPagerAdapter.getItem(2)).updateContent(selectedSection);
@@ -171,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
 
     // setting toolbar
     private void configureToolbar() {
-        ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
     }
 
@@ -179,24 +184,12 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
     private void configureViewPagerAndTabs() {
         ButterKnife.bind(this);
         //Set the Adapter for PagerAdapter and link it together
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mPageFragment);
         mViewPager.setAdapter(mPagerAdapter);
         // Link TabLayout and ViewPager together
         mTabLayout.setupWithViewPager(mViewPager);
         // Sets same width for each tabs
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mPagerAdapter.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-            @Override
-            public void onPageSelected(int i) {
-                mNavigationView.getMenu().getItem(i).setChecked(true);
-            }
-            @Override
-            public void onPageScrollStateChanged(int i) {
-            }
-        });
     }
 
     // setting NavigationView for drawer
