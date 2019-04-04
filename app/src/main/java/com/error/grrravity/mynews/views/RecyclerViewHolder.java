@@ -48,8 +48,8 @@ class RecyclerViewHolder extends RecyclerView.ViewHolder {
                     article.getSubsection()));
         }
         //getting update date
-        if(article.getUpdatedDate() != null){
-            this.mTextViewDate.setText(article.getUpdatedDate().substring(0,10));
+        if(article.getPublishedDate() != null){
+            this.mTextViewDate.setText(article.getPublishedDate().substring(0,10));
         }
         //getting multimedia
         if (article.getMultimedia() != null && article.getMultimedia().size() >= 1){

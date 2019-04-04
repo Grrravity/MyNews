@@ -117,10 +117,10 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         // 4 - Handle Navigation Item Click
         int id = item.getItemId();
         item.getTitle();
-        String selectedSection;
         switch (id) {
             case R.id.menu_drawer_technology_section:
                 Log.e("test", "Technology is clicked");
+                String selectedSection;
                 selectedSection = "technology";
                 updateSelectedSection(selectedSection);
                 break;
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 selectedSection = "arts";
                 updateSelectedSection(selectedSection);
                 break;
-            case R.id.menu_drawer_Business_section:
+            case R.id.menu_drawer_business_section:
                 Log.e("test", "Business is clicked");
                 selectedSection = "business";
                 updateSelectedSection(selectedSection);

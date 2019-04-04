@@ -20,7 +20,7 @@ public interface NYTServices {
     @GET("svc/topstories/v2/{section}.json?")
     Observable<APIArticles> getBySection(@Path("section") String section, @Query("api-key") String API_KEY);
 
-    @GET("svc/mostpopular/v2/mostviewed/{section}/1.json?")
+    @GET("svc/mostpopular/v2/{section}/1.json?")
     Observable<APIArticles> getBySectionMP(@Path("section") String section, @Query("api-key") String API_KEY);
 
     @GET("svc/search/v2/articlesearch.json?")

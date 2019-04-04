@@ -1,5 +1,6 @@
 package com.error.grrravity.mynews.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import com.error.grrravity.mynews.R;
 public class Helper {
 
     // Puts the date in DD/MM/YYYY format in a spinner
+    @SuppressLint("SetTextI18n")
     public static String spinnerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner){
         String year = Integer.toString(yearInt);
         String month = (monthInt+1 < 10) ? "0" +

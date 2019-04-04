@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.error.grrravity.mynews.R;
@@ -51,7 +52,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     private Disposable mDisposable;
     private RecyclerViewAdapter mAdapter;
     private PageFragmentListener mListener;
-    private String mSelectedSection = "Business";
+    private String mSelectedSection = "viewed";
 
 
     public PageFragment() { }
@@ -106,8 +107,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                 executeHttpRequestMostPopular();
                 break;
             case 2:
-                //TODO taking values from selected articles and put it in the HTTP request
-                executeHttpRequestSearchArticles(mSelectedSection);
+                executeHttpRequestSelectedSection(mSelectedSection);
                 break;
         }
 
@@ -149,8 +149,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                         executeHttpRequestMostPopular();
                         break;
                     case 2:
-                        // TODO : getbysection
-                        executeHttpRequestSearchArticles(mSelectedSection);
+                        executeHttpRequestSelectedSection(mSelectedSection);
                         break;
                 }
             }
@@ -179,13 +178,13 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     @Override
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
-                        Log.e(getClass().getSimpleName(), getString(R.string.onCompleteTopStories));
+                        Log.e("Test", getString(R.string.onCompleteTopStories));
                     }
                 });
     }
     //API Request for MostPopular
     private void executeHttpRequestMostPopular( ){
-        mDisposable = NYTStreams.streamFetchArticlesMP( "")
+        mDisposable = NYTStreams.streamFetchArticlesMP( "viewed")
                 .subscribeWith(new DisposableObserver <APIArticles>() {
                     @Override
                     public void onNext(APIArticles articles) {
@@ -201,52 +200,31 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     @Override
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
-                        Log.e(getClass().getSimpleName(), getString(R.string.onCompleteMostPopular));
+                        Log.e("Test", getString(R.string.onCompleteMostPopular));
                     }
                 });
     }
 
     // API Request for SearchArticles
-    private void executeHttpRequestSearchArticles(String selectedSection){
-        String search;
-        List<String> category;
-        String beginDate;
-        String endDate;
+    private void executeHttpRequestSelectedSection(final String selectedSection){
+        mDisposable = NYTStreams.streamFetchArticles(selectedSection)
+                .subscribeWith(new DisposableObserver<APIArticles>() {
+            @Override
+            public void onNext(APIArticles articles) {
+                updateUI(articles);
+            }
 
-        if (selectedSection.equals("Business")){
-            search = "Business";
-            category = Collections.singletonList("MostPopular");
-            beginDate = "01012019";
-            endDate = "01032019";
-        }
-        else {
-            search = "Business";
-            category = Collections.singletonList("MostPopular");
-            beginDate = "01032019";
-            endDate = "01012019";
-        }
+            @Override
+            public void onError(Throwable e) {
+                textView.setVisibility(View.VISIBLE);
+            }
 
-        //TODO : getbysection
-        mDisposable = NYTStreams.streamFetchSearchArticles("",search, category,
-                beginDate, endDate)
-                .subscribeWith(new DisposableObserver<APISearch>() {
-                    @Override
-                    public void onNext(APISearch search) {
-                        updateUISearch(search);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        textView.setVisibility(View.VISIBLE);
-                        Log.e(getClass().getSimpleName(), getString(R.string.onErrorSearch));
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        progressBar.setVisibility(View.GONE);
-                        Log.e(getClass().getSimpleName(), getString(R.string.onCompleteSearch));
-                    }
-                });
+            @Override
+            public void onComplete() {
+                progressBar.setVisibility(View.GONE);
+                Log.e("Test", "Selected section, section " +selectedSection+ " is charged");
+            }
+        });
 
     }
 
@@ -320,7 +298,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
 
     public void updateContent(String section) {
         mSelectedSection = section;
-        executeHttpRequestSearchArticles(mSelectedSection);
+        executeHttpRequestSelectedSection(mSelectedSection);
     }
 
     //Callback to PageFragment

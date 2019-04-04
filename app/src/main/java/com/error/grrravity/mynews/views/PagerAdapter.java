@@ -41,18 +41,15 @@ public class PagerAdapter extends FragmentPagerAdapter {
     //Set title on Tabs
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = "";
         switch (position) {
             case 0: //Page number 1
-                title = "Top Stories";
-                break;
+                return "Top Stories";
             case 1: //Page number 2
-                title = "Most Popular";
-                break;
+                return "Most Popular";
             case 2: //Page number 3
-                title = "Section not\r\nyet selected";
-                break;
+                return "Section not\r\nyet selected";
+            default:
+                return null;
         }
-        return title;
     }
 }
