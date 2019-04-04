@@ -1,7 +1,10 @@
 package com.error.grrravity.mynews.controllers.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,11 +24,13 @@ import com.error.grrravity.mynews.models.APIArticles;
 import com.error.grrravity.mynews.models.APIResult;
 import com.error.grrravity.mynews.models.APISearch;
 import com.error.grrravity.mynews.utils.NYTStreams;
+import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +59,11 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     private PageFragmentListener mListener;
     private String mSelectedSection = "viewed";
 
+    private Preferences mPreferences;
 
-    public PageFragment() { }
+    public PageFragment() {
+
+    }
 
     // Create a new instance of PageFragment, and add data to its bundle.
     public static PageFragment newInstance(int position) {
@@ -74,6 +82,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mPreferences = Preferences.getInstance(context);
         if(context instanceof PageFragmentListener) {
             mListener = (PageFragmentListener)context;
         }
@@ -107,6 +116,10 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                 executeHttpRequestMostPopular();
                 break;
             case 2:
+                ArrayList<String> category = mPreferences.getCategory(0);
+                if (category.size() > 0){
+                   mSelectedSection = category.get(0);
+                }
                 executeHttpRequestSelectedSection(mSelectedSection);
                 break;
         }
@@ -291,9 +304,12 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
 
     //Configure item click on RecyclerView
     @Override
-    public void onArticleClicked(APIResult resultTopStories) {
-        Log.e("TAG", "Position : ");
-        mListener.callbackArticle(resultTopStories);
+    public void onArticleClicked(APIResult resultArticle) {
+        Log.e("TAG", "Position : " +position);
+        // TODO : when clicked, add Article URL to a sharedPreference.
+        // And add in updateUI() a comparison from articles URL and the one stored in sharedPrefs
+        // to change text color if already exist
+        mListener.callbackArticle(resultArticle);
     }
 
     public void updateContent(String section) {
@@ -303,7 +319,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
 
     //Callback to PageFragment
     public interface PageFragmentListener{
-        void callbackArticle(APIResult resultTopStories);
+        void callbackArticle(APIResult resultArticle);
     }
 
 }

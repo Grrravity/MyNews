@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.PageFragment;
 import com.error.grrravity.mynews.models.APIResult;
+import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.PagerAdapter;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
     private List<PageFragment> mPageFragment;
     private PagerAdapter mPagerAdapter;
 
+    private static Preferences mPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         this.configureNavigationView();
         this.configureViewPagerAndTabs();
         this.configureAndShowPageFragment();
+
+        mPreferences = Preferences.getInstance(this);
     }
 
     // Inflate the option menu and add to the Toolbar
@@ -164,11 +169,20 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         return true;
     }
 
-    // Update Selected article section in position 2 with the good section
+    // Update Selected article section in position 2 with the good section and save section in
+    // Preferences
     private void updateSelectedSection(String selectedSection) {
         mViewPager.setCurrentItem(2);
         Objects.requireNonNull(mTabLayout.getTabAt(2)).setText(selectedSection);
         ((PageFragment) mPagerAdapter.getItem(2)).updateContent(selectedSection);
+
+        //Save selected section in sharedPreference
+        ArrayList<String> category = mPreferences.getCategory(0);
+        if (category.size() > 0) {
+            category.remove(0);
+        }
+        category.add(selectedSection);
+        mPreferences.storeCategory(0,category);
     }
 
     //
@@ -184,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
     private void configureViewPagerAndTabs() {
         ButterKnife.bind(this);
         //Set the Adapter for PagerAdapter and link it together
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mPageFragment);
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mPageFragment, this);
         mViewPager.setAdapter(mPagerAdapter);
         // Link TabLayout and ViewPager together
         mTabLayout.setupWithViewPager(mViewPager);

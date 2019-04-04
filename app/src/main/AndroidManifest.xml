@@ -19,8 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".controllers.activities.MainActivity"
+        <activity android:name=".utils.Preferences"></activity>
+        <activity
+            android:name=".controllers.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,25 +29,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".controllers.activities.ArticleActivity"
+        <activity
+            android:name=".controllers.activities.ArticleActivity"
             android:parentActivityName=".controllers.activities.MainActivity" />
-
-        <activity android:name=".controllers.activities.SearchActivity"
+        <activity
+            android:name=".controllers.activities.SearchActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".controllers.activities.NotificationActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".controllers.activities.AboutActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controllers.activities.AboutActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".controllers.activities.HelpActivity" />
-
     </application>
 
 </manifest>

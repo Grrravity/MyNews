@@ -41,7 +41,7 @@
 
                     android:title="Automobiles" />
                 <item
-                    android:id="@+id/menu_drawer_Business_section"
+                    android:id="@+id/menu_drawer_business_section"
 
                     android:title="Business" />
             </group>
