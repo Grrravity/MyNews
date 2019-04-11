@@ -1,11 +1,11 @@
 package com.error.grrravity.mynews.controllers.fragments;
 
-import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.error.grrravity.mynews.R;
@@ -28,7 +27,6 @@ import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.RecyclerViewAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -99,6 +97,13 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         View view = inflater.inflate(R.layout.fragment_page, container, false);
 
         ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         progressBar.setVisibility(View.VISIBLE);
         mArticlesResults = new ArrayList<>();
 
@@ -108,29 +113,53 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
             position = getArguments().getInt(KEY_POSITION);
         }
 
-        switch (position) {
-            case 0:
-                executeHttpRequestTopStories();
-                break;
-            case 1:
-                executeHttpRequestMostPopular();
-                break;
-            case 2:
-                ArrayList<String> category = mPreferences.getCategory(0);
-                if (category.size() > 0){
-                   mSelectedSection = category.get(0);
-                }
-                executeHttpRequestSelectedSection(mSelectedSection);
-                break;
-        }
-
+        fragmentSwitchRequest();
         configureRecyclerView();
         configureSwipeRefreshLayout();
         Log.e(getClass().getSimpleName(), "onCreateView called for fragment number "+position);
-
-        return view;
     }
 
+    //Configure SwipeRefreshLayout
+    private void configureSwipeRefreshLayout(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fragmentSwitchRequest();
+            }
+        });
+    }
+
+    private void fragmentSwitchRequest(){
+        switch (position) {
+            case 0:
+                if (isNetworkAvailable()) {
+                    executeHttpRequestTopStories();
+                    Log.e("onCreateView // TS", "position " + position);
+                }
+                else { infoNoInternetOrCategory(false); }
+                break;
+            case 1:
+                if (isNetworkAvailable()) {
+                    executeHttpRequestMostPopular();
+                    Log.e("onCreateView // MP", "position " + position);
+                }
+                else { infoNoInternetOrCategory(false); }
+                break;
+            case 2:
+                if (isNetworkAvailable()) {
+                    ArrayList<String> category = mPreferences.getCategory(0);
+                    if (category.contains("viewed") || category.size() < 1) {
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        mSelectedSection = category.get(0);
+                        executeHttpRequestSelectedSection(mSelectedSection);
+                        Log.e("onCreateView // Cat", "position " + position);
+                    }
+                }
+                else { infoNoInternetOrCategory(false); }
+                break;
+        }
+    }
 
     @Override
     public void onDestroy() {
@@ -147,26 +176,6 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         this.mRecyclerView.setAdapter(this.mAdapter);
         // Set layout manager
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    //Configure SwipeRefreshLayout
-    private void configureSwipeRefreshLayout(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                switch (position) {
-                    case 0:
-                        executeHttpRequestTopStories();
-                        break;
-                    case 1:
-                        executeHttpRequestMostPopular();
-                        break;
-                    case 2:
-                        executeHttpRequestSelectedSection(mSelectedSection);
-                        break;
-                }
-            }
-        });
     }
 
     //
@@ -191,7 +200,8 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     @Override
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
-                        Log.e("Test", getString(R.string.onCompleteTopStories));
+                        Log.e("Test", getString(R.string.onCompleteTopStories)
+                                +" at position :"+ position);
                     }
                 });
     }
@@ -213,7 +223,8 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     @Override
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
-                        Log.e("Test", getString(R.string.onCompleteMostPopular));
+                        Log.e("Test", getString(R.string.onCompleteMostPopular)
+                                +" at position :"+ position);
                     }
                 });
     }
@@ -235,7 +246,8 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
             @Override
             public void onComplete() {
                 progressBar.setVisibility(View.GONE);
-                Log.e("Test", "Selected section, section " +selectedSection+ " is charged");
+                Log.e("Test", "Selected section, section " +selectedSection+
+                        " is charged at position :"+ position);
             }
         });
 
@@ -263,6 +275,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     mArticlesResults.clear();
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(R.string.list_empty);}
+                swipeRefreshLayout.setRefreshing(false);
             }
             mAdapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
@@ -287,6 +300,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     mArticlesResults.clear();
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(R.string.list_empty);}
+                swipeRefreshLayout.setRefreshing(false);
             }
             mAdapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
@@ -297,6 +311,29 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         }
     }
 
+    //CHECK INTERNET AVAILABLE
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) Objects.requireNonNull(getActivity())
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void infoNoInternetOrCategory(boolean category){
+        int text;
+        if(!category){
+            text = R.string.no_internet;
+        } else {
+            text = R.string.verification_section_tab;
+        }
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(text);
+        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
     //
     // ADAPTER STUFF

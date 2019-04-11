@@ -22,7 +22,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
     private RequestManager mGlide;
 
     //Constructor
-    public SearchRecyclerViewAdapter(List<APIDoc> search, RequestManager glide, onSearchArticleAdapterListener searchArticleAdapterListener) {
+    public SearchRecyclerViewAdapter(List<APIDoc> search, RequestManager glide,
+                                     onSearchArticleAdapterListener searchArticleAdapterListener) {
         this.mListener = searchArticleAdapterListener;
         this.mSearch = search;
         this.mGlide = glide;
@@ -36,14 +37,16 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
         //Creating viewholder and inflate layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_page_item, parent,false);
+        View view = inflater.inflate(R.layout.fragment_search_item, parent,false);
 
         return new SearchViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder viewHolder, int position) {
-        viewHolder.updateWithResult(this.mSearch.get(position),this.mGlide, mListener);
+        if (mSearch != null && mSearch.size() >= position+1 && mSearch.get(position) != null) {
+            viewHolder.updateWithResult(this.mSearch.get(position), this.mGlide, mListener);
+        }
     }
 
     @Override

@@ -13,10 +13,9 @@
         <item name="android:textColorPrimary">@color/mainText</item>
         <item name="android:background">@color/mainBackground</item>
 
-
     </style>
 
-    <!-- TOOLBAR TITLE THEME -->
+    <!-- TOOLBAR TITLE TEXT -->
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">21sp</item>
         <item name="android:textStyle">italic</item>
@@ -25,6 +24,12 @@
     <!-- TAB LAYOUT TEXT SIZE -->
     <style name="TabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- CHECKBOX STYLE-->
+    <style name="cbStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/mainText</item>
     </style>
 
 </resources>

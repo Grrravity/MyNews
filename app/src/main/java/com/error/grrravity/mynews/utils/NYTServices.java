@@ -23,7 +23,7 @@ public interface NYTServices {
     @GET("svc/mostpopular/v2/{section}/1.json?")
     Observable<APIArticles> getBySectionMP(@Path("section") String section, @Query("api-key") String API_KEY);
 
-    @GET("svc/search/v2/articlesearch.json?")
+    @GET("svc/search/v2/articlesearch.json?sort=newest&fl=web_url,headline,multimedia,news_desk,pub_date")
     Observable<APISearch> getSearch(@Query("api-key") String API_KEY,
                                     @Query("q") String search,
                                     @Query("fq") List<String> category,

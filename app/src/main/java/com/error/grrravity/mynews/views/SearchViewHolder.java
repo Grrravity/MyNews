@@ -16,11 +16,11 @@ import butterknife.ButterKnife;
 
 class SearchViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.fragment_page_item_title) TextView mTVTitle;
-    @BindView(R.id.fragment_page_item_date) TextView mTVDate;
-    @BindView(R.id.fragment_page_item_image) ImageView mImageView;
-    @BindView(R.id.fragment_page_item_section) TextView mTVSection;
-    @BindView(R.id.relativeLayout) RelativeLayout mRelativeLayout;
+    @BindView(R.id.fragment_search_item_title) TextView mTVTitle;
+    @BindView(R.id.fragment_search_item_date) TextView mTVDate;
+    @BindView(R.id.fragment_search_item_image) ImageView mImageView;
+    @BindView(R.id.fragment_search_item_section) TextView mTVSection;
+    @BindView(R.id.relativeLayoutSearch) RelativeLayout mRelativeLayout;
 
     static final String URL = "https://api.nytimes.com/";
 
@@ -31,25 +31,27 @@ class SearchViewHolder extends RecyclerView.ViewHolder {
 
     //Update search item
 
-    void updateWithResult (final APIDoc article, RequestManager glide,
+    void updateWithResult (final APIDoc articles, RequestManager glide,
                            final SearchRecyclerViewAdapter.onSearchArticleAdapterListener callback){
-        this.mTVTitle.setText((article).getAPIHeadline().getMain());
-        this.mTVSection.setText(article.getSectionName());
-        if(article.getPubDate() != null){
-            String date = article.getPubDate().substring(0,10);
+        if(articles.getHeadline() != null) {
+            this.mTVTitle.setText(articles.getHeadline().getMain());
+        }
+        this.mTVSection.setText(articles.getSectionName());
+        if(articles.getPubDate() != null){
+            String date = articles.getPubDate().substring(0,10);
             this.mTVDate.setText(date);
         }
 
-        if(!article.getMultimedia().isEmpty()){
-            String mUrl = URL + article.getMultimedia().get(0).getUrl();
+        if(!articles.getMultimedia().isEmpty()){
+            String mUrl = URL + articles.getMultimedia().get(0).getUrl();
             glide.load(mUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
         } else{
-            mImageView.setImageResource(R.mipmap.ic_launcher);
+            mImageView.setImageResource(R.drawable.y_u_no_image);
         }
         this.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onArticleClicked(article);
+                callback.onArticleClicked(articles);
             }
         });
     }

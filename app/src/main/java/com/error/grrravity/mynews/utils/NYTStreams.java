@@ -43,9 +43,9 @@ public class NYTStreams {
 
     // getting searched articles
     public static Observable<APISearch> streamFetchSearchArticles
-    (String api_key, String search, List<String> category, String beginDate, String endDate){
+    (String search, List<String> category, String beginDate, String endDate){
         NYTServices nytService = NYTServices.retrofit.get().create(NYTServices.class);
-        return nytService.getSearch(api_key, search, category, beginDate, endDate, "interest")
+        return nytService.getSearch(API_KEY, search, category, beginDate, endDate, "relevance")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

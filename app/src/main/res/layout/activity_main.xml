@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/yellow_dot"
+    android:background="@drawable/background_dots"
     tools:openDrawer="start"
     tools:context=".controllers.activities.MainActivity">
 
@@ -71,7 +71,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/drawerSmoothColor"
+        android:background="@color/backgroundSmoothColor"
         app:headerLayout="@layout/activity_main_nav_header"
         app:itemIconTint="@color/mainText"
         app:itemTextColor="@color/mainText"

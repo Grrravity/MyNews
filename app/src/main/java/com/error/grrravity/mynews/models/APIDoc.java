@@ -91,7 +91,7 @@ public class APIDoc {
         this.multimedia = multimedia;
     }
 
-    public APIHeadline getAPIHeadline() {
+    public APIHeadline getHeadline() {
         return mAPIHeadline;
     }
 

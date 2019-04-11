@@ -3,6 +3,7 @@
 
     <string name="verification_search_field">Please enter something to search</string>
     <string name="verification_checkbox">Please select at least one category</string>
+    <string name="verification_section_tab">Please select a category to display in the menu (top left)</string>
     <string name="verification_dates">Please make sure that \"Begin date\" is younger than \"End date\"</string>
     <string name="list_empty">Oops, could not find any articles matching your search</string>
     <string name="nav_drawer_open">Open</string>
@@ -13,4 +14,21 @@
     <string name="onCompleteMostPopular">MostPopular charged</string>
     <string name="onErrorSearch">onError on SearchedArticle http request</string>
     <string name="onCompleteSearch">SearchedArticle charged</string>
+    <string name="empty_date">date is empty</string>
+    <string name="title">No title</string>
+    <string name="section">No section</string>
+    <string name="begin_date">Begin date</string>
+    <string name="end_date">End date</string>
+    <string name="arts">Arts</string>
+    <string name="business">Business</string>
+    <string name="food">Food</string>
+    <string name="politics">Politics</string>
+    <string name="sciences">Science</string>
+    <string name="sports">Sports</string>
+    <string name="technology">Technology</string>
+    <string name="search_field">Search</string>
+    <string name="search_hint">Search query term</string>
+    <string name="categories_drawer">Catégories :</string>
+    <string name="sections_drawer">Sections :</string>
+    <string name="no_internet">No internet connection, please check your internet status</string>
 </resources>

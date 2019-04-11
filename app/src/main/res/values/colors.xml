@@ -9,8 +9,10 @@
     <color name="mainText">#354499</color>
     <color name="mainTextHighlight">#9C27B0</color>
     <color name="mainSelectedSection">#9C27B0</color>
+    <color name="white">#ffff</color>
 
     <!-- Smooth items color-->
 
-    <color name="drawerSmoothColor">#E6E5E2</color>
+    <color name="backgroundSmoothColor">#E6E5E2</color>
+    <color name="textSmoothColor">#393F5E</color>
 </resources>

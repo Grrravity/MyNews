@@ -14,9 +14,9 @@ import com.error.grrravity.mynews.R;
 //Utility class
 public class Helper {
 
-    // Puts the date in DD/MM/YYYY format in a spinner
+    // Puts the date in DD/MM/YYYY format
     @SuppressLint("SetTextI18n")
-    public static String spinnerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner){
+    public static String pickerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner){
         String year = Integer.toString(yearInt);
         String month = (monthInt+1 < 10) ? "0" +
                 Integer.toString(monthInt+1) : Integer.toString(monthInt+1);
@@ -42,9 +42,10 @@ public class Helper {
     }
 
     // Checks the validity of the form
-    public static boolean parametersAreValid(Context context, EditText searchField,
-                                             CheckBox cbArts, CheckBox cbBusiness,
-                                             CheckBox cbPolitics, CheckBox cbTechnology){
+    public static boolean validateParameters(Context context, EditText searchField,
+                                             CheckBox cbArts, CheckBox cbBusiness, CheckBox cbFood,
+                                             CheckBox cbPolitics, CheckBox cbScience,
+                                             CheckBox cbSport, CheckBox cbTechnology){
         if(searchField.getText().toString().trim().isEmpty()){
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_search_field),
@@ -52,8 +53,9 @@ public class Helper {
             searchField.requestFocus();
             return false;
         }
-        if(!cbArts.isChecked() && !cbBusiness.isChecked() &&
-                !cbPolitics.isChecked() && !cbTechnology.isChecked()){
+        if(!cbArts.isChecked() && !cbBusiness.isChecked() && !cbFood.isChecked()
+                && !cbPolitics.isChecked() && !cbScience.isChecked()
+                && !cbSport.isChecked() && !cbTechnology.isChecked()){
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_checkbox),
                     Toast.LENGTH_LONG).show();

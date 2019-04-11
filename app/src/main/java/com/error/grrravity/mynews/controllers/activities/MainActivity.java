@@ -123,10 +123,25 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         int id = item.getItemId();
         item.getTitle();
         switch (id) {
-            case R.id.menu_drawer_technology_section:
-                Log.e("test", "Technology is clicked");
+            case R.id.menu_drawer_arts_section:
+                Log.e("test", "Arts is clicked");
                 String selectedSection;
-                selectedSection = "technology";
+                selectedSection = "arts";
+                updateSelectedSection(selectedSection);
+                break;
+            case R.id.menu_drawer_business_section:
+                Log.e("test", "Business is clicked");
+                selectedSection = "business";
+                updateSelectedSection(selectedSection);
+                break;
+            case R.id.menu_drawer_food_section:
+                Log.e("test", "Food is clicked");
+                selectedSection = "food";
+                updateSelectedSection(selectedSection);
+                break;
+            case R.id.menu_drawer_science_section:
+                Log.e("test", "Technology is clicked");
+                selectedSection = "science";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_sports_section:
@@ -139,24 +154,9 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 selectedSection = "politics";
                 updateSelectedSection(selectedSection);
                 break;
-            case R.id.menu_drawer_travel_section:
-                Log.e("test", "Travel is clicked");
-                selectedSection = "travel";
-                updateSelectedSection(selectedSection);
-                break;
-            case R.id.menu_drawer_automobiles_section:
-                Log.e("test", "Automobiles is clicked");
-                selectedSection = "automobiles";
-                updateSelectedSection(selectedSection);
-                break;
-            case R.id.menu_drawer_arts_section:
-                Log.e("test", "Arts is clicked");
-                selectedSection = "arts";
-                updateSelectedSection(selectedSection);
-                break;
-            case R.id.menu_drawer_business_section:
-                Log.e("test", "Business is clicked");
-                selectedSection = "business";
+            case R.id.menu_drawer_technology_section:
+                Log.e("test", "technology is clicked");
+                selectedSection = "technology";
                 updateSelectedSection(selectedSection);
                 break;
             default:

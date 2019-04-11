@@ -16,16 +16,18 @@
             android:layout_height="75dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="4dp" />
+            android:layout_marginStart="4dp"
+            android:background="@drawable/y_u_no_image"/>
 
         <TextView
             android:id="@+id/fragment_page_item_section"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/fragment_page_item_image"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="Section"/>
+            android:text="@string/section"
+            android:textColor="@color/textSmoothColor"/>
 
         <TextView
             android:id="@+id/fragment_page_item_title"
@@ -37,17 +39,25 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:maxLines="2"
-            android:text="Title"/>
+            android:text="@string/title"
+            android:textColor="@color/mainText"/>
 
         <TextView
             android:id="@+id/fragment_page_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/fragment_page_item_section"
-            android:layout_marginStart="80dp"
             android:layout_marginTop="10dp"
             android:maxLines="1"
-            android:text="date"/>
+            android:text="@string/empty_date"
+            android:textColor="@color/textSmoothColor"/>
+
+        <View android:background="@color/mainBackground"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="99dp"
+            android:layout_marginStart="90dp"
+            />
 
 
     </RelativeLayout>
