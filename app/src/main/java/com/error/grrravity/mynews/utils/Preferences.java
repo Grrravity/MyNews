@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Preferences {
@@ -94,4 +95,30 @@ public class Preferences {
         return category;
     }
 
+    // FOR TEST PURPOSE
+
+    // store test
+    public void storeTestList(List<String> testList) {
+
+        SharedPreferences.Editor editor = mPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(testList);
+        editor.putString("test", json);
+        editor.apply();
+    }
+
+    //get test
+    public ArrayList<String> getTestList() {
+        Gson gson = new Gson();
+        String json = mPreferences.getString("test", "");
+        ArrayList<String> testList;
+        if (json.length() < 1) {
+            testList = new ArrayList<>();
+        } else {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            testList = gson.fromJson(json, type);
+        }
+        return testList;
+    }
 }
