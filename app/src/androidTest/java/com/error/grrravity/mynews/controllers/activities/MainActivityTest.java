@@ -39,7 +39,7 @@ public class MainActivityTest {
     @Test
     public void mainActivityTest() {
         ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open navigation drawer"),
+                allOf(withContentDescription("Open"),
                         childAtPosition(
                                 allOf(withId(R.id.toolbar),
                                         childAtPosition(

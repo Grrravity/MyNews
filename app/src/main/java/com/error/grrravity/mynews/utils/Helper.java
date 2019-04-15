@@ -25,6 +25,15 @@ public class Helper {
         return year+month+day;
     }
 
+    @SuppressLint("SetTextI18n")
+    public static String pickerFormatDateTest(int yearInt, int monthInt, int dayInt){
+        String year = Integer.toString(yearInt);
+        String month = (monthInt+1 < 10) ? "0" +
+                Integer.toString(monthInt) : Integer.toString(monthInt);
+        String day = (dayInt < 10) ? "0" + Integer.toString(dayInt) : Integer.toString(dayInt);
+        return year+month+day;
+    }
+
     // Puts the date from YYYY-MM-DD to DD/MM/YY format
     public static String formatDate(String date){
         return date.substring(8, 10)+"/"+date.substring(5, 7)+"/"+date.substring(2,4);
