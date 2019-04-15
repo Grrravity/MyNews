@@ -1,4 +1,4 @@
-package com.error.grrravity.mynews;
+package com.error.grrravity.mynews.controllers.activities;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.error.grrravity.mynews.controllers.activities.MainActivity;
+import com.error.grrravity.mynews.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -31,9 +31,8 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    //This test is registered with espresso
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule =
+    public ActivityTestRule<MainActivity> activityRule =
             new ActivityTestRule<>(MainActivity.class);
 
     //Test View of NavigationDrawer
@@ -44,7 +43,8 @@ public class MainActivityTest {
                         childAtPosition(
                                 allOf(withId(R.id.toolbar),
                                         childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
+                                                withClassName(is(
+                                                        "android.widget.LinearLayout")),
                                                 0)),
                                 1),
                         isDisplayed()));

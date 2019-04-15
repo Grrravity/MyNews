@@ -1,5 +1,6 @@
-package com.error.grrravity.mynews;
+package com.error.grrravity.mynews.utils;
 
+import com.error.grrravity.mynews.controllers.fragments.ArticlesFragmentTest;
 import com.error.grrravity.mynews.models.APIArticles;
 import com.error.grrravity.mynews.models.APISearch;
 

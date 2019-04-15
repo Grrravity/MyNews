@@ -1,10 +1,11 @@
-package com.error.grrravity.mynews;
+package com.error.grrravity.mynews.controllers.fragments;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 
+import com.error.grrravity.mynews.utils.NYTStreamsTest;
 import com.error.grrravity.mynews.models.APIArticles;
 import com.error.grrravity.mynews.models.APIDoc;
 import com.error.grrravity.mynews.models.APIResult;
@@ -17,7 +18,6 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -37,22 +37,14 @@ public class ArticlesFragmentTest extends InstrumentationTestCase {
         @BeforeClass
         public static void setUpClass() throws Exception {
         server = new MockWebServer();
-        try {
-            server.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+        server.start();
         }
-    }
 
         @Before
         public void setUp() throws Exception{
-        try {
-            super.setUp();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-    }
+        }
 
         //Test MostPopular
         @Test
@@ -69,16 +61,10 @@ public class ArticlesFragmentTest extends InstrumentationTestCase {
                 .assertNoTimeout()
                 .awaitTerminalEvent();
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(5000);
         List<APIResult> articles = testObserver.values().get(0).getResult();
-
         assertThat("The result list is not empty", !articles.isEmpty());
-
-    }
+        }
 
         //Test TopStories
         @Test
@@ -96,7 +82,6 @@ public class ArticlesFragmentTest extends InstrumentationTestCase {
                 .awaitTerminalEvent();
 
         List<APIResult> articles = testObserver.values().get(0).getResult();
-
         assertThat("The result list is not empty", !articles.isEmpty());
     }
 

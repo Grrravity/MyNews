@@ -23,7 +23,7 @@ public class HelperTest {
 
         int intDay = 10;
         int intYear = 2019;
-        int intMonth = 04;
+        int intMonth = 4;
         assertEquals(date, Helper.pickerFormatDate(intYear,intMonth,intDay, mSpinner));
     }
 

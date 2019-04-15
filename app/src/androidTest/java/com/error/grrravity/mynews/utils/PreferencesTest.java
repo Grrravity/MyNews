@@ -1,9 +1,7 @@
-package com.error.grrravity.mynews;
+package com.error.grrravity.mynews.utils;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-
-import com.error.grrravity.mynews.utils.Preferences;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -29,12 +27,12 @@ public class PreferencesTest {
     }
 
 
-    //Store liste and assert is equals
+    //Store list and assert is equals
     @Test
     public void storeList(){
         List<String> testList = new ArrayList<>();
         testList.add("hello");
-        testList.add("openClassrooms");
+        testList.add("world");
         mPreference.storeTestList(testList);
         Assert.assertEquals(testList, getList());
     }

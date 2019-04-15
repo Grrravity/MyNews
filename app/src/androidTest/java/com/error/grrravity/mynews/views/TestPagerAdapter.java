@@ -1,4 +1,4 @@
-package com.error.grrravity.mynews;
+package com.error.grrravity.mynews.views;
 
 import android.support.test.rule.ActivityTestRule;
 
@@ -21,10 +21,6 @@ public class TestPagerAdapter {
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule =
             new ActivityTestRule<>(MainActivity.class);
 
-
-    public TestPagerAdapter() {
-    }
-
     @Before
     public void setUp() {
         mActivity = mainActivityActivityTestRule.getActivity();
@@ -46,13 +42,13 @@ public class TestPagerAdapter {
     //Test if title are correct
     @Test
     public void titleCorrect() {
-        assertEquals("TOP STORIES",
+        assertEquals("Top Stories",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(0));
-        assertEquals("MOST POPULAR",
+        assertEquals("Most Popular",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(1));
-        assertEquals("BUSINESS",
+        assertEquals("Section not\nyet selected",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(2));
     }

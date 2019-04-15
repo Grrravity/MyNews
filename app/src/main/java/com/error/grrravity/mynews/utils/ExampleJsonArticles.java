@@ -2,70 +2,97 @@ package com.error.grrravity.mynews.utils;
 
 public class ExampleJsonArticles {
 
+    public static final String jsonSearch = "{\"status\":\"OK\"," +
+            "\"copyright\":\"Copyright (c) 2019 The New York Times Company. All Rights Reserved.\"," +
+            "         \"response\":{\"docs\":[{\"web_url\":\"https://www.nytimes.com/aponline/2019/02/15/world/europe/ap-eu-europe-car-sales.html\"," +
+            "         \"snippet\":\"The European carmakers' association says new passenger car sales in the region dropped by 4.6 percent in January, weighed down by big declines in Spain and Italy.\",\"lead_paragraph\":\"The European carmakers' association says new passenger car sales in the region dropped by 4.6 percent in January, weighed down by big declines in Spain and Italy.\", " +
+            "       \"blog\":{},\"source\":\"AP\"," +
+            "       \"multimedia\":[]," +
+            "    \"headline\":"+
+            "{\"main\":\"European Car Sales Slide in January\","+
+            "\"kicker\":null,"+
+            "\"content_kicker\":null,"+
+            "\"print_headline\":\"European Car Sales Slide in January\","+
+            "\"name\":null,"+
+            "\"seo\":null,"+
+            "\"sub\":null},"+
+            "\"keywords\":[],"+
+            "\"pub_date\":\"2019-02-15T07:04:28+0000\","+
+            "\"document_type\":\"article\","+
+            "\"news_desk\":\"None\","+
+            "\"section_name\":\"World\","+
+            "\"subsectoinName\":\"Europe\","+
+            "\"byline\":{\"original\":\"By THE ASSOCIATED PRESS\","+
+            "\"person\":[],"+
+            "\"organization\":\"THE ASSOCIATED PRESS\"},"+
+            "\"type_of_material\":\"News\","+
+            "\"_id\":\"5c6664d600a1bc2872ea2511\","+
+            "\"word_count\":131,"+
+            "\"score\":0.0,"+
+            "\"uri\":\"nyt://article/7384ed2e-62f9-55cc-bca5-68e6d0969e75\"}],"+
+            "\"meta\":{\"hits\":3,"+
+            "\"offset\":0,"+
+            "\"time\":7}}}";
+
     public static final String jsonTopStories = "{\n" +
             "\"status\": \"OK\","+
             "\"copyright\": \"Copyright (c) 2019 The New York Times Company. All Rights Reserved.\","+
-            "\"section\": \"home\","+
-            "\"last_updated\": \"2019-04-11T04:37:14-04:00\","+
-            "\"num_results\": 39,"+
+            "\"section\": \"arts\","+
+            "\"last_updated\": \"2019-02-22T06:17:07-05:00\","+
+            "\"num_results\": 49,"+
             "\"results\": ["+
             "{"+
-            "\"section\": \"U.S.\","+
-            "\"subsection\": \"\","+
-            "\"title\": \"The U.S. Immigration System May Have Reached a Breaking Point\","+
-            "\"abstract\": \"For years, there have been warnings that America\\u2019s immigration system was going to fail. That time may be now.\","+
-            "\"url\": \"https://www.nytimes.com/201904/10/us/immigration-border-mexico.html\","+
-            "\"byline\": \"By MICHAEL D. SHEAR, MIRIAM JORDAN and MANNY FERNANDEZ\","+
+            "\"section\": \"Arts\","+
+            "\"subsection\": \"Television\","+
+            "\"title\": \"Jussie Smollett Rehearsed His Own Assault, Prosecutors Say\","+
+            "\"abstract\": \"The Chicago police said Thursday that the “Empire” actor, upset over his salary, staged a fake assault with the help of two brothers.\","+
+            "\"url\": \"https://www.nytimes.com/2019/02/21/arts/television/jussie-smollett-arrest-salary-letter.html\","+
+            "\"byline\": \"By SOPAN DEB and JACK HEALY\","+
             "\"item_type\": \"Article\","+
-            "\"updated_date\": \"2019-04-10T18:01:43-04:00\","+
-            "\"created_date\": \"2019-04-10T18:01:43-04:00\","+
-            "\"published_date\": \"2019-04-10T18:01:43-04:00\","+
+            "\"updated_date\": \"2019-02-21T21:18:59-05:00\","+
+            "\"created_date\": \"2019-02-21T11:16:57-05:00\","+
+            "\"published_date\": \"2019-02-21T11:16:57-05:00\","+
             "\"material_type_facet\": \"\","+
             "\"kicker\": \"\","+
             "\"des_facet\": ["+
-            "\"Illegal Immigration\","+
-            "\"Immigration and Emigration\","+
-            "\"Asylum, Right of\","+
-            "\"Immigration Detention\","+
+            "\"Television\","+
+            "\"Hoaxes and Pranks\","+
+            "\"Blacks\","+
+            "\"Actors and Actresses\","+
+            "\"Empire (TV Program)\""+
             "],"+
             "\"org_facet\": ["+
-            "\"Border Patrol (US)\""+
-            "\"Customs and Border Protection (US)\""+
-            "\"Homeland Security Department\""+
-            "\"Migration Policy Institute\""+
+            "\"Police Department (Chicago, Ill)\""+
             "],"+
             "\"per_facet\": ["+
-            "\"Nielsen, Kirstjen\""+
+            "\"Smollett, Jussie (1983- )\""+
             "],"+
             "\"geo_facet\": ["+
-            "\"Brownsville (Tex)\""+
-            "\"California\""+
-            "\"Rio Grande Valley (Tex)\""+
-            "\"Texas\""+
+            "\"Chicago (Ill)\""+
             "],"+
             "\"multimedia\": ["+
             "{"+
-            "\"url\": \"https://static01.nyt.com/images/2019/04/10/us/10immigration1-promo/10immigration1-promo-thumbStandard-v2.jpg\","+
+            "\"url\": \"https://static01.nyt.com/images/2019/02/21/briefing/21smollett-promo/21smollett-promo-thumbStandard.jpg\","+
             "\"format\": \"Standard Thumbnail\","+
             "\"height\": 75,"+
             "\"width\": 75,"+
             "\"type\": \"image\","+
             "\"subtype\": \"photo\","+
-            "\"caption\": \"Migrants in Matamoros, Mexico, line up for food donations as they wait to cross the Gateway International Bridge into Brownsville, Tex.\","+
-            "\"copyright\": \"Ilana Panich-Linsman for The New York Times\""+
+            "\"caption\": \"The actor Jussie Smollett left the Cook County Jail in Chicago after his release on Thursday.\","+
+            "\"copyright\": \"Kamil Krzaczynski/Associated Press\""+
             "},"+
             "{"+
-            "\"url\": \"https://static01.nyt.com/images/2019/04/10/us/10immigration1-promo/10immigration1-promo-thumbLarge-v2.jpg\","+
-            "\"format\": \"thumbLarge\","+
-            "\"height\": 150,"+
-            "\"width\": 150,"+
+            "\"url\": \"https://static01.nyt.com/images/2019/02/21/briefing/21smollett-promo/21evening-briefing-SS-slide-RPIX-superJumbo.jpg\","+
+            "\"format\": \"superJumbo\","+
+            "\"height\": 1365,"+
+            "\"width\": 2048,"+
             "\"type\": \"image\","+
             "\"subtype\": \"photo\","+
-            "\"caption\": \"Migrants in Matamoros, Mexico, line up for food donations as they wait to cross the Gateway International Bridge into Brownsville, Tex.\","+
-            "\"copyright\": \"Ilana Panich-Linsman for The New York Times\""+
+            "\"caption\": \"The actor Jussie Smollett left the Cook County Jail in Chicago after his release on Thursday.\","+
+            "\"copyright\": \"Kamil Krzaczynski/Associated Press\""+
             "}"+
             "],"+
-            "\"short_url\": \"https://nyti.ms/2Z6xzV5\""+
+            "\"short_url\": \"https://nyti.ms/2GBWjhO\""+
             "}"+
             "]"+
             "}";
@@ -73,71 +100,59 @@ public class ExampleJsonArticles {
     public static final String jsonMostPopular = " {\n" +
             "\"status\": \"OK\","+
             "\"copyright\": \"Copyright (c) 2019 The New York Times Company.  All Rights Reserved.\","+
-            "\"num_results\": 1494,"+
+            "\"num_results\": 571,"+
             "\"results\": ["+
             "{"+
-            "\"url\": \"https://www.nytimes.com/2019/04/10/science/black-hole-picture.html\","+
-            "\"adx_keywords\": \"Black Holes (Space);Telescopes and Observatories;Stars and" +
-            " Galaxies;Doeleman, Sheperd S;Space and Astronomy;Gravitation and Gravity;Earth;" +
-            "Laser Interferometer Gravitational-Wave Observatory (LIGO);Harvard-Smithsonian " +
-            "Center for Astrophysics;Massachusetts Institute of Technology;South Pole;" +
-            "University of Amsterdam;your-feed-science;Perimeter Institute for Theoretical" +
-            " Physics;Washington (DC)\","+
-            "\"column\": \"null\","+
-             "\"byline\": \"By DENNIS OVERBYE\","+
-            "\"type\": \"Article\","+
-            "\"title\": \"Darkness Visible, Finally: Astronomers Capture First Ever Image of a Black Hole\","+
-            "\"abstract\": \"Astronomers at last have captured a picture of one of the most secretive entities in the cosmos.\","+
-            "\"published_date\": \"2019-04-10\","+
+            "\"url\": \"https://www.nytimes.com/interactive/2019/02/21/magazine/elite-professionals-jobs-happiness.html\","+
+            "\"adx_keywords\": \"Labor and Jobs;Wages and Salaries;Happiness;Harvard University\","+
+            "\"subsection\": \"\","+
+            "\"email_count\": 1,"+
+            "\"count_type\": \"EMAILED\","+
+            "\"column\": \"\","+
+            "\"eta_id\": 0,"+
+            "\"section\": \"Magazine\","+
+            "\"id\": 100000006368689,"+
+            "\"asset_id\": 100000006368689,"+
+            "\"nytdsection\": \"magazine\","+
+            "\"byline\": \"By CHARLES DUHIGG\","+
+            "\"type\": \"Interactive\","+
+            "\"title\": \"America’s Professional Elite: Wealthy, Successful and Miserable\","+
+            "\"abstract\": \"The upper echelon is hoarding money and privilege to a degree not seen in decades. But that doesn’t make them happy at work.\","+
+            "\"published_date\": \"2019-02-21\","+
             "\"source\": \"The New York Times\","+
-            "\"id\": \"100000006449601\","+
-            "\"asset_id\":\"100000006449601\","+
-            "\"views\":\"1\","+
+            "\"updated\": \"2019-02-22 04:46:40\","+
             "\"des_facet\": ["+
-            "\"BLACK HOLES (SPACE)\""+
-            "\"STARS AND GALAXIES\""+
-            "\"SPACE AND ASTRONOMY\""+
-            "\"YOUR-FEED-SCIENCE\""+
+            "\"LABOR AND JOBS\","+
+            "\"WAGES AND SALARIES\""+
             "],"+
             "\"org_facet\": ["+
-            "\"TELESCOPES AND OBSERVATORIES\","+
-            "\"GRAVITATION AND GRAVITY\","+
-            "\"EARTH\","+
-            "\"LASER INTERFEROMETER GRAVITATIONAL-WAVE OBSERVATORY (LIGO)\","+
-            "\"HARVARD-SMITHSONIAN CENTER FOR ASTROPHYSICS\","+
-            "\"MASSACHUSETTS INSTITUTE OF TECHNOLOGY\","+
-            "\"UNIVERSITY OF AMSTERDAM\","+
-            "\"PERIMETER INSTITUTE FOR THEORETICAL PHYSICS\","+
+            "\"HAPPINESS\","+
+            "\"HARVARD UNIVERSITY\""+
             "],"+
-            "\"per_facet\": ["+
-            "\"DOELEMAN, SHEPERD S\","+
-            "],"+
-            "\"geo_facet\": ["+
-            "\"SOUTH POLE\","+
-            "\"WASHINGTON (DC)\"," +
-            "],"+
+            "\"per_facet\": \"\","+
+            "\"geo_facet\": \"\","+
             "\"media\": ["+
             "{"+
             "\"type\": \"image\","+
             "\"subtype\": \"photo\","+
-            "\"caption\": \"The first image of a black hole, from the galaxy Messier 87.\","+
-            "\"copyright\": \"Event Horizon Telescope Collaboration, via National Science Foundation\","+
-            "\"approved_for_syndication\": 1,"+
+            "\"caption\": \"\","+
+            "\"copyright\": \"Illustration by Tracy Ma\","+
+            "\"approved_for_syndication\": 0,"+
             "\"media-metadata\": ["+
             "{"+
-            "\"url\": \"https://static01.nyt.com/images/2019/04/10/science/10BLACKHOLEPHOTO/10BLACKHOLEPHOTO-thumbStandard-v3.jpg\","+
+            "\"url\": \"https://static01.nyt.com/images/2019/02/24/magazine/24Mag-Happiness-Image1/24Mag-Happiness-Image1-thumbStandard-v2.jpg\","+
             "\"format\": \"Standard Thumbnail\","+
             "\"height\": 75,"+
             "\"width\": 75"+
             "},"+
             "{"+
-            "\"url\": \"https://static01.nyt.com/images/2019/04/10/science/10BLACKHOLEPHOTO/10BLACKHOLEPHOTO-mediumThreeByTwo210-v3.jpg\","+
+            "\"url\": \"https://static01.nyt.com/images/2019/02/24/magazine/24Mag-Happiness-Image1/24Mag-Happiness-Image1-mediumThreeByTwo210-v2.jpg\","+
             "\"format\": \"mediumThreeByTwo210\","+
             "\"height\": 140,"+
             "\"width\": 210"+
             "},"+
             "{"+
-            "\"url\": \"https://static01.nyt.com/images/2019/04/10/science/10BLACKHOLEPHOTO/10BLACKHOLEPHOTO-mediumThreeByTwo440-v3.jpg\","+
+            "\"url\": \"https://static01.nyt.com/images/2019/02/24/magazine/24Mag-Happiness-Image1/24Mag-Happiness-Image1-mediumThreeByTwo440-v2.jpg\","+
             "\"format\": \"mediumThreeByTwo440\","+
             "\"height\": 293,"+
             "\"width\": 440"+
@@ -150,36 +165,4 @@ public class ExampleJsonArticles {
             "}"+
             "]"+
             "}";
-
-    public static final String jsonSearch = "{\"status\":\"OK\"," +
-            "\"copyright\":\"Copyright (c) 2019 The New York Times Company. All Rights Reserved.\"," +
-            "         \"response\":{\"docs\":[{\"web_url\":\"https://www.nytimes.com/reuters/2019/04/10/world/middleeast/10reuters-israel-election-challenger.html\"," +
-            "         \"snippet\":\"Prime Minister Benjamin Netanyahu's main election challenger, the Blue and White party, on Wednesday conceded defeat in Israel's general election.\",\"lead_paragraph\":\"Prime Minister Benjamin Netanyahu's main election challenger, the Blue and White party, on Wednesday conceded defeat in Israel's general election.\", " +
-            "       \"blog\":{},\"source\":\"Reuters\"," +
-            "       \"multimedia\":[]," +
-            "    \"headline\":"+
-            "{\"main\":\"Netanyahu's Main Election Challenger Concedes Election Defeat\","+
-            "\"kicker\":null,"+
-            "\"content_kicker\":null,"+
-            "\"print_headline\":\"Netanyahu's Main Election Challenger Concedes Election Defeat\","+
-            "\"name\":null,"+
-            "\"seo\":null,"+
-            "\"sub\":null},"+
-            "\"keywords\":[],"+
-            "\"pub_date\":\"2019-04-10T20:34:23+0000\","+
-            "\"document_type\":\"article\","+
-            "\"news_desk\":\"None\","+
-            "\"section_name\":\"World\","+
-            "\"subsectoinName\":\"Middle East\","+
-            "\"byline\":{\"original\":\"By REUTERS\","+
-            "\"person\":[],"+
-            "\"organization\":\"REUTERS\"},"+
-            "\"type_of_material\":\"News\","+
-            "\"_id\":\"5cae53a949f0eacbf1f82784\","+
-            "\"word_count\":107,"+
-            "\"score\":0.0,"+
-            "\"uri\":\"nyt://article/b63d022b-71a5-54aa-9677-8e236cedf355\"}],"+
-            "\"meta\":{\"hits\":446432,"+
-            "\"offset\":0,"+
-            "\"time\":85}}}";
 }
