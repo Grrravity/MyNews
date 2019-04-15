@@ -19,7 +19,7 @@ public class APIDoc {
     @SerializedName("multimedia")
     @Expose
     private List<APIMultimedium> multimedia = null;
-    @SerializedName("mAPIHeadline")
+    @SerializedName("headline")
     @Expose
     private APIHeadline mAPIHeadline;
     @SerializedName("keywords")

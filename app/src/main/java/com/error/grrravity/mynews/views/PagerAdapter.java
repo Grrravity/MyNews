@@ -52,7 +52,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 1: //Page number 2
                 return "Most Popular";
             case 2: //Page number 3
-                ArrayList<String> category = mPreferences.getCategory(0);
+                ArrayList<String> category = mPreferences.getPref(0);
                 if (category != null && category.size() > 0){
                     return category.get(0);
                 }

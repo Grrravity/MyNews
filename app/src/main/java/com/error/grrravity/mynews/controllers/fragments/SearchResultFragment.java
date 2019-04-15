@@ -143,4 +143,5 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     public interface SearchResultFragmentListener{
         void callbackSearchArticle(APIDoc APISearch);
     }
+
 }

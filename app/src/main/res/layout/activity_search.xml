@@ -145,39 +145,38 @@
         tools:ignore="RelativeOverlap" />
 
     <!-- mettre juste textview -->
-    <EditText
+    <TextView
         android:id="@+id/editBeginDateTV"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="160dp"
         android:clickable="true"
         android:longClickable="false"
         android:focusable="true"
-        android:ems="10"
         android:drawableEnd="@drawable/drop_down_arrow"
         android:textColor="@color/textSmoothColor"
-        android:inputType="date"
-        tools:ignore="Autofill,LabelFor" />
+        android:hint="@string/date_empty"
+        android:textSize="20sp"
+        />
 
-    <EditText
+    <TextView
         android:id="@+id/editEndDateTV"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignStart="@id/searchEndDateTV"
+        android:layout_alignTop="@id/editBeginDateTV"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginStart="220dp"
         android:drawableEnd="@drawable/drop_down_arrow"
         android:clickable="true"
         android:longClickable="false"
         android:focusable="true"
         android:textColor="@color/textSmoothColor"
-        android:inputType="date"
-        tools:ignore="Autofill,LabelFor" />
+        android:hint="@string/date_empty"
+        android:textSize="20sp"
+        />
 
     <TextView
         android:id="@+id/searchButton"

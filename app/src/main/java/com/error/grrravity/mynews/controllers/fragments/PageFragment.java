@@ -147,7 +147,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                 break;
             case 2:
                 if (isNetworkAvailable()) {
-                    ArrayList<String> category = mPreferences.getCategory(0);
+                    ArrayList<String> category = mPreferences.getPref(0);
                     if (category.contains("viewed") || category.size() < 1) {
                         progressBar.setVisibility(View.GONE);
                     } else {

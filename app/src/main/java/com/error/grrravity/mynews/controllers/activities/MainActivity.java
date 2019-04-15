@@ -111,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         // Close menu when back clicked
         if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -177,12 +178,12 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         ((PageFragment) mPagerAdapter.getItem(2)).updateContent(selectedSection);
 
         //Save selected section in sharedPreference
-        ArrayList<String> category = mPreferences.getCategory(0);
+        ArrayList<String> category = mPreferences.getPref(0);
         if (category.size() > 0) {
             category.remove(0);
         }
         category.add(selectedSection);
-        mPreferences.storeCategory(0,category);
+        mPreferences.storePref(0,category);
     }
 
     //

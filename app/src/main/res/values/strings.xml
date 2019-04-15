@@ -31,4 +31,9 @@
     <string name="categories_drawer">Catégories :</string>
     <string name="sections_drawer">Sections :</string>
     <string name="no_internet">No internet connection, please check your internet status</string>
+    <string name="enable_notifications">Enable notifications :</string>
+    <string name="time">__:__</string>
+    <string name="date_empty">__/__/___</string>
+    <string name="time_empty">notification time is empty</string>
+    <string name="notification_time">Notification time :</string>
 </resources>

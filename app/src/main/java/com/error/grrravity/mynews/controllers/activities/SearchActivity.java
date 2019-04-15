@@ -3,9 +3,10 @@ package com.error.grrravity.mynews.controllers.activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,8 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.SearchResultFragment;
@@ -40,8 +41,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         SearchResultFragment.SearchResultFragmentListener {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.editBeginDateTV) EditText mEditBegin;
-    @BindView(R.id.editEndDateTV) EditText mEditEnd;
+    @BindView(R.id.editBeginDateTV) TextView mEditBegin;
+    @BindView(R.id.editEndDateTV) TextView mEditEnd;
     @BindView(R.id.searchField) EditText mSearchField;
     @BindView(R.id.searchButton) TextView mSearchButton;
     @BindView(R.id.cbArts) CheckBox mCBArts;
@@ -74,7 +75,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     //To hide keyboard
     public static void hide_keyboard(Activity activity) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) activity
+                .getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
         View view = activity.getCurrentFocus();
         //If no view currently has focus, create a new one, just so we can grab a window token from it
@@ -128,18 +130,18 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void addCategory (String selectedCategories){
-        ArrayList<String> category = mPreferences.getCategory(1);
+        ArrayList<String> category = mPreferences.getPref(1);
         if (!category.contains(selectedCategories)){
         category.add(selectedCategories);
-        mPreferences.storeCategory(1,category);
+        mPreferences.storePref(1,category);
         }
     }
 
     public void removeCategory (String selectedCategories) {
-        ArrayList<String> category = mPreferences.getCategory(1);
+        ArrayList<String> category = mPreferences.getPref(1);
         if (category.contains(selectedCategories)) {
             category.remove(selectedCategories);
-            mPreferences.storeCategory(1,category);
+            mPreferences.storePref(1,category);
         }
     }
 
@@ -153,6 +155,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog setDate;
+        if(view != mSearchField) {
+            hide_keyboard(this);
+        }
 
         switch (view.getId()) {
             //Check if there's a query in search field. If ok, start search
@@ -234,7 +239,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void executeSearchRequest() {
-        ArrayList<String> category = mPreferences.getCategory(1);
+        ArrayList<String> category = mPreferences.getPref(1);
         Disposable disposable = NYTStreams.streamFetchSearchArticles(query, category,
                 mBeginDate, mEndDate)
                 .subscribeWith(new DisposableObserver<APISearch>(){
@@ -256,16 +261,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setSearchFragment (APISearch articles){
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(SEARCHED_ARTICLE, articles);
-        SearchResultFragment searchResultFragment = (SearchResultFragment)
-                getSupportFragmentManager().findFragmentById(R.id.activity_search_FrameLayout);
-        if (searchResultFragment == null){
-            searchResultFragment = new SearchResultFragment();
-            searchResultFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().add(R.id.activity_search_FrameLayout,
-                    searchResultFragment)
-                    .commit();
+        if (articles.getResponse().getDocs().isEmpty()){
+            Toast.makeText(this, R.string.list_empty,Toast.LENGTH_LONG).show();
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(SEARCHED_ARTICLE, articles);
+            SearchResultFragment searchResultFragment = (SearchResultFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.activity_search_FrameLayout);
+            if (searchResultFragment == null) {
+                searchResultFragment = new SearchResultFragment();
+                searchResultFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().add(R.id.activity_search_FrameLayout,
+                        searchResultFragment)
+                        .commit();
+            }
         }
     }
 
@@ -285,7 +294,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     DatePickerDialog.OnDateSetListener dateSettingListenerBegin
             = new DatePickerDialog.OnDateSetListener() {
-
+        @Override
         public void onDateSet(DatePicker view, int year, int month, int day){
             mBeginDate = Helper.pickerFormatDate(year, month, day, mEditBegin);
         }

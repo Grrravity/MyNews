@@ -34,6 +34,14 @@ public class Helper {
         return year+month+day;
     }
 
+    @SuppressLint("SetTextI18n")
+    public static String formatTime(int hourInt, int minuteInt, TextView time){
+        String hour = Integer.toString(hourInt);
+        String minute = Integer.toString(minuteInt);
+        time.setText(hour+" : "+minute);
+        return hour+minute;
+    }
+
     // Puts the date from YYYY-MM-DD to DD/MM/YY format
     public static String formatDate(String date){
         return date.substring(8, 10)+"/"+date.substring(5, 7)+"/"+date.substring(2,4);
@@ -83,4 +91,14 @@ public class Helper {
         }
         return true;
     }
+
+    public static boolean timeIsValid(Context context, String time){
+        if(!time.isEmpty()){
+            Toast.makeText(context, context.getResources().getString(R.string.time_empty),
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
 }
