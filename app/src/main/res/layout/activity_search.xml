@@ -29,31 +29,14 @@
         android:drawableStart="@drawable/search"
         tools:ignore="Autofill" />
 
-    <TextView
-        android:id="@+id/searchBeginDateTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="135dp"
-        android:text="@string/begin_date" />
-
-    <TextView
-        android:id="@+id/searchEndDateTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="225dp"
-        android:layout_marginTop="135dp"
-        android:text="@string/end_date" />
-
     <CheckBox
         android:id="@+id/cbArts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="230dp"
-        android:layout_marginStart="60dp"
+        android:layout_alignTop="@+id/searchField"
+        android:layout_alignStart="@+id/searchField"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="40dp"
         android:text="@string/arts"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
@@ -64,10 +47,9 @@
         android:id="@+id/cbBusiness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="270dp"
-        android:layout_marginStart="60dp"
+        android:layout_alignTop="@+id/cbArts"
+        android:layout_alignStart="@+id/cbArts"
+        android:layout_marginTop="45dp"
         android:text="@string/business"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
@@ -78,10 +60,9 @@
         android:id="@+id/cbFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="310dp"
-        android:layout_marginStart="60dp"
+        android:layout_alignTop="@+id/cbBusiness"
+        android:layout_alignStart="@+id/cbBusiness"
+        android:layout_marginTop="45dp"
         android:text="@string/food"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
@@ -92,10 +73,10 @@
         android:id="@+id/cbSciences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="230dp"
-        android:layout_marginStart="250dp"
+        android:layout_alignTop="@+id/searchField"
+        android:layout_alignStart="@+id/searchField"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="220dp"
         android:text="@string/sciences"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
@@ -106,10 +87,9 @@
         android:id="@+id/cbPolitics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="270dp"
-        android:layout_marginStart="250dp"
+        android:layout_alignTop="@+id/cbSciences"
+        android:layout_alignStart="@+id/cbSciences"
+        android:layout_marginTop="45dp"
         android:text="@string/politics"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
@@ -117,42 +97,61 @@
         tools:ignore="RelativeOverlap" />
 
     <CheckBox
-    android:id="@+id/cbSports"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginTop="310dp"
-    android:layout_marginStart="250dp"
-    android:text="@string/sports"
-    android:textSize="@dimen/cb_size_string"
-    android:textColor="@color/mainText"
-    android:theme="@style/cbStyle"
-    tools:ignore="RelativeOverlap" />
+        android:id="@+id/cbSports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cbPolitics"
+        android:layout_alignStart="@+id/cbPolitics"
+        android:layout_marginTop="45dp"
+        android:text="@string/sports"
+        android:textSize="@dimen/cb_size_string"
+        android:textColor="@color/mainText"
+        android:theme="@style/cbStyle"
+        tools:ignore="RelativeOverlap" />
 
     <CheckBox
         android:id="@+id/cbTechnology"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="350dp"
-        android:layout_marginStart="150dp"
+        android:layout_alignTop="@+id/cbFood"
+        android:layout_alignStart="@+id/cbFood"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="75dp"
         android:text="@string/technology"
         android:textSize="@dimen/cb_size_string"
         android:textColor="@color/mainText"
         android:theme="@style/cbStyle"
         tools:ignore="RelativeOverlap" />
 
-    <!-- mettre juste textview -->
+
+    <View
+        android:id="@+id/bar"
+        android:background="@color/mainBackground"
+        android:layout_width = "match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/cbTechnology"
+        android:layout_marginEnd="15dp"
+        />
+
+    <TextView
+        android:id="@+id/searchBeginDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_alignTop="@+id/bar"
+        android:text="@string/begin_date" />
+
     <TextView
         android:id="@+id/editBeginDateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/searchBeginDateTV"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:longClickable="false"
         android:focusable="true"
@@ -163,12 +162,23 @@
         />
 
     <TextView
+        android:id="@+id/searchEndDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="60dp"
+        android:layout_alignTop="@+id/bar"
+        android:text="@string/end_date" />
+
+
+    <TextView
         android:id="@+id/editEndDateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/searchEndDateTV"
-        android:layout_alignTop="@id/editBeginDateTV"
+        android:layout_alignTop="@+id/searchEndDateTV"
         android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
         android:drawableEnd="@drawable/drop_down_arrow"
         android:clickable="true"
         android:longClickable="false"
@@ -186,12 +196,57 @@
         android:textSize="20sp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_below="@+id/cbTechnology"
+        android:layout_below="@+id/editBeginDateTV"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:background="@color/mainBackground"
         android:text="@string/search_field"
         android:textColor="@color/mainTextHighlight"
+        />
+
+    <TextView
+        android:id="@+id/tv_notif_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_notifications"
+        android:layout_alignTop="@id/bar"
+        android:layout_alignStart="@id/bar"
+        android:layout_marginTop="25dp"
+        android:textSize="20sp"
+        />
+
+    <Switch
+        android:id="@+id/switchButtonNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_notif_txt"
+        android:layout_alignEnd="@id/bar"
+        />
+
+    <TextView
+        android:id="@+id/tv_notif_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notification_time"
+        android:layout_alignTop="@id/tv_notif_txt"
+        android:layout_alignStart="@id/tv_notif_txt"
+        android:layout_marginTop="70dp"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/edit_time_notif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_notif_time_txt"
+        android:layout_alignEnd="@id/bar"
+        android:clickable="true"
+        android:longClickable="false"
+        android:focusable="true"
+        android:drawableEnd="@drawable/drop_down_arrow"
+        android:textColor="@color/textSmoothColor"
+        android:hint="@string/time"
+        android:textSize="20sp"
         />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

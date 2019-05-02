@@ -93,7 +93,7 @@ public class Helper {
     }
 
     public static boolean timeIsValid(Context context, String time){
-        if(!time.isEmpty()){
+        if(time == null || time.isEmpty()){
             Toast.makeText(context, context.getResources().getString(R.string.time_empty),
                     Toast.LENGTH_LONG).show();
             return false;

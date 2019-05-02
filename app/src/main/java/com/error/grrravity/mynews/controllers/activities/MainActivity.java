@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 return true;
             case R.id.menu_activity_main_params_Notification:
                 Intent notificationIntent = new Intent(MainActivity.this,
-                        NotificationActivity.class);
+                        SearchActivity.class);
+                notificationIntent.putExtra("boolean", false);
                 //TODO create this activity
                 startActivity(notificationIntent);
                 return true;
@@ -95,10 +96,11 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 startActivity(aboutIntent);
                 return true;
             case R.id.menu_activity_main_search:
-                Intent SearchActivityIntent = new Intent(MainActivity.this,
+                Intent searchActivityIntent = new Intent(MainActivity.this,
                         SearchActivity.class);
+                searchActivityIntent.putExtra("boolean", true);
                 //TODO create this activity
-                startActivity(SearchActivityIntent);
+                startActivity(searchActivityIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -178,12 +180,12 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         ((PageFragment) mPagerAdapter.getItem(2)).updateContent(selectedSection);
 
         //Save selected section in sharedPreference
-        ArrayList<String> category = mPreferences.getPref(0);
+        ArrayList<String> category = mPreferences.getCategory(0);
         if (category.size() > 0) {
             category.remove(0);
         }
         category.add(selectedSection);
-        mPreferences.storePref(0,category);
+        mPreferences.storeCategory(0,category);
     }
 
     //

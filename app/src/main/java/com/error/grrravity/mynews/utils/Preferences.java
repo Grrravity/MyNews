@@ -13,20 +13,16 @@ import java.util.List;
 
 
 public class Preferences {
-    private static String NOTIFCATEGORIES = "NOTIFCATEGORIES";
-    private static String SEARCHCATEGORIES = "SEARCHCATEGORIES";
-    private static String TABCATEGORY = "TABCATEGORY";
-    private static String NOTIFTIME = "NOTIFTIME";
+    private static String MYPREF = "MYPREF";
     private static Preferences mInstance;
+
+    private static final String NOTIFCATEGORIES = "NOTIFCATEGORIES";
 
     private SharedPreferences mPreferences;
 
     private Preferences (Context context) {
 
-        mPreferences = context.getSharedPreferences(NOTIFCATEGORIES, Activity.MODE_PRIVATE);
-        mPreferences = context.getSharedPreferences(SEARCHCATEGORIES, Activity.MODE_PRIVATE);
-        mPreferences = context.getSharedPreferences(TABCATEGORY, Activity.MODE_PRIVATE);
-        mPreferences = context.getSharedPreferences(NOTIFTIME, Activity.MODE_PRIVATE);
+        mPreferences = context.getSharedPreferences(MYPREF, Activity.MODE_PRIVATE);
     }
 
     public static Preferences getInstance(Context context) {
@@ -35,6 +31,8 @@ public class Preferences {
         return mInstance;
     }
 
+    //TODO faire des gets /set pour liste et pour non liste
+
     /**
      * uses gson to store categories as an Arraylist of strings.
      *
@@ -42,16 +40,13 @@ public class Preferences {
      * @param source : 0 is for tab category
      *               1 is for search category
      *               2 is for notification category
-     *               3 is for notification time
      *               default is tab category.
      */
-    public void storePref(int source, ArrayList<String> category) {
-        String prefSource = TABCATEGORY;
+    public void storeCategory(int source, ArrayList<String> category) {
+        String prefSource = "TABCATEGORY";
         switch (source){
-            case 0: prefSource = TABCATEGORY; break;
-            case 1: prefSource = SEARCHCATEGORIES; break;
-            case 2: prefSource = NOTIFCATEGORIES; break;
-            case 3: prefSource = NOTIFTIME; break;
+            case 0: prefSource = "TABCATEGORY"; break;
+            case 1: prefSource = "SEARCHCATEGORIES"; break;
             default: break;
         }
         //start writing (open the file)
@@ -71,16 +66,13 @@ public class Preferences {
      * @param  source : 0 is for tab category
      *                1 is for search category
      *                2 is for notification category
-     *                3 is for notification time
      *               default is tab category.
      */
-    public ArrayList<String> getPref(int source) {
-        String targetedPref = TABCATEGORY;
+    public ArrayList<String> getCategory(int source) {
+        String targetedPref = "TABCATEGORY";
         switch (source){
-            case 0: targetedPref = TABCATEGORY; break;
-            case 1: targetedPref = SEARCHCATEGORIES; break;
-            case 2: targetedPref = NOTIFCATEGORIES; break;
-            case 3: targetedPref = NOTIFTIME; break;
+            case 0: targetedPref = "TABCATEGORY"; break;
+            case 1: targetedPref = "SEARCHCATEGORIES"; break;
             default: break;
         }
         Gson gson = new Gson();
@@ -98,17 +90,68 @@ public class Preferences {
         return category;
     }
 
-    // FOR TEST PURPOSE
-
-    // store test
-    public void storeTestList(List<String> testList) {
-
+    //storeCategories change ArrayList into json strings and save it
+    public void storeNotifCategories(List<String> categories) {
+        //start writing (open the file)
         SharedPreferences.Editor editor = mPreferences.edit();
+        //put the data
         Gson gson = new Gson();
-        String json = gson.toJson(testList);
-        editor.putString("test", json);
+        String json = gson.toJson(categories);
+        editor.putString(NOTIFCATEGORIES, json);
+        //close the file
         editor.apply();
     }
+
+    //getCategories recovers json strings and return there in ArrayList
+    public ArrayList<String> getNotifCategories() {
+        Gson gson = new Gson();
+        String json = mPreferences.getString(NOTIFCATEGORIES, "");
+
+        ArrayList<String> categories;
+
+        if (json.length() < 1) {
+            categories = new ArrayList<>();
+        } else {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            categories = gson.fromJson(json, type);
+        }
+
+        //return the value that was stored under the key
+
+        return categories;
+    }
+
+    public void storeNotifQuery (String notifQuery){
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove("NOTIFQUERY");
+        editor.putString("NOTIFQUERY", notifQuery);
+        editor.apply();
+    }
+
+    public String getNotifQuery () {
+        return mPreferences.getString("NOTIFQUERY", "");
+    }
+
+    public void storeNotifBoolean (Boolean notifBool){
+        SharedPreferences.Editor editor=mPreferences.edit();
+        editor.remove("NOTIFENABLE");
+        editor.putBoolean("NOTIFENABLE", notifBool);
+        editor.apply();
+    }
+
+    public Boolean getNotifBoolean(){
+        return mPreferences.getBoolean("NOTIFENABLE", false);
+    }
+
+    public void storeNotifTime(String time) {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove("NOTIFTIME");
+        editor.putString("NOTIFTIME", time);
+        editor.apply();
+    }
+
+    public String getNotifTime () {return mPreferences.getString("NOTIFTIME", "");}
 
     //get test
     public ArrayList<String> getTestList() {
@@ -124,4 +167,5 @@ public class Preferences {
         }
         return testList;
     }
+
 }

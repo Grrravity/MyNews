@@ -36,13 +36,12 @@
             android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".controllers.activities.NotificationActivity"
+            android:name=".controllers.activities.AboutActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".controllers.activities.AboutActivity"
+        <activity android:name=".controllers.activities.HelpActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".controllers.activities.HelpActivity" />
     </application>
 
 </manifest>
