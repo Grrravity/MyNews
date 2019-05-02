@@ -42,7 +42,7 @@ public class Helper {
         return hour+minute;
     }
 
-    // Puts the date from YYYY-MM-DD to DD/MM/YY format
+    // Puts the date from HH-MM-DD to DD/MM/YY format
     public static String formatDate(String date){
         return date.substring(8, 10)+"/"+date.substring(5, 7)+"/"+date.substring(2,4);
     }

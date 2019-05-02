@@ -11,7 +11,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NYTStreamsTest {
 
-    //TODO mettre en commentaire les tests
     public static Observable<APIArticles> streamFetchTopStoriesTest(){
         NYTServiceTest nytServiceTest = NYTServiceTest.retrofit.create(NYTServiceTest.class);
         return nytServiceTest.getTopStoriesArticles()

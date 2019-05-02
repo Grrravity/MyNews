@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.PageFragment;
 import com.error.grrravity.mynews.models.APIResult;
+import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.PagerAdapter;
 
@@ -55,12 +56,15 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         mPageFragment.add(PageFragment.newInstance(1));
         mPageFragment.add(PageFragment.newInstance(2));
 
+        mPreferences = Preferences.getInstance(this);
+
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureViewPagerAndTabs();
         this.configureAndShowPageFragment();
 
-        mPreferences = Preferences.getInstance(this);
+        (new AlarmHelper()).configureAlarmNotif(this);
+
     }
 
     // Inflate the option menu and add to the Toolbar
@@ -80,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 Intent notificationIntent = new Intent(MainActivity.this,
                         SearchActivity.class);
                 notificationIntent.putExtra("boolean", false);
-                //TODO create this activity
                 startActivity(notificationIntent);
                 return true;
             case R.id.menu_activity_main_params_help:
@@ -99,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 Intent searchActivityIntent = new Intent(MainActivity.this,
                         SearchActivity.class);
                 searchActivityIntent.putExtra("boolean", true);
-                //TODO create this activity
                 startActivity(searchActivityIntent);
                 return true;
             default:

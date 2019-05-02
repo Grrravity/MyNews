@@ -31,7 +31,7 @@ public class Preferences {
         return mInstance;
     }
 
-    //TODO faire des gets /set pour liste et pour non liste
+    //TODO Clean preferences.
 
     /**
      * uses gson to store categories as an Arraylist of strings.
@@ -167,5 +167,4 @@ public class Preferences {
         }
         return testList;
     }
-
 }

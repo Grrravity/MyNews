@@ -343,7 +343,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                mTime = hourOfDay + " : " + minute;
+                                mTime = hourOfDay + ":" + minute;
                                 mTVEditNotif.setText(mTime);
                             }
                         }, hour, min, false);
