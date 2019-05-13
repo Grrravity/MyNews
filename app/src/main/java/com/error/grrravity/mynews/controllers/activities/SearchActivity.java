@@ -469,7 +469,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             break;
             case R.id.cbTechnology:
-                if(mCBSports.isChecked()){
+                if(mCBTechnology.isChecked()){
                     if (mTargetActivity) {
                         addCategory("technology");
                     } else {

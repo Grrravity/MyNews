@@ -51,7 +51,8 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<APISearch> streamFetchNotificationArticles(String search, List<String> categories) {
+    public static Observable<APISearch> streamFetchNotificationArticles(String search,
+                                                                        List<String> categories) {
         NYTServices nytServices = NYTServices.retrofit.get().create(NYTServices.class);
         return nytServices.getNotifSearch(API_KEY, search, categories, "relevance")
                 .subscribeOn(Schedulers.io())

@@ -57,9 +57,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void showNotification (APISearch articles){
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("Notification");
-        inboxStyle.addLine("Your search on MyNews found"
+        inboxStyle.addLine("Your search on MyNews found "
                 +articles.getResponse().getDocs().size()+
-                "articles today.");
+                " articles today.");
 
         String chanelID = "chanel_ID";
 

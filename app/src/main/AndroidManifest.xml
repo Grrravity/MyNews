@@ -42,6 +42,8 @@
         <activity android:name=".controllers.activities.HelpActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait" />
+
+        <receiver android:name=".utils.AlarmReceiver" />
     </application>
 
 </manifest>

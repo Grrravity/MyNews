@@ -24,25 +24,23 @@ public class AlarmHelper {
 
         mPreferences = Preferences.getInstance(context);
 
-        Calendar current = Calendar.getInstance(Locale.FRANCE);
         Calendar calendar = Calendar.getInstance(Locale.FRANCE);
 
         String savedTime = mPreferences.getNotifTime();
 
-        Date date = null;
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-        try {
-            date = sdf.parse(savedTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (!savedTime.equals("")) {
+            Date date = null;
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                date = sdf.parse(savedTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            calendar.setTime(date);
         }
 
-        calendar.setTime(date);
 
-        if (calendar.before(current)){
-            calendar.add(Calendar.DATE, 1);
-        }
 
         boolean switchNotif = mPreferences.getNotifBoolean();
 

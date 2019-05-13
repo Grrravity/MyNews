@@ -36,4 +36,5 @@
     <string name="date_empty">__/__/___</string>
     <string name="time_empty">notification time is empty</string>
     <string name="notification_time">Notification time :</string>
+    <string name="alarm_log">alarm have been used</string>
 </resources>
