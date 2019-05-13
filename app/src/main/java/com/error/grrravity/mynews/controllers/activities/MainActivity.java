@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.PageFragment;
 import com.error.grrravity.mynews.models.APIResult;
+import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.PagerAdapter;
 
@@ -55,12 +56,15 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         mPageFragment.add(PageFragment.newInstance(1));
         mPageFragment.add(PageFragment.newInstance(2));
 
+        mPreferences = Preferences.getInstance(this);
+
         this.configureDrawerLayout();
         this.configureNavigationView();
         this.configureViewPagerAndTabs();
         this.configureAndShowPageFragment();
 
-        mPreferences = Preferences.getInstance(this);
+        (new AlarmHelper()).configureAlarmNotif(this);
+
     }
 
     // Inflate the option menu and add to the Toolbar
@@ -78,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 return true;
             case R.id.menu_activity_main_params_Notification:
                 Intent notificationIntent = new Intent(MainActivity.this,
-                        NotificationActivity.class);
-                //TODO create this activity
+                        SearchActivity.class);
+                notificationIntent.putExtra("boolean", false);
                 startActivity(notificationIntent);
                 return true;
             case R.id.menu_activity_main_params_help:
@@ -95,10 +99,10 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 startActivity(aboutIntent);
                 return true;
             case R.id.menu_activity_main_search:
-                Intent SearchActivityIntent = new Intent(MainActivity.this,
+                Intent searchActivityIntent = new Intent(MainActivity.this,
                         SearchActivity.class);
-                //TODO create this activity
-                startActivity(SearchActivityIntent);
+                searchActivityIntent.putExtra("boolean", true);
+                startActivity(searchActivityIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         // Close menu when back clicked
         if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }

@@ -3,7 +3,6 @@ package com.error.grrravity.mynews.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,18 +13,16 @@ import java.util.List;
 
 
 public class Preferences {
-    private static String NOTIFCATEGORIES = "NOTIFCATEGORIES";
-    private static String SEARCHCATEGORIES = "SEARCHCATEGORIES";
-    private static String TABCATEGORY = "TABCATEGORY";
+    private static String MYPREF = "MYPREF";
     private static Preferences mInstance;
+
+    private static final String NOTIFCATEGORIES = "NOTIFCATEGORIES";
 
     private SharedPreferences mPreferences;
 
     private Preferences (Context context) {
 
-        mPreferences = context.getSharedPreferences(NOTIFCATEGORIES, Activity.MODE_PRIVATE);
-        mPreferences = context.getSharedPreferences(SEARCHCATEGORIES, Activity.MODE_PRIVATE);
-        mPreferences = context.getSharedPreferences(TABCATEGORY, Activity.MODE_PRIVATE);
+        mPreferences = context.getSharedPreferences(MYPREF, Activity.MODE_PRIVATE);
     }
 
     public static Preferences getInstance(Context context) {
@@ -33,6 +30,8 @@ public class Preferences {
             mInstance = new Preferences(context);
         return mInstance;
     }
+
+    //TODO Clean preferences.
 
     /**
      * uses gson to store categories as an Arraylist of strings.
@@ -44,19 +43,18 @@ public class Preferences {
      *               default is tab category.
      */
     public void storeCategory(int source, ArrayList<String> category) {
-        String fromSource = TABCATEGORY;
+        String prefSource = "TABCATEGORY";
         switch (source){
-            case 0: fromSource = TABCATEGORY; break;
-            case 1: fromSource = SEARCHCATEGORIES; break;
-            case 2: fromSource = NOTIFCATEGORIES; break;
-            default: Log.e("Test", "Source to store category is not selected"); break;
+            case 0: prefSource = "TABCATEGORY"; break;
+            case 1: prefSource = "SEARCHCATEGORIES"; break;
+            default: break;
         }
         //start writing (open the file)
         SharedPreferences.Editor editor = mPreferences.edit();
         //put the data
         Gson gson = new Gson();
         String json = gson.toJson(category);
-        editor.putString(fromSource, json);
+        editor.putString(prefSource, json);
         //close the file
         editor.apply();
     }
@@ -67,21 +65,18 @@ public class Preferences {
      * @return  : ArrayList of categories stored.
      * @param  source : 0 is for tab category
      *                1 is for search category
-     *               2 is for notification category
+     *                2 is for notification category
      *               default is tab category.
      */
     public ArrayList<String> getCategory(int source) {
-        String targetedCategory = TABCATEGORY;
+        String targetedPref = "TABCATEGORY";
         switch (source){
-            case 0: targetedCategory = TABCATEGORY; break;
-            case 1: targetedCategory = SEARCHCATEGORIES; break;
-            case 2: targetedCategory = NOTIFCATEGORIES; break;
-            default: Log.e("Test",
-                    "targeted category to get string from is not selected");
-            break;
+            case 0: targetedPref = "TABCATEGORY"; break;
+            case 1: targetedPref = "SEARCHCATEGORIES"; break;
+            default: break;
         }
         Gson gson = new Gson();
-        String json = mPreferences.getString(targetedCategory, "");
+        String json = mPreferences.getString(targetedPref, "");
 
         ArrayList<String> category;
 
@@ -95,17 +90,68 @@ public class Preferences {
         return category;
     }
 
-    // FOR TEST PURPOSE
-
-    // store test
-    public void storeTestList(List<String> testList) {
-
+    //storeCategories change ArrayList into json strings and save it
+    public void storeNotifCategories(List<String> categories) {
+        //start writing (open the file)
         SharedPreferences.Editor editor = mPreferences.edit();
+        //put the data
         Gson gson = new Gson();
-        String json = gson.toJson(testList);
-        editor.putString("test", json);
+        String json = gson.toJson(categories);
+        editor.putString(NOTIFCATEGORIES, json);
+        //close the file
         editor.apply();
     }
+
+    //getCategories recovers json strings and return there in ArrayList
+    public ArrayList<String> getNotifCategories() {
+        Gson gson = new Gson();
+        String json = mPreferences.getString(NOTIFCATEGORIES, "");
+
+        ArrayList<String> categories;
+
+        if (json.length() < 1) {
+            categories = new ArrayList<>();
+        } else {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            categories = gson.fromJson(json, type);
+        }
+
+        //return the value that was stored under the key
+
+        return categories;
+    }
+
+    public void storeNotifQuery (String notifQuery){
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove("NOTIFQUERY");
+        editor.putString("NOTIFQUERY", notifQuery);
+        editor.apply();
+    }
+
+    public String getNotifQuery () {
+        return mPreferences.getString("NOTIFQUERY", "");
+    }
+
+    public void storeNotifBoolean (Boolean notifBool){
+        SharedPreferences.Editor editor=mPreferences.edit();
+        editor.remove("NOTIFENABLE");
+        editor.putBoolean("NOTIFENABLE", notifBool);
+        editor.apply();
+    }
+
+    public Boolean getNotifBoolean(){
+        return mPreferences.getBoolean("NOTIFENABLE", false);
+    }
+
+    public void storeNotifTime(String time) {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove("NOTIFTIME");
+        editor.putString("NOTIFTIME", time);
+        editor.apply();
+    }
+
+    public String getNotifTime () {return mPreferences.getString("NOTIFTIME", "");}
 
     //get test
     public ArrayList<String> getTestList() {

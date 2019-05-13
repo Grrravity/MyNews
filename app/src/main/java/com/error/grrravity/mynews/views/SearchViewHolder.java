@@ -22,7 +22,7 @@ class SearchViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_search_item_section) TextView mTVSection;
     @BindView(R.id.relativeLayoutSearch) RelativeLayout mRelativeLayout;
 
-    static final String URL = "https://api.nytimes.com/";
+    static final String URL = "https://static01.nyt.com/";
 
     SearchViewHolder(View itemView){
         super(itemView);
@@ -36,7 +36,11 @@ class SearchViewHolder extends RecyclerView.ViewHolder {
         if(articles.getHeadline() != null) {
             this.mTVTitle.setText(articles.getHeadline().getMain());
         }
-        this.mTVSection.setText(articles.getSectionName());
+        if(articles.getSectionName() != null) {
+            this.mTVSection.setText(articles.getSectionName());
+        } else {
+            mTVSection.setText("");
+        }
         if(articles.getPubDate() != null){
             String date = articles.getPubDate().substring(0,10);
             this.mTVDate.setText(date);

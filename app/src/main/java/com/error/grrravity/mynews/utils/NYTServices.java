@@ -33,6 +33,12 @@ public interface NYTServices {
 
     );
 
+    @GET ("svc/search/v2/articlesearch.json?")
+    Observable<APISearch> getNotifSearch(@Query("api-key") String API_KEY,
+                                         @Query("q") String search,
+                                         @Query("fq") List<String> category,
+                                         @Query("sort") String sort);
+
     ThreadLocal<Retrofit> retrofit = new ThreadLocal<Retrofit>() {
         @Override
         protected Retrofit initialValue() {
