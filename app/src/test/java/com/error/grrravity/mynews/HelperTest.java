@@ -16,8 +16,8 @@ public class HelperTest {
         String day = "10";
         String date = year+month+day;
 
-        int intDay = 10;
         int intYear = 2019;
+        int intDay = 10;
         int intMonth = 4;
         assertEquals(date, Helper.pickerFormatDateTest(intYear,intMonth,intDay));
     }

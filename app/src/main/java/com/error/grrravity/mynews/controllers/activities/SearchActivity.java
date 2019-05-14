@@ -244,45 +244,47 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     // sauvegarder si veux notif ou pas. Retirer check si choses enregistrés.
     public void configureSwitch() {
-        if (mNotifEnable) {
-            mSwitchNotif.setChecked(true);
-        } else {
-            mSwitchNotif.setChecked(false);
-        }
-        mSwitchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged (CompoundButton compoundButton,boolean isChecked){
-
-                if(mKeywords != null && mKeywords.isEmpty()) {
-                    Toast.makeText(SearchActivity.this,
-                            "Please enter something to search",
-                            Toast.LENGTH_LONG).show();
-                    mSwitchNotif.setChecked(false);
-                }
-                if (mCategories.size() == 0) {
-                    Toast.makeText(SearchActivity.this,
-                            "Please select at least one category",
-                            Toast.LENGTH_LONG).show();
-                    mSwitchNotif.setChecked(false);
-                }
-                if (mTime.equals("") || mTime.isEmpty()){
-                    Toast.makeText(SearchActivity.this,
-                            "Please select the time when you want to get notify",
-                            Toast.LENGTH_LONG).show();
-                    mSwitchNotif.setChecked(false);
-                }
-
-                if (mSwitchNotif.isChecked()) {
-                    mNotifEnable = true;
-                    savePrefs();
-                }
-                if (!mSwitchNotif.isChecked()) {
-                    mNotifEnable = false;
-                    savePrefs();
-                }
+        if (!mTargetActivity) {
+            if (mNotifEnable) {
+                mSwitchNotif.setChecked(true);
+            } else {
+                mSwitchNotif.setChecked(false);
             }
-        });
+            mSwitchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+                    if (mKeywords != null && mKeywords.isEmpty()) {
+                        Toast.makeText(SearchActivity.this,
+                                "Please enter something to search",
+                                Toast.LENGTH_LONG).show();
+                        mSwitchNotif.setChecked(false);
+                    }
+                    if (mCategories.size() == 0) {
+                        Toast.makeText(SearchActivity.this,
+                                "Please select at least one category",
+                                Toast.LENGTH_LONG).show();
+                        mSwitchNotif.setChecked(false);
+                    }
+                    if (mTime.equals("") || mTime.isEmpty()) {
+                        Toast.makeText(SearchActivity.this,
+                                "Please select the time when you want to get notify",
+                                Toast.LENGTH_LONG).show();
+                        mSwitchNotif.setChecked(false);
+                    }
+
+                    if (mSwitchNotif.isChecked()) {
+                        mNotifEnable = true;
+                        savePrefs();
+                    }
+                    if (!mSwitchNotif.isChecked()) {
+                        mNotifEnable = false;
+                        savePrefs();
+                    }
+                }
+            });
+        }
     }
 
     public void addCategory (String selectedCategories){

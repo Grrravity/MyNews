@@ -21,18 +21,19 @@ import io.reactivex.observers.DisposableObserver;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
+    private static Preferences mPreferences;
     private Context mContext;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         mContext = context;
+        mPreferences = Preferences.getInstance(mContext);
         executeRequest();
     }
 
     public void executeRequest(){
-        Preferences preferences = Preferences.getInstance(mContext);
-        String keywords = preferences.getNotifQuery();
-        List<String> categories = preferences.getNotifCategories();
+        String keywords = mPreferences.getNotifQuery();
+        List<String> categories = mPreferences.getNotifCategories();
 
         Disposable disposable = NYTStreams.streamFetchNotificationArticles(keywords, categories)
                 .subscribeWith(new DisposableObserver<APISearch>() {
@@ -55,9 +56,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @SuppressLint("ObsoleteSdkInt")
     private void showNotification (APISearch articles){
+        String keywords = mPreferences.getNotifQuery();
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("Notification");
-        inboxStyle.addLine("Your search on MyNews found "
+        inboxStyle.addLine("Your search about " + keywords + " on MyNews found "
                 +articles.getResponse().getDocs().size()+
                 " articles today.");
 
@@ -67,7 +69,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .Builder(mContext, chanelID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("MyNews")
-                .setContentText("Your search on MyNews found"
+                .setContentText("Your search about " + keywords + " on MyNews found"
                         +articles.getResponse().getDocs().size()+
                         "articles today.")
                 .setAutoCancel(true)

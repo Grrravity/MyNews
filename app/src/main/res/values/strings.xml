@@ -37,4 +37,13 @@
     <string name="time_empty">notification time is empty</string>
     <string name="notification_time">Notification time :</string>
     <string name="alarm_log">alarm have been used</string>
+    <string name="helpt_TV">If you encounter any issue or bug using this app, do not hesitate to tell me by using the form below.</string>
+    <string name="help_subject">Subject</string>
+    <string name="help_hint">Describe your issue or bug here.</string>
+    <string name="help_submit">Submit</string>
+    <string name="subject_prompt">Select a subject</string>
+    <string name="about_developer">This app is developed by Grrravity.</string>
+    <string name="about_gitlink">https://github.com/Grrravity/MyNews</string>
+    <string name="about_uses">The main utilisation of this app is to use the New York Times API to get and display data.</string>
+    <string name="about_thanks">All thanks goes for OpenClassrooms that makes this project possible app and to my Mentor, Nathan B. who provided a huge help during development.</string>
 </resources>

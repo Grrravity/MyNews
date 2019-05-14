@@ -153,10 +153,23 @@ public class Preferences {
 
     public String getNotifTime () {return mPreferences.getString("NOTIFTIME", "");}
 
+    public void storeTestList ( List<String> testList) {
+        String prefSource = "TEST";
+
+        //start writing (open the file)
+        SharedPreferences.Editor editor = mPreferences.edit();
+        //put the data
+        Gson gson = new Gson();
+        String json = gson.toJson(testList);
+        editor.putString(prefSource, json);
+        //close the file
+        editor.apply();
+    }
+
     //get test
     public ArrayList<String> getTestList() {
         Gson gson = new Gson();
-        String json = mPreferences.getString("test", "");
+        String json = mPreferences.getString("TEST", "");
         ArrayList<String> testList;
         if (json.length() < 1) {
             testList = new ArrayList<>();

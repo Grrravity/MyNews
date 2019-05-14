@@ -30,11 +30,11 @@ public class PreferencesTest {
     //Store list and assert is equals
     @Test
     public void storeList(){
-        List<String> testList = new ArrayList<>();
-        testList.add("hello");
-        testList.add("world");
-        mPreference.storeTestList(testList);
-        Assert.assertEquals(testList, getList());
+        List<String> test = new ArrayList<>();
+        test.add("hello");
+        test.add("world");
+        mPreference.storeTestList(test);
+        Assert.assertEquals(test, getList());
     }
 
 

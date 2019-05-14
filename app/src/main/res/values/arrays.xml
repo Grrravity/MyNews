@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="subject_entries">
+        <item>- Please select a subject -</item>
+        <item>Bug</item>
+        <item>Issue</item>
+        <item>NewYorkTimes API relative questions</item>
+        </string-array>
+</resources>
