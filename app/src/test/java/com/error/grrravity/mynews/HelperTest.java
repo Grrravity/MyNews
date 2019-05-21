@@ -1,6 +1,6 @@
 package com.error.grrravity.mynews;
 
-import com.error.grrravity.mynews.utils.Helper;
+import com.error.grrravity.mynews.utils.DateHelper;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class HelperTest {
         int intYear = 2019;
         int intDay = 10;
         int intMonth = 4;
-        assertEquals(date, Helper.pickerFormatDateTest(intYear,intMonth,intDay));
+        assertEquals(date, DateHelper.pickerFormatDateTest(intYear,intMonth,intDay));
     }
 
 }

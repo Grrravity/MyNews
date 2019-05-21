@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NYTStreams {
 
-    static String API_KEY = "KbIgXrJKRwL9e8BQHLQum6PLaxjeRC2k";
+    private static String API_KEY = "KbIgXrJKRwL9e8BQHLQum6PLaxjeRC2k";
 
     // getting articles
     public static Observable<APIArticles> streamFetchArticles (String section){
@@ -31,16 +31,6 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-
-    // public static Observable<APIArticles>
-    // streamFetchMostPopularArticles(String section, String api_key){
-    //     NYTServices nytService = NYTServices.retrofit.get().create(NYTServices.class);
-    //     return nytService.getBySectionMp(section, api_key)
-    //             .subscribeOn(Schedulers.io())
-    //             .observeOn(AndroidSchedulers.mainThread())
-    //             .timeout(10, TimeUnit.SECONDS);
-    // }
-
     // getting searched articles
     public static Observable<APISearch> streamFetchSearchArticles
     (String search, List<String> category, String beginDate, String endDate){
@@ -49,14 +39,5 @@ public class NYTStreams {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
-    }
-
-    public static Observable<APISearch> streamFetchNotificationArticles(String search,
-                                                                        List<String> categories) {
-        NYTServices nytServices = NYTServices.retrofit.get().create(NYTServices.class);
-        return nytServices.getNotifSearch(API_KEY, search, categories, "relevance")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .timeout(10,TimeUnit.SECONDS);
     }
 }

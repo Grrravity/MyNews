@@ -14,10 +14,15 @@ import android.util.Log;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.models.APISearch;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+
+import static android.content.ContentValues.TAG;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -35,7 +40,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         String keywords = mPreferences.getNotifQuery();
         List<String> categories = mPreferences.getNotifCategories();
 
-        Disposable disposable = NYTStreams.streamFetchNotificationArticles(keywords, categories)
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String date = dateFormat.format(calendar.getTime());
+        Log.i(TAG, "Notif for article at date yyyyMMdd : " + date);
+
+        Disposable disposable = NYTStreams.streamFetchSearchArticles
+                (keywords, categories, date, date)
                 .subscribeWith(new DisposableObserver<APISearch>() {
                     @Override
                     public void onNext(APISearch articles) {

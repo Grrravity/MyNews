@@ -54,10 +54,6 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
         return this.mSearch.size();
     }
 
-    public APIDoc getArticle(int position){
-        return this.mSearch.get(position);
-    }
-
     public interface onSearchArticleAdapterListener{
         void onArticleClicked (APIDoc resultTopStories);
     }

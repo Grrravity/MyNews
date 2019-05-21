@@ -13,7 +13,6 @@ import java.util.List;
 
 
 public class Preferences {
-    private static String MYPREF = "MYPREF";
     private static Preferences mInstance;
 
     private static final String NOTIFCATEGORIES = "NOTIFCATEGORIES";
@@ -22,6 +21,7 @@ public class Preferences {
 
     private Preferences (Context context) {
 
+        String MYPREF = "MYPREF";
         mPreferences = context.getSharedPreferences(MYPREF, Activity.MODE_PRIVATE);
     }
 
@@ -30,9 +30,6 @@ public class Preferences {
             mInstance = new Preferences(context);
         return mInstance;
     }
-
-    //TODO Clean preferences.
-
     /**
      * uses gson to store categories as an Arraylist of strings.
      *
@@ -153,7 +150,7 @@ public class Preferences {
 
     public String getNotifTime () {return mPreferences.getString("NOTIFTIME", "");}
 
-    public void storeTestList ( List<String> testList) {
+    void storeTestList(List<String> testList) {
         String prefSource = "TEST";
 
         //start writing (open the file)
@@ -167,7 +164,7 @@ public class Preferences {
     }
 
     //get test
-    public ArrayList<String> getTestList() {
+    ArrayList<String> getTestList() {
         Gson gson = new Gson();
         String json = mPreferences.getString("TEST", "");
         ArrayList<String> testList;

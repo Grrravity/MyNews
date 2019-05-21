@@ -22,7 +22,7 @@ class SearchViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_search_item_section) TextView mTVSection;
     @BindView(R.id.relativeLayoutSearch) RelativeLayout mRelativeLayout;
 
-    static final String URL = "https://static01.nyt.com/";
+    private static final String URL = "https://static01.nyt.com/";
 
     SearchViewHolder(View itemView){
         super(itemView);

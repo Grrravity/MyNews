@@ -48,10 +48,10 @@ public class TestPagerAdapter {
         assertEquals("Most Popular",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(1));
-        //TODO mettre le viewpager en position 1 pour créer la position 2 et la tester.
-//        assertEquals("Section not\nyet selected",
-//                Objects.requireNonNull(mActivity.mViewPager.getAdapter())
-//                        .getPageTitle(2));
+ // May fail cause of selected section. Please make sure to clean mobile cache before starting test
+        assertEquals("Section not\nyet selected",
+                Objects.requireNonNull(mActivity.mViewPager.getAdapter())
+                        .getPageTitle(2));
     }
 
     //Return the good item

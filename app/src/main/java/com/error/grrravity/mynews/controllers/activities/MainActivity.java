@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -82,25 +81,23 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
                 return true;
             case R.id.menu_activity_main_params_Notification:
                 Intent notificationIntent = new Intent(MainActivity.this,
-                        SearchActivity.class);
+                        SearchAndNotifActivity.class);
                 notificationIntent.putExtra("boolean", false);
                 startActivity(notificationIntent);
                 return true;
             case R.id.menu_activity_main_params_help:
                 Intent helpIntent = new Intent(MainActivity.this,
                         HelpActivity.class);
-                //TODO create this activity
                 startActivity(helpIntent);
                 return true;
             case R.id.menu_activity_main_params_about:
                 Intent aboutIntent = new Intent(MainActivity.this,
                         AboutActivity.class);
-                //TODO create this activity
                 startActivity(aboutIntent);
                 return true;
             case R.id.menu_activity_main_search:
                 Intent searchActivityIntent = new Intent(MainActivity.this,
-                        SearchActivity.class);
+                        SearchAndNotifActivity.class);
                 searchActivityIntent.putExtra("boolean", true);
                 startActivity(searchActivityIntent);
                 return true;
@@ -123,44 +120,39 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
 
     // Menu Drawer Item selection
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // 4 - Handle Navigation Item Click
+    public boolean onNavigationItemSelected
+    (@android.support.annotation.NonNull @NonNull MenuItem item) {
+        // 4 - Handle Navigation Item Click from drawer
         int id = item.getItemId();
         item.getTitle();
+        String selectedSection;
+
         switch (id) {
             case R.id.menu_drawer_arts_section:
-                Log.e("test", "Arts is clicked");
-                String selectedSection;
                 selectedSection = "arts";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_business_section:
-                Log.e("test", "Business is clicked");
                 selectedSection = "business";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_food_section:
-                Log.e("test", "Food is clicked");
                 selectedSection = "food";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_science_section:
-                Log.e("test", "Technology is clicked");
                 selectedSection = "science";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_sports_section:
-                Log.e("test", "Sport is clicked");
                 selectedSection = "sports";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_politics_section:
-                Log.e("test", "Politics is clicked");
                 selectedSection = "politics";
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_technology_section:
-                Log.e("test", "technology is clicked");
                 selectedSection = "technology";
                 updateSelectedSection(selectedSection);
                 break;
@@ -169,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         }
 
         // close the drawer once an item is selected
-
         this.mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -225,8 +216,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
-
-
 
     // Setting PageFragment
     private void configureAndShowPageFragment() {

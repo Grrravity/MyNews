@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.support.constraint.Constraints.TAG;
-import static com.error.grrravity.mynews.controllers.activities.SearchActivity.SEARCHED_ARTICLE;
+import static com.error.grrravity.mynews.controllers.activities.SearchAndNotifActivity.SEARCHED_ARTICLE;
 
 public class SearchResultFragment extends Fragment implements View.OnClickListener,
         SearchRecyclerViewAdapter.onSearchArticleAdapterListener{
@@ -89,7 +89,7 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     //Configure RecyclerView & tabs
 
     private void configureRecyclerView(){
-        this.response = new ArrayList<APIDoc>();
+        this.response = new ArrayList<>();
         //creating adapter using user data sample
         this.mAdapter = new SearchRecyclerViewAdapter(this.response,
                 Glide.with(this), this);

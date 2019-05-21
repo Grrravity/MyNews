@@ -26,6 +26,7 @@ import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.SearchResultFragment;
 import com.error.grrravity.mynews.models.APIDoc;
 import com.error.grrravity.mynews.models.APISearch;
+import com.error.grrravity.mynews.utils.DateHelper;
 import com.error.grrravity.mynews.utils.Helper;
 import com.error.grrravity.mynews.utils.NYTStreams;
 import com.error.grrravity.mynews.utils.Preferences;
@@ -42,23 +43,26 @@ import io.reactivex.observers.DisposableObserver;
 
 import static com.error.grrravity.mynews.models.APIResult.TOPSTORIES_EXTRA;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener,
+public class SearchAndNotifActivity extends AppCompatActivity implements View.OnClickListener,
         SearchResultFragment.SearchResultFragmentListener {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.searchField) EditText mSearchField;
 
+    // Notif views
     @BindView(R.id.tv_notif_txt) TextView mTVNotif;
     @BindView(R.id.switchButtonNotif) Switch mSwitchNotif;
     @BindView(R.id.tv_notif_time_txt) TextView mTVNotifTime;
-    @BindView(R.id.edit_time_notif) TextView mTVEditNotif;
+    @BindView(R.id.edit_time_notif) TextView mTVEditNotifTime;
 
+    // Search views
     @BindView(R.id.searchButton) TextView mSearchButton;
     @BindView(R.id.editBeginDateTV) TextView mEditBegin;
     @BindView(R.id.searchBeginDateTV) TextView mTVBegin;
     @BindView(R.id.editEndDateTV) TextView mEditEnd;
     @BindView(R.id.searchEndDateTV) TextView mTVEnd;
 
+    // Both view
+    @BindView(R.id.searchField) EditText mSearchField;
     @BindView(R.id.cbArts) CheckBox mCBArts;
     @BindView(R.id.cbBusiness) CheckBox mCBBusiness;
     @BindView(R.id.cbFood) CheckBox mCBFood;
@@ -69,22 +73,27 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     private static Preferences mPreferences;
     public static final String SEARCHED_ARTICLE = "searched_article";
+
     private String mBeginDate = "";
     private String mEndDate = "";
     public String mKeywords;
     public String mQuery;
     public String mTime;
+    public List<String> mCategories;
+
     public Boolean mNotifEnable;
     public Boolean mTargetActivity;
-    public List<String> mCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        // To know if its search or notification
         mTargetActivity = Objects.requireNonNull(getIntent().getExtras())
                 .getBoolean("boolean");
+
         configureToolbar();
 
         mCategories = new ArrayList<>();
@@ -104,8 +113,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             configureTime();
             configureSwitch();
         }
-
-
     }
 
     //To hide keyboard
@@ -117,14 +124,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initListener() {
-        mSearchField.setOnClickListener(this);
 
+        // Search listener
+        mSearchButton.setOnClickListener(this);
         mEditBegin.setOnClickListener(this);
         mEditEnd.setOnClickListener(this);
 
-        mTVEditNotif.setOnClickListener(this);
+        // Notif listener
+        mTVEditNotifTime.setOnClickListener(this);
 
-        mSearchButton.setOnClickListener(this);
+        // Both listener
+        mSearchField.setOnClickListener(this);
         mCBArts.setOnClickListener(this);
         mCBBusiness.setOnClickListener(this);
         mCBFood.setOnClickListener(this);
@@ -147,12 +157,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 0);
     }
 
+    // display views according to asked activity
     private void configureView(){
+        // for search
         if (mTargetActivity){
             mTVNotif.setVisibility(View.GONE);
             mSwitchNotif.setVisibility(View.GONE);
             mTVNotifTime.setVisibility(View.GONE);
-            mTVEditNotif.setVisibility(View.GONE);
+            mTVEditNotifTime.setVisibility(View.GONE);
 
             mSearchButton.setVisibility(View.VISIBLE);
             mEditBegin.setVisibility(View.VISIBLE);
@@ -160,10 +172,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             mEditEnd.setVisibility(View.VISIBLE);
             mTVEnd.setVisibility(View.VISIBLE);
         } else {
+            //for notifs
             mTVNotif.setVisibility(View.VISIBLE);
             mSwitchNotif.setVisibility(View.VISIBLE);
             mTVNotifTime.setVisibility(View.VISIBLE);
-            mTVEditNotif.setVisibility(View.VISIBLE);
+            mTVEditNotifTime.setVisibility(View.VISIBLE);
 
             mSearchButton.setVisibility(View.GONE);
             mEditBegin.setVisibility(View.GONE);
@@ -236,15 +249,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void configureTime() {
         mTime = mPreferences.getNotifTime();
         if (mTime != null && !mTime.isEmpty()) {
-            mTVEditNotif.setText(mTime);
+            mTVEditNotifTime.setText(mTime);
         } else {
-            mTVEditNotif.setText("");
+            mTVEditNotifTime.setText("");
         }
     }
 
     // sauvegarder si veux notif ou pas. Retirer check si choses enregistrés.
     public void configureSwitch() {
-        if (!mTargetActivity) {
             if (mNotifEnable) {
                 mSwitchNotif.setChecked(true);
             } else {
@@ -254,38 +266,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-
-                    if (mKeywords != null && mKeywords.isEmpty()) {
-                        Toast.makeText(SearchActivity.this,
-                                "Please enter something to search",
-                                Toast.LENGTH_LONG).show();
-                        mSwitchNotif.setChecked(false);
-                    }
-                    if (mCategories.size() == 0) {
-                        Toast.makeText(SearchActivity.this,
-                                "Please select at least one category",
-                                Toast.LENGTH_LONG).show();
-                        mSwitchNotif.setChecked(false);
-                    }
-                    if (mTime.equals("") || mTime.isEmpty()) {
-                        Toast.makeText(SearchActivity.this,
-                                "Please select the time when you want to get notify",
-                                Toast.LENGTH_LONG).show();
-                        mSwitchNotif.setChecked(false);
-                    }
-
-                    if (mSwitchNotif.isChecked()) {
-                        mNotifEnable = true;
-                        savePrefs();
-                    }
-                    if (!mSwitchNotif.isChecked()) {
-                        mNotifEnable = false;
-                        savePrefs();
-                    }
+                    mSwitchNotif.setChecked(Helper.validateNotifParams
+                            (SearchAndNotifActivity.this,
+                                    mKeywords, mCategories, mTime, mSwitchNotif));
+                    savePrefs();
                 }
             });
         }
-    }
 
     public void addCategory (String selectedCategories){
         ArrayList<String> category = mPreferences.getCategory(1);
@@ -320,7 +307,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         int hour = calendar.get(Calendar.HOUR);
         int min = calendar.get(Calendar.MINUTE);
 
@@ -334,7 +320,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.searchButton:
                 if (Helper.validateParameters(this, mSearchField, mCBArts, mCBBusiness,
                         mCBFood, mCBPolitics, mCBSciences, mCBSports, mCBTechnology)
-                        && Helper.datesAreValid(this, mBeginDate, mEndDate)) {
+                        && DateHelper.datesAreValid(this, mBeginDate, mEndDate)) {
                     executeSearchRequest();
                 }
                 break;
@@ -346,7 +332,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
                                 mTime = hourOfDay + ":" + minute;
-                                mTVEditNotif.setText(mTime);
+                                mTVEditNotifTime.setText(mTime);
                             }
                         }, hour, min, false);
                 timePickerDialog.show();
@@ -514,12 +500,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onError(Throwable e) {
-                Log.e("test", e.getMessage());
+                Log.i("test", e.getMessage());
             }
 
             @Override
             public void onComplete() {
-                Log.e("Test", "Search is charged");
+                Log.i("Test", "Search is charged");
             }
         });
     }
@@ -548,7 +534,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startArticleActivity(APIDoc APISearch){
-        Intent articleActivityIntent = new Intent(SearchActivity.this,
+        Intent articleActivityIntent = new Intent(SearchAndNotifActivity.this,
                 ArticleActivity.class);
         articleActivityIntent.putExtra(TOPSTORIES_EXTRA, APISearch.getWebUrl());
         startActivity(articleActivityIntent);
@@ -568,15 +554,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day){
-            mBeginDate = Helper.pickerFormatDate(year, month, day, mEditBegin);
+            mBeginDate = DateHelper.pickerFormatDate(year, month, day, mEditBegin);
         }
     };
     DatePickerDialog.OnDateSetListener dateSettingListenerEnd
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            mEndDate = Helper.pickerFormatDate(year, month, day, mEditEnd);
+            mEndDate = DateHelper.pickerFormatDate(year, month, day, mEditEnd);
         }
     };
-// TODO Remplacer par calendar
 }

@@ -32,7 +32,7 @@
             android:name=".controllers.activities.ArticleActivity"
             android:parentActivityName=".controllers.activities.MainActivity" />
         <activity
-            android:name=".controllers.activities.SearchActivity"
+            android:name=".controllers.activities.SearchAndNotifActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
