@@ -12,7 +12,8 @@ import butterknife.ButterKnife;
 
 public class AboutActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
         this.configureToolbar();
     }
 
-    private void configureToolbar(){
+    private void configureToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar ab = getSupportActionBar();
         assert ab != null;

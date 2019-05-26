@@ -21,5 +21,4 @@ public class HelperTest {
         int intMonth = 4;
         assertEquals(date, DateHelper.pickerFormatDateTest(intYear,intMonth,intDay));
     }
-
 }

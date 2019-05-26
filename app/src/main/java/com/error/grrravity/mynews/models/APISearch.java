@@ -23,19 +23,19 @@ public class APISearch implements Parcelable {
     @Expose
     private APIResponse response;
 
-    protected APISearch (Parcel in) {
+    protected APISearch(Parcel in) {
         status = in.readString();
         copyright = in.readString();
     }
 
-    public static final Creator <APISearch> CREATOR = new Creator<APISearch>() {
+    public static final Creator<APISearch> CREATOR = new Creator<APISearch>() {
         @Override
         public APISearch createFromParcel(Parcel in) {
             return new APISearch(in);
         }
 
         @Override
-        public APISearch [] newArray(int size) {
+        public APISearch[] newArray(int size) {
             return new APISearch[size];
         }
     };
@@ -64,7 +64,7 @@ public class APISearch implements Parcelable {
         this.response = response;
     }
 
-    public List <APIResult> getResult() {
+    public List<APIResult> getResult() {
         return result;
     }
 

@@ -37,14 +37,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
         //Creating viewholder and inflate layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_search_item, parent,false);
+        View view = inflater.inflate(R.layout.fragment_search_item, parent, false);
 
         return new SearchViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder viewHolder, int position) {
-        if (mSearch != null && mSearch.size() >= position+1 && mSearch.get(position) != null) {
+        if (mSearch != null && mSearch.size() >= position + 1 && mSearch.get(position) != null) {
             viewHolder.updateWithResult(this.mSearch.get(position), this.mGlide, mListener);
         }
     }
@@ -54,7 +54,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
         return this.mSearch.size();
     }
 
-    public interface onSearchArticleAdapterListener{
-        void onArticleClicked (APIDoc resultTopStories);
+    public interface onSearchArticleAdapterListener {
+        void onArticleClicked(APIDoc resultTopStories);
     }
 }

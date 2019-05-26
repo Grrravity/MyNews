@@ -20,28 +20,28 @@ public class DateHelper {
 
     // Puts the date in DD/MM/YYYY format
     @SuppressLint("SetTextI18n")
-    public static String pickerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner){
+    public static String pickerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner) {
         String year = Integer.toString(yearInt);
-        String month = (monthInt+1 < 10) ? "0" +
-                (monthInt + 1) : Integer.toString(monthInt+1);
+        String month = (monthInt + 1 < 10) ? "0" +
+                (monthInt + 1) : Integer.toString(monthInt + 1);
         String day = (dayInt < 10) ? "0" + dayInt : Integer.toString(dayInt);
-        spinner.setText(day+"/"+month+"/"+year);
-        return year+month+day;
+        spinner.setText(day + "/" + month + "/" + year);
+        return year + month + day;
     }
 
     @SuppressLint("SetTextI18n")
-    public static String pickerFormatDateTest(int yearInt, int monthInt, int dayInt){
+    public static String pickerFormatDateTest(int yearInt, int monthInt, int dayInt) {
         String year = Integer.toString(yearInt);
-        String month = (monthInt+1 < 10) ? "0" +
+        String month = (monthInt + 1 < 10) ? "0" +
                 monthInt : Integer.toString(monthInt);
         String day = (dayInt < 10) ? "0" + dayInt : Integer.toString(dayInt);
-        return year+month+day;
+        return year + month + day;
     }
 
     // Checks if begin date is before the end date in the Search form
-    public static boolean datesAreValid(Context context, String beginDate, String endDate){
-        if(!beginDate.isEmpty() && !endDate.isEmpty()
-                && Integer.parseInt(beginDate) > Integer.parseInt(endDate)){
+    public static boolean datesAreValid(Context context, String beginDate, String endDate) {
+        if (!beginDate.isEmpty() && !endDate.isEmpty()
+                && Integer.parseInt(beginDate) > Integer.parseInt(endDate)) {
             Toast.makeText(context, context.getResources().getString(R.string.verification_dates),
                     Toast.LENGTH_LONG).show();
             return false;
@@ -49,12 +49,11 @@ public class DateHelper {
         return true;
     }
 
-    static Calendar setTimeNotif(Context context) {
-        Preferences mPreferences = Preferences.getInstance(context);
+    static Calendar setTimeNotif(String savedTime) {
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        String savedTime = mPreferences.getNotifTime();
-
+        Calendar tempCalendar = Calendar.getInstance(Locale.getDefault());
+        // TODO ajouter 1 jour si date est passée
         if (!savedTime.equals("")) {
             Date date = null;
             @SuppressLint("SimpleDateFormat")
@@ -65,8 +64,10 @@ public class DateHelper {
                 e.printStackTrace();
             }
             assert date != null;
-            calendar.set(Calendar.HOUR_OF_DAY, date.getHours());
-            calendar.set(Calendar.MINUTE, date.getMinutes());
+            tempCalendar.setTime(date);
+
+            calendar.set(Calendar.HOUR, tempCalendar.get(Calendar.HOUR_OF_DAY));
+            calendar.set(Calendar.MINUTE, tempCalendar.get(Calendar.MINUTE));
             calendar.set(Calendar.SECOND, 0);
             Log.i(TAG, "Notification time set at: " + calendar.getTime());
         }

@@ -31,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType){
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Create view holder and inflate the xml layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);

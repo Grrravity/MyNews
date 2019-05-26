@@ -1,24 +1,28 @@
 <resources>
     <string name="app_name">MyNews</string>
 
+    // Helper String
     <string name="verification_search_field">Please enter something to search</string>
     <string name="verification_checkbox">Please select at least one category</string>
     <string name="verification_section_tab">Please select a category to display in the menu (top left)</string>
     <string name="verification_dates">Please make sure that \"Begin date\" is younger than \"End date\"</string>
+    <string name="verification_notif_time">Please select the time when you want to get notify</string>
+    <string name="verification_help_object">Please select a subject that match the best your issue</string>
+    <string name="alarm_on">Alarm enable</string>
+    <string name="alamr_off">Alarm disable</string>
+
+    // Research message
     <string name="list_empty">Oops, could not find any articles matching your search</string>
-    <string name="nav_drawer_open">Open</string>
-    <string name="nav_drawer_close">Close</string>
+
+    // Http request
     <string name="onErrorTopStories">onError on TopStories http request</string>
     <string name="onCompleteTopStories">TopStories charged</string>
     <string name="onErrorMostPopular">onError on MostPopular http request</string>
     <string name="onCompleteMostPopular">MostPopular charged</string>
     <string name="onErrorSearch">onError on SearchedArticle http request</string>
     <string name="onCompleteSearch">SearchedArticle charged</string>
-    <string name="empty_date">date is empty</string>
-    <string name="title">No title</string>
-    <string name="section">No section</string>
-    <string name="begin_date">Begin date</string>
-    <string name="end_date">End date</string>
+
+    // Categories
     <string name="arts">Arts</string>
     <string name="business">Business</string>
     <string name="food">Food</string>
@@ -26,22 +30,39 @@
     <string name="sciences">Science</string>
     <string name="sports">Sports</string>
     <string name="technology">Technology</string>
-    <string name="search_field">Search</string>
-    <string name="search_hint">Search query term</string>
+
+    //Main xml
+    <string name="nav_drawer_open">Open</string>
+    <string name="nav_drawer_close">Close</string>
+
+    //Drawer xml
     <string name="categories_drawer">Catégories :</string>
     <string name="sections_drawer">Sections :</string>
-    <string name="no_internet">No internet connection, please check your internet status</string>
+
+    //Fragment xml
+    <string name="empty_date">date is empty</string>
+    <string name="title">No title</string>
+    <string name="section">No section</string>
+    <string name="begin_date">Begin date</string>
+    <string name="end_date">End date</string>
+    <string name="no_internet">No internet connection, please check your internet status and refresh this</string>
+
+    //Search and notif xml
+    <string name="search_field">Search</string>
+    <string name="search_hint">Search query term</string>
     <string name="enable_notifications">Enable notifications :</string>
     <string name="time">__:__</string>
-    <string name="date_empty">__/__/___</string>
-    <string name="time_empty">notification time is empty</string>
+    <string name="date_empty">dd/mm/yyyy</string>
     <string name="notification_time">Notification time :</string>
-    <string name="alarm_log">alarm have been used</string>
+
+    //Help xml
     <string name="helpt_TV">If you encounter any issue or bug using this app, do not hesitate to tell me by using the form below.</string>
     <string name="help_subject">Subject</string>
     <string name="help_hint">Describe your issue or bug here.</string>
     <string name="help_submit">Submit</string>
     <string name="subject_prompt">Select a subject</string>
+
+    //About xml
     <string name="about_developer">This app is developed by Grrravity.</string>
     <string name="about_gitlink">https://github.com/Grrravity/MyNews</string>
     <string name="about_uses">The main utilisation of this app is to use the New York Times API to get and display data.</string>

@@ -3,7 +3,7 @@ package com.error.grrravity.mynews.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class APIHeadline{
+public class APIHeadline {
 
     @SerializedName("main")
     @Expose

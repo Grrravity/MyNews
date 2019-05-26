@@ -53,11 +53,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 return "Most Popular";
             case 2: //Page number 3
                 ArrayList<String> category = mPreferences.getCategory(0);
-                if (category != null && category.size() > 0){
+                if (category != null && category.size() > 0) {
                     return category.get(0);
-                }
-                else {
-                return "Section not\r\nyet selected";
+                } else {
+                    return "Section not\r\nyet selected";
                 }
             default:
                 return null;

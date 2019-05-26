@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.PageFragment;
 import com.error.grrravity.mynews.models.APIResult;
-import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.PagerAdapter;
 
@@ -33,9 +32,12 @@ import static com.error.grrravity.mynews.models.APIResult.TOPSTORIES_EXTRA;
 public class MainActivity extends AppCompatActivity implements PageFragment.PageFragmentListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.activity_main_viewpager) public ViewPager mViewPager;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.activity_main_tabs) TabLayout mTabLayout;
+    @BindView(R.id.activity_main_viewpager)
+    public ViewPager mViewPager;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.activity_main_tabs)
+    TabLayout mTabLayout;
 
     private DrawerLayout mDrawerLayout;
     private List<PageFragment> mPageFragment;
@@ -62,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         this.configureViewPagerAndTabs();
         this.configureAndShowPageFragment();
 
-        (new AlarmHelper()).configureAlarmNotif(this);
-
     }
 
     // Inflate the option menu and add to the Toolbar
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
+
     // Switching on different option menu items
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,8 +113,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
         // Close menu when back clicked
         if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
             category.remove(0);
         }
         category.add(selectedSection);
-        mPreferences.storeCategory(0,category);
+        mPreferences.storeCategory(0, category);
     }
 
     //

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.activities.HelpActivity"
     android:orientation="vertical"
-    >
+    tools:context=".controllers.activities.HelpActivity">
 
     <include
         layout="@layout/toolbar"
@@ -17,40 +14,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
         android:orientation="vertical"
-        >
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/helpt_TV"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"
             android:gravity="center"
-            />
+            android:text="@string/helpt_TV"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/help_subject"
-            />
+            android:text="@string/help_subject" />
 
         <Spinner
             android:id="@+id/spinner_help"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="40dp"
             android:background="@color/backgroundSmoothColor"
             android:clickable="true"
+            android:entries="@array/subject_entries"
             android:focusable="true"
             android:longClickable="false"
-            android:textSize="20sp"
-            android:layout_marginBottom="40dp"
 
-            android:entries="@array/subject_entries"
             android:prompt="@string/subject_prompt"
-            >
+            android:textSize="20sp">
 
         </Spinner>
 
@@ -58,22 +51,21 @@
             android:id="@+id/help_activity_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/help_hint"
+            android:layout_marginBottom="30dp"
             android:background="@color/backgroundSmoothColor"
+            android:hint="@string/help_hint"
             android:minHeight="55dp"
             android:padding="20dp"
-            android:layout_marginBottom="30dp"
-            />
+            tools:ignore="Autofill,TextFields" />
 
         <Button
             android:id="@+id/help_activity_submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/help_submit"
             android:background="@color/mainBackground"
-            android:textColor="@color/mainTextHighlight"
-            />
+            android:text="@string/help_submit"
+            android:textColor="@color/mainTextHighlight" />
 
     </LinearLayout>
 

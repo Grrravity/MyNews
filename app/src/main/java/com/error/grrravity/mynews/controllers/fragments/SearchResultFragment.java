@@ -30,18 +30,22 @@ import static android.support.constraint.Constraints.TAG;
 import static com.error.grrravity.mynews.controllers.activities.SearchAndNotifActivity.SEARCHED_ARTICLE;
 
 public class SearchResultFragment extends Fragment implements View.OnClickListener,
-        SearchRecyclerViewAdapter.onSearchArticleAdapterListener{
+        SearchRecyclerViewAdapter.onSearchArticleAdapterListener {
 
-    @BindView(R.id.fragment_search_result_recycler_view) RecyclerView mRecyclerView;
-    @BindView(R.id.fragment_search_result_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.sr_textview_empty) TextView mTextView;
+    @BindView(R.id.fragment_search_result_recycler_view)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_search_result_swipe_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.sr_textview_empty)
+    TextView mTextView;
 
     private List<APIDoc> response;
     private APISearch mAPISearch;
     private SearchRecyclerViewAdapter mAdapter;
     private SearchResultFragmentListener mListener;
 
-    public SearchResultFragment(){ }
+    public SearchResultFragment() {
+    }
 
     // Attach callback
 
@@ -49,10 +53,9 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof SearchResultFragmentListener){
-            mListener = (SearchResultFragmentListener)context;
-        }
-        else {
+        if (context instanceof SearchResultFragmentListener) {
+            mListener = (SearchResultFragmentListener) context;
+        } else {
             Log.d(TAG, "onAttach: parrent Activity must implement MainFragmentListener");
         }
 
@@ -76,10 +79,9 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     }
 
 
-
     // get bundle with user params
     private void getBundle() {
-        if(getArguments() != null){
+        if (getArguments() != null) {
             mAPISearch = getArguments().getParcelable(SEARCHED_ARTICLE);
         }
     }
@@ -88,7 +90,7 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
 
     //Configure RecyclerView & tabs
 
-    private void configureRecyclerView(){
+    private void configureRecyclerView() {
         this.response = new ArrayList<>();
         //creating adapter using user data sample
         this.mAdapter = new SearchRecyclerViewAdapter(this.response,
@@ -110,27 +112,27 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     }
 
     //UPDATE UI
-    private void updateUI(){
-        if(response != null){
+    private void updateUI() {
+        if (response != null) {
             response.clear();
         }
-        if(mAPISearch.getResponse().getDocs() != null){
+        if (mAPISearch.getResponse().getDocs() != null) {
             response.addAll(mAPISearch.getResponse().getDocs());
 
-            if(response.size() == 0){
+            if (response.size() == 0) {
                 mTextView.setVisibility(View.VISIBLE);
                 mTextView.setText(R.string.list_empty);
             }
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
-        }
-        else  {
+        } else {
             Log.e("Test", "mAPISearch.getResponse().getDocs() is null");
         }
     }
 
     @Override
-    public void onClick(View view) {   }
+    public void onClick(View view) {
+    }
 
     // Launch callback
 
@@ -140,7 +142,7 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
     }
 
     // Callback
-    public interface SearchResultFragmentListener{
+    public interface SearchResultFragmentListener {
         void callbackSearchArticle(APIDoc APISearch);
     }
 

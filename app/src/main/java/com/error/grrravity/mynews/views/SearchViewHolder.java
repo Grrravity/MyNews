@@ -16,40 +16,45 @@ import butterknife.ButterKnife;
 
 class SearchViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.fragment_search_item_title) TextView mTVTitle;
-    @BindView(R.id.fragment_search_item_date) TextView mTVDate;
-    @BindView(R.id.fragment_search_item_image) ImageView mImageView;
-    @BindView(R.id.fragment_search_item_section) TextView mTVSection;
-    @BindView(R.id.relativeLayoutSearch) RelativeLayout mRelativeLayout;
+    @BindView(R.id.fragment_search_item_title)
+    TextView mTVTitle;
+    @BindView(R.id.fragment_search_item_date)
+    TextView mTVDate;
+    @BindView(R.id.fragment_search_item_image)
+    ImageView mImageView;
+    @BindView(R.id.fragment_search_item_section)
+    TextView mTVSection;
+    @BindView(R.id.relativeLayoutSearch)
+    RelativeLayout mRelativeLayout;
 
     private static final String URL = "https://static01.nyt.com/";
 
-    SearchViewHolder(View itemView){
+    SearchViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
     //Update search item
 
-    void updateWithResult (final APIDoc articles, RequestManager glide,
-                           final SearchRecyclerViewAdapter.onSearchArticleAdapterListener callback){
-        if(articles.getHeadline() != null) {
+    void updateWithResult(final APIDoc articles, RequestManager glide,
+                          final SearchRecyclerViewAdapter.onSearchArticleAdapterListener callback) {
+        if (articles.getHeadline() != null) {
             this.mTVTitle.setText(articles.getHeadline().getMain());
         }
-        if(articles.getSectionName() != null) {
+        if (articles.getSectionName() != null) {
             this.mTVSection.setText(articles.getSectionName());
         } else {
             mTVSection.setText("");
         }
-        if(articles.getPubDate() != null){
-            String date = articles.getPubDate().substring(0,10);
+        if (articles.getPubDate() != null) {
+            String date = articles.getPubDate().substring(0, 10);
             this.mTVDate.setText(date);
         }
 
-        if(!articles.getMultimedia().isEmpty()){
+        if (!articles.getMultimedia().isEmpty()) {
             String mUrl = URL + articles.getMultimedia().get(0).getUrl();
             glide.load(mUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
-        } else{
+        } else {
             mImageView.setImageResource(R.drawable.y_u_no_image);
         }
         this.mRelativeLayout.setOnClickListener(new View.OnClickListener() {

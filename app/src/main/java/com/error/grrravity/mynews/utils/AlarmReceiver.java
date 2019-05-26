@@ -36,14 +36,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         executeRequest();
     }
 
-    public void executeRequest(){
+    public void executeRequest() {
         String keywords = mPreferences.getNotifQuery();
         List<String> categories = mPreferences.getNotifCategories();
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
-        Log.i(TAG, "Notif for article at date yyyyMMdd : " + date);
+        Log.i(TAG, "Notif for article at date yyyyMMdd : " + date +
+                " and query is " + keywords);
 
         Disposable disposable = NYTStreams.streamFetchSearchArticles
                 (keywords, categories, date, date)
@@ -66,13 +67,13 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    private void showNotification (APISearch articles){
+    private void showNotification(APISearch articles) {
         String keywords = mPreferences.getNotifQuery();
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("Notification");
-        inboxStyle.addLine("Your search about " + keywords + " on MyNews found "
-                +articles.getResponse().getDocs().size()+
-                " articles today.");
+        inboxStyle.addLine("Your search '" + keywords + "' on MyNews found "
+                + articles.getResponse().getDocs().size() +
+                " articles.");
 
         String chanelID = "chanel_ID";
 
@@ -80,9 +81,9 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .Builder(mContext, chanelID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("MyNews")
-                .setContentText("Your search about " + keywords + " on MyNews found"
-                        +articles.getResponse().getDocs().size()+
-                        "articles today.")
+                .setContentText("Your search '" + keywords + "' on MyNews found "
+                        + articles.getResponse().getDocs().size() +
+                        " articles.")
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setStyle(inboxStyle);

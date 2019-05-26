@@ -1,8 +1,6 @@
 package com.error.grrravity.mynews.controllers.fragments;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,13 +19,13 @@ import com.bumptech.glide.Glide;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.models.APIArticles;
 import com.error.grrravity.mynews.models.APIResult;
+import com.error.grrravity.mynews.utils.Helper;
 import com.error.grrravity.mynews.utils.NYTStreams;
 import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +37,14 @@ import static android.support.constraint.Constraints.TAG;
 public class PageFragment extends Fragment implements RecyclerViewAdapter.onPageAdapterListener {
 
     // IDs
-    @BindView(R.id.fragment_page_recycler_view) RecyclerView mRecyclerView;
-    @BindView(R.id.fragment_page_swipe_container) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.textView_bad_request) TextView textView;
-    @BindView(R.id.fragment_progress_bar) ProgressBar progressBar;
-
-
+    @BindView(R.id.fragment_page_recycler_view)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_page_swipe_container)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.textView_bad_request)
+    TextView textView;
+    @BindView(R.id.fragment_progress_bar)
+    ProgressBar progressBar;
 
     // Keys for bundle
     private static final String KEY_POSITION = "position";
@@ -73,17 +73,16 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         args.putInt(KEY_POSITION, position);
         frag.setArguments(args);
 
-        return(frag);
+        return (frag);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mPreferences = Preferences.getInstance(context);
-        if(context instanceof PageFragmentListener) {
-            mListener = (PageFragmentListener)context;
-        }
-        else {
+        if (context instanceof PageFragmentListener) {
+            mListener = (PageFragmentListener) context;
+        } else {
             Log.d(TAG, "onAttach: parent activity must implement PageFragmentListener");
         }
     }
@@ -115,37 +114,29 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         fragmentSwitchRequest();
         configureRecyclerView();
         configureSwipeRefreshLayout();
-        Log.i(getClass().getSimpleName(), "onCreateView called for fragment number "+position);
+        Log.i(getClass().getSimpleName(), "onCreateView called for fragment number " + position);
     }
 
-    //Configure SwipeRefreshLayout
-    private void configureSwipeRefreshLayout(){
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fragmentSwitchRequest();
-            }
-        });
-    }
-
-    private void fragmentSwitchRequest(){
+    private void fragmentSwitchRequest() {
         switch (position) {
             case 0:
-                if (isNetworkAvailable()) {
+                if (Helper.isNetworkAvailable(getActivity())) {
                     executeHttpRequestTopStories();
                     Log.i("onCreateView // TS", "position " + position);
+                } else {
+                    infoNoInternet();
                 }
-                else { infoNoInternet(); }
                 break;
             case 1:
-                if (isNetworkAvailable()) {
+                if (Helper.isNetworkAvailable(getActivity())) {
                     executeHttpRequestMostPopular();
                     Log.i("onCreateView // MP", "position " + position);
+                } else {
+                    infoNoInternet();
                 }
-                else { infoNoInternet(); }
                 break;
             case 2:
-                if (isNetworkAvailable()) {
+                if (Helper.isNetworkAvailable(getActivity())) {
                     ArrayList<String> category = mPreferences.getCategory(0);
                     if (category.contains("viewed") || category.size() < 1) {
                         progressBar.setVisibility(View.GONE);
@@ -154,8 +145,9 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                         executeHttpRequestSelectedSection(mSelectedSection);
                         Log.i("onCreateView // Cat", "position " + position);
                     }
+                } else {
+                    infoNoInternet();
                 }
-                else { infoNoInternet(); }
                 break;
         }
     }
@@ -164,6 +156,24 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     public void onDestroy() {
         super.onDestroy();
         this.disposeWhenDestroy();
+    }
+
+    private void disposeWhenDestroy() {
+        if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
+    }
+
+    //
+    //Configuration
+
+    //
+
+    private void configureSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fragmentSwitchRequest();
+            }
+        });
     }
 
     private void configureRecyclerView() {
@@ -176,14 +186,13 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
         // Set layout manager
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
-
     //
     // HTTP REQUESTS
     //
 
     //API Request for TopStories
-    private void executeHttpRequestTopStories( ){
-        mDisposable = NYTStreams.streamFetchArticles( "home")
+    private void executeHttpRequestTopStories() {
+        mDisposable = NYTStreams.streamFetchArticles("home")
                 .subscribeWith(new DisposableObserver<APIArticles>() {
                     @Override
                     public void onNext(APIArticles articles) {
@@ -200,14 +209,15 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
                         Log.i("Test", getString(R.string.onCompleteTopStories)
-                                +" at position :"+ position);
+                                + " at position :" + position);
                     }
                 });
     }
+
     //API Request for MostPopular
-    private void executeHttpRequestMostPopular( ){
-        mDisposable = NYTStreams.streamFetchArticlesMP( "viewed")
-                .subscribeWith(new DisposableObserver <APIArticles>() {
+    private void executeHttpRequestMostPopular() {
+        mDisposable = NYTStreams.streamFetchArticlesMP("viewed")
+                .subscribeWith(new DisposableObserver<APIArticles>() {
                     @Override
                     public void onNext(APIArticles articles) {
                         updateUI(articles);
@@ -223,37 +233,34 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
                         Log.i("Test", getString(R.string.onCompleteMostPopular)
-                                +" at position :"+ position);
+                                + " at position :" + position);
                     }
                 });
     }
 
     // API Request for SearchArticles
-    private void executeHttpRequestSelectedSection(final String selectedSection){
+    private void executeHttpRequestSelectedSection(final String selectedSection) {
         mDisposable = NYTStreams.streamFetchArticles(selectedSection)
                 .subscribeWith(new DisposableObserver<APIArticles>() {
-            @Override
-            public void onNext(APIArticles articles) {
-                updateUI(articles);
-            }
+                    @Override
+                    public void onNext(APIArticles articles) {
+                        updateUI(articles);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                textView.setVisibility(View.VISIBLE);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        textView.setVisibility(View.VISIBLE);
+                        Log.i(getClass().getSimpleName(), getString(R.string.onErrorSearch));
+                    }
 
-            @Override
-            public void onComplete() {
-                progressBar.setVisibility(View.GONE);
-                Log.i("Test", "Selected section, section " +selectedSection+
-                        " is charged at position :"+ position);
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        progressBar.setVisibility(View.GONE);
+                        Log.i("Test", "Selected section, section " + selectedSection +
+                                " is charged at position :" + position);
+                    }
+                });
 
-    }
-
-    private void disposeWhenDestroy() {
-        if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
     }
 
     //
@@ -261,44 +268,32 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     //
 
     //Update mAdapter to recyclerView
-    private void updateUI(APIArticles articles){
-        if(mArticlesResults != null){
+    private void updateUI(APIArticles articles) {
+        if (mArticlesResults != null) {
             mArticlesResults.clear();
         }
-        if(articles.getResult() != null)
-        {
+        if (articles.getResult() != null) {
             mArticlesResults.addAll(articles.getResult());
             textView.setVisibility(View.GONE);
-            if(mArticlesResults.size() == 0){
+            if (mArticlesResults.size() == 0) {
                 {
                     mArticlesResults.clear();
                     textView.setVisibility(View.VISIBLE);
-                    textView.setText(R.string.list_empty);}
+                    textView.setText(R.string.list_empty);
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
             mAdapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
-        }
-        else
-        {
+        } else {
             Log.i("Test", "articles.getResult() is null");
         }
     }
 
-    //CHECK INTERNET AVAILABLE
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) Objects.requireNonNull(getActivity())
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        assert connectivityManager != null;
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    private void infoNoInternet(){
+    // Stop refreshing when no internet.
+    private void infoNoInternet() {
         textView.setVisibility(View.VISIBLE);
-        textView.setText( R.string.no_internet);
+        textView.setText(R.string.no_internet);
         progressBar.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -310,9 +305,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     //Configure item click on RecyclerView
     @Override
     public void onArticleClicked(APIResult resultArticle) {
-        Log.i("TAG", "Position : " +position);
-        // And add in updateUI() a comparison from articles URL and the one stored in sharedPrefs
-        // to change text color if already exist
+        Log.i("TAG", "Position : " + position);
         mListener.callbackArticle(resultArticle);
     }
 
@@ -322,7 +315,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     }
 
     //Callback to PageFragment
-    public interface PageFragmentListener{
+    public interface PageFragmentListener {
         void callbackArticle(APIResult resultArticle);
     }
 

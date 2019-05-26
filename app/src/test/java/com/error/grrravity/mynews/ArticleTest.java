@@ -12,10 +12,10 @@ public class ArticleTest {
         APIArticles articles = new APIArticles();
         articles.setStatus("ok");
         articles.setCopyright("authorization");
-        articles.setNumResults(1);
+        articles.setNumResults(3);
 
         assertEquals("ok", articles.getStatus());
         assertEquals("authorization", articles.getCopyright());
-        assertEquals(Long.valueOf(1), Long.valueOf(articles.getNumResults()));
+        assertEquals(Long.valueOf(3), Long.valueOf(articles.getNumResults()));
     }
 }

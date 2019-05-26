@@ -17,8 +17,10 @@ import butterknife.ButterKnife;
 
 public class ArticleActivity extends AppCompatActivity {
 
-    @BindView(R.id.webView) WebView mWebView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.webView)
+    WebView mWebView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
 
     @SuppressLint("RestrictedApi")
@@ -37,17 +39,15 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     //TOOLBAR
-
-    //Setting toolbar
-    private void configureToolbar(){
+    private void configureToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar ab = getSupportActionBar();
-                assert ab != null;
+        assert ab != null;
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void onConfigureWebView(){
+    private void onConfigureWebView() {
         //Configure webview to use javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -63,7 +63,7 @@ public class ArticleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mWebView.canGoBack()){
+        if (mWebView.canGoBack()) {
             mWebView.goBack();
         } else {
             super.onBackPressed();
@@ -77,7 +77,7 @@ public class ArticleActivity extends AppCompatActivity {
 
     //UPDATE UI
 
-    protected void updateUI(String url){
+    protected void updateUI(String url) {
         mWebView.loadUrl(url);
     }
 }

@@ -44,7 +44,7 @@ public class APIArticles {
         this.numResults = numResults;
     }
 
-    public List <APIResult> getResult() {
+    public List<APIResult> getResult() {
         return result;
     }
 

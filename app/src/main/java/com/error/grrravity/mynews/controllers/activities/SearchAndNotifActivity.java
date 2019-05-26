@@ -26,6 +26,7 @@ import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.controllers.fragments.SearchResultFragment;
 import com.error.grrravity.mynews.models.APIDoc;
 import com.error.grrravity.mynews.models.APISearch;
+import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.DateHelper;
 import com.error.grrravity.mynews.utils.Helper;
 import com.error.grrravity.mynews.utils.NYTStreams;
@@ -46,40 +47,59 @@ import static com.error.grrravity.mynews.models.APIResult.TOPSTORIES_EXTRA;
 public class SearchAndNotifActivity extends AppCompatActivity implements View.OnClickListener,
         SearchResultFragment.SearchResultFragmentListener {
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     // Notif views
-    @BindView(R.id.tv_notif_txt) TextView mTVNotif;
-    @BindView(R.id.switchButtonNotif) Switch mSwitchNotif;
-    @BindView(R.id.tv_notif_time_txt) TextView mTVNotifTime;
-    @BindView(R.id.edit_time_notif) TextView mTVEditNotifTime;
+    @BindView(R.id.tv_notif_txt)
+    TextView mTVNotif;
+    @BindView(R.id.switchButtonNotif)
+    Switch mSwitchNotif;
+    @BindView(R.id.tv_notif_time_txt)
+    TextView mTVNotifTime;
+    @BindView(R.id.edit_time_notif)
+    TextView mTVEditNotifTime;
 
     // Search views
-    @BindView(R.id.searchButton) TextView mSearchButton;
-    @BindView(R.id.editBeginDateTV) TextView mEditBegin;
-    @BindView(R.id.searchBeginDateTV) TextView mTVBegin;
-    @BindView(R.id.editEndDateTV) TextView mEditEnd;
-    @BindView(R.id.searchEndDateTV) TextView mTVEnd;
+    @BindView(R.id.searchButton)
+    TextView mSearchButton;
+    @BindView(R.id.editBeginDateTV)
+    TextView mEditBegin;
+    @BindView(R.id.searchBeginDateTV)
+    TextView mTVBegin;
+    @BindView(R.id.editEndDateTV)
+    TextView mEditEnd;
+    @BindView(R.id.searchEndDateTV)
+    TextView mTVEnd;
 
     // Both view
-    @BindView(R.id.searchField) EditText mSearchField;
-    @BindView(R.id.cbArts) CheckBox mCBArts;
-    @BindView(R.id.cbBusiness) CheckBox mCBBusiness;
-    @BindView(R.id.cbFood) CheckBox mCBFood;
-    @BindView(R.id.cbPolitics) CheckBox mCBPolitics;
-    @BindView(R.id.cbSciences) CheckBox mCBSciences;
-    @BindView(R.id.cbSports) CheckBox mCBSports;
-    @BindView(R.id.cbTechnology) CheckBox mCBTechnology;
+    @BindView(R.id.searchField)
+    EditText mSearchField;
+    @BindView(R.id.cbArts)
+    CheckBox mCBArts;
+    @BindView(R.id.cbBusiness)
+    CheckBox mCBBusiness;
+    @BindView(R.id.cbFood)
+    CheckBox mCBFood;
+    @BindView(R.id.cbPolitics)
+    CheckBox mCBPolitics;
+    @BindView(R.id.cbSciences)
+    CheckBox mCBSciences;
+    @BindView(R.id.cbSports)
+    CheckBox mCBSports;
+    @BindView(R.id.cbTechnology)
+    CheckBox mCBTechnology;
 
     private static Preferences mPreferences;
     public static final String SEARCHED_ARTICLE = "searched_article";
 
+    // Search and notif criteria
     private String mBeginDate = "";
     private String mEndDate = "";
-    public String mKeywords;
-    public String mQuery;
-    public String mTime;
+    public String mSearchQuery;
     public List<String> mCategories;
+    public String mNotifQuery;
+    public String mTime;
 
     public Boolean mNotifEnable;
     public Boolean mTargetActivity;
@@ -105,7 +125,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
         configureView();
 
-        configureSearch();
+        //For both search and notif
+        configureSearchField();
+
 
         // Only for notif
         if (!mTargetActivity) {
@@ -113,14 +135,6 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
             configureTime();
             configureSwitch();
         }
-    }
-
-    //To hide keyboard
-    private void configureToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar ab = getSupportActionBar();
-        assert ab != null;
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     private void initListener() {
@@ -144,23 +158,36 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         mCBTechnology.setOnClickListener(this);
     }
 
+    //To hide keyboard
     public static void hide_keyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity
                 .getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
         View view = activity.getCurrentFocus();
         //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if(view == null) {
+        if (view == null) {
             view = new View(activity);
         }
         Objects.requireNonNull(inputMethodManager).hideSoftInputFromWindow(view.getWindowToken(),
                 0);
     }
 
+    //
+    // CONFIGURATION
+    //
+    // GENERAL
+
+    private void configureToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar ab = getSupportActionBar();
+        assert ab != null;
+        ab.setDisplayHomeAsUpEnabled(true);
+    }
+
     // display views according to asked activity
-    private void configureView(){
+    private void configureView() {
         // for search
-        if (mTargetActivity){
+        if (mTargetActivity) {
             mTVNotif.setVisibility(View.GONE);
             mSwitchNotif.setVisibility(View.GONE);
             mTVNotifTime.setVisibility(View.GONE);
@@ -171,8 +198,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
             mTVBegin.setVisibility(View.VISIBLE);
             mEditEnd.setVisibility(View.VISIBLE);
             mTVEnd.setVisibility(View.VISIBLE);
-        } else {
-            //for notifs
+        }
+        //for notification
+        else {
             mTVNotif.setVisibility(View.VISIBLE);
             mSwitchNotif.setVisibility(View.VISIBLE);
             mTVNotifTime.setVisibility(View.VISIBLE);
@@ -186,17 +214,16 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void configureSearch() {
-        if (!mTargetActivity){
+    private void configureSearchField() {
+        // Set text for notification
+        if (!mTargetActivity) {
             mNotifEnable = mPreferences.getNotifBoolean();
-            if (mNotifEnable) {
-                mKeywords = mPreferences.getNotifQuery();
-                if (!mKeywords.equals("") || mKeywords.isEmpty()) {
-                    mSearchField.setText(mKeywords);
-                }
+            mNotifQuery = mPreferences.getNotifQuery();
+            if (!mNotifQuery.equals("") || mNotifQuery.isEmpty()) {
+                mSearchField.setText(mNotifQuery);
             }
         }
-        mSearchField.addTextChangedListener(new TextWatcher(){
+        mSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -209,10 +236,10 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (mTargetActivity){
-                    mQuery = mSearchField.getText().toString();
+                if (mTargetActivity) {
+                    mSearchQuery = mSearchField.getText().toString();
                 } else {
-                    mKeywords = mSearchField.getText().toString();
+                    mNotifQuery = mSearchField.getText().toString();
                 }
             }
         });
@@ -246,6 +273,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
+    //FOR NOTIFICATION
+
+    // Get notification times from preferences and set text if a time was stored
     private void configureTime() {
         mTime = mPreferences.getNotifTime();
         if (mTime != null && !mTime.isEmpty()) {
@@ -255,49 +285,69 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
-    // sauvegarder si veux notif ou pas. Retirer check si choses enregistrés.
+    // Save if notifications is enable
+    // set a listener on the switch and verify if all criterias are filled
     public void configureSwitch() {
-            if (mNotifEnable) {
-                mSwitchNotif.setChecked(true);
-            } else {
-                mSwitchNotif.setChecked(false);
-            }
-            mSwitchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    mSwitchNotif.setChecked(Helper.validateNotifParams
-                            (SearchAndNotifActivity.this,
-                                    mKeywords, mCategories, mTime, mSwitchNotif));
-                    savePrefs();
-                }
-            });
+        if (mNotifEnable) {
+            mSwitchNotif.setChecked(true);
+        } else {
+            mSwitchNotif.setChecked(false);
         }
+        mSwitchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-    public void addCategory (String selectedCategories){
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                mSwitchNotif.setChecked(Helper.validateNotifParams
+                        (SearchAndNotifActivity.this,
+                                mNotifQuery, mCategories, mTime, mSwitchNotif));
+                savePrefs();
+            }
+        });
+    }
+
+    //
+    // PREFERENCES PURPOSE
+    //
+    // FOR SEARCH
+
+    // Add categories to prefs if not already in
+    public void addCategory(String selectedCategories) {
         ArrayList<String> category = mPreferences.getCategory(1);
-        if (!category.contains(selectedCategories)){
-        category.add(selectedCategories);
-        mPreferences.storeCategory(1,category);
+        if (!category.contains(selectedCategories)) {
+            category.add(selectedCategories);
+            mPreferences.storeCategory(1, category);
         }
     }
 
-    public void removeCategory (String selectedCategories) {
+    // remove categories from prefs
+    public void removeCategory(String selectedCategories) {
         ArrayList<String> category = mPreferences.getCategory(1);
         if (category.contains(selectedCategories)) {
             category.remove(selectedCategories);
-            mPreferences.storeCategory(1,category);
+            mPreferences.storeCategory(1, category);
         }
     }
 
-    private void savePrefs(){
-        mPreferences.storeNotifQuery(mKeywords);
+    //FOR NOTIFICATION
+
+    // Save to preferences
+    // Also configure the alarm.
+    private void savePrefs() {
+        mPreferences.storeNotifQuery(mNotifQuery);
+        mNotifEnable = mSwitchNotif.isChecked();
         mPreferences.storeNotifBoolean(mNotifEnable);
         mPreferences.storeNotifCategories(mCategories);
         mPreferences.storeNotifTime(mTime);
+        (new AlarmHelper()).configureAlarmNotif(SearchAndNotifActivity.this);
     }
 
-    //Make onclick happens when Search and Checkbox are clicked
+
+    //
+    // OnClick
+    //
+
+    // Make onclick happens when Query and Checkbox are filled
+    //
     @Override
     public void onClick(View view) {
 
@@ -311,12 +361,12 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         int min = calendar.get(Calendar.MINUTE);
 
         DatePickerDialog setDate;
-        if(view != mSearchField) {
+        if (view != mSearchField) {
             hide_keyboard(this);
         }
 
         switch (view.getId()) {
-            //Check if there's a mQuery in search field. If ok, start search
+            //Check if there's a query in search field. If ok, start search
             case R.id.searchButton:
                 if (Helper.validateParameters(this, mSearchField, mCBArts, mCBBusiness,
                         mCBFood, mCBPolitics, mCBSciences, mCBSports, mCBTechnology)
@@ -324,6 +374,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                     executeSearchRequest();
                 }
                 break;
+            // Time picker for notification
             case R.id.edit_time_notif:
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                         new TimePickerDialog.OnTimeSetListener() {
@@ -339,7 +390,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 break;
             //adding categories to sharedPref when box are checked
             case R.id.cbArts:
-                if (mCBArts.isChecked()){
+                if (mCBArts.isChecked()) {
                     // Check if it's search or notif
                     if (mTargetActivity) {
                         // case search, store for http request
@@ -354,7 +405,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                     }
                 } else {
                     //Removing if unchecked.
-                    if (mTargetActivity){
+                    if (mTargetActivity) {
                         removeCategory("arts");
                     } else {
                         mCategories.remove("arts");
@@ -362,17 +413,17 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.cbBusiness:
-                if(mCBBusiness.isChecked()){
+                if (mCBBusiness.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("business");
                     } else {
                         if (!mCategories.contains("business")) {
                             mCategories.add("business");
-                        }else {
+                        } else {
                             mCategories.remove("business");
                         }
                     }
-                } else{
+                } else {
                     if (mTargetActivity) {
                         removeCategory("business");
                     } else {
@@ -381,7 +432,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.cbFood:
-                if(mCBFood.isChecked()){
+                if (mCBFood.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("food");
                     } else {
@@ -400,7 +451,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.cbPolitics:
-                if(mCBPolitics.isChecked()){
+                if (mCBPolitics.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("politics");
                     } else {
@@ -419,7 +470,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.cbSciences:
-                if (mCBSciences.isChecked()){
+                if (mCBSciences.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("sciences");
                     } else {
@@ -438,7 +489,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.cbSports:
-            if(mCBSports.isChecked()){
+                if (mCBSports.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("sports");
                     } else {
@@ -455,9 +506,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                         mCategories.remove("sports");
                     }
                 }
-            break;
+                break;
             case R.id.cbTechnology:
-                if(mCBTechnology.isChecked()){
+                if (mCBTechnology.isChecked()) {
                     if (mTargetActivity) {
                         addCategory("technology");
                     } else {
@@ -488,32 +539,35 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
+
+    // SEARCH HTTP PURPOSE
+
     private void executeSearchRequest() {
         ArrayList<String> category = mPreferences.getCategory(1);
-        Disposable disposable = NYTStreams.streamFetchSearchArticles(mQuery, category,
+        Disposable disposable = NYTStreams.streamFetchSearchArticles(mSearchQuery, category,
                 mBeginDate, mEndDate)
-                .subscribeWith(new DisposableObserver<APISearch>(){
-            @Override
-            public void onNext(APISearch articles) {
-                setSearchFragment(articles);
-            }
+                .subscribeWith(new DisposableObserver<APISearch>() {
+                    @Override
+                    public void onNext(APISearch articles) {
+                        setSearchFragment(articles);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.i("test", e.getMessage());
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("HttpRequest Search", e.getMessage());
+                    }
 
-            @Override
-            public void onComplete() {
-                Log.i("Test", "Search is charged");
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i("HttpRequest Search", "Search is charged");
+                    }
+                });
     }
 
-    private void setSearchFragment (APISearch articles){
-        if (articles.getResponse().getDocs().isEmpty()){
-            Toast.makeText(this, R.string.list_empty,Toast.LENGTH_LONG).show();
-        }else {
+    private void setSearchFragment(APISearch articles) {
+        if (articles.getResponse().getDocs().isEmpty()) {
+            Toast.makeText(this, R.string.list_empty, Toast.LENGTH_LONG).show();
+        } else {
             Bundle bundle = new Bundle();
             bundle.putParcelable(SEARCHED_ARTICLE, articles);
             SearchResultFragment searchResultFragment = (SearchResultFragment)
@@ -528,12 +582,14 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
+    // OTHER
+
     @Override
     public void callbackSearchArticle(APIDoc APISearch) {
         startArticleActivity(APISearch);
     }
 
-    private void startArticleActivity(APIDoc APISearch){
+    private void startArticleActivity(APIDoc APISearch) {
         Intent articleActivityIntent = new Intent(SearchAndNotifActivity.this,
                 ArticleActivity.class);
         articleActivityIntent.putExtra(TOPSTORIES_EXTRA, APISearch.getWebUrl());
@@ -548,12 +604,12 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
-    //SETTING DATES
+    // DatePicker Listeners
 
     DatePickerDialog.OnDateSetListener dateSettingListenerBegin
             = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateSet(DatePicker view, int year, int month, int day){
+        public void onDateSet(DatePicker view, int year, int month, int day) {
             mBeginDate = DateHelper.pickerFormatDate(year, month, day, mEditBegin);
         }
     };

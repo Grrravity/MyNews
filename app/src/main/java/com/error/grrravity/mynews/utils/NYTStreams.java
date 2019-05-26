@@ -15,7 +15,7 @@ public class NYTStreams {
     private static String API_KEY = "KbIgXrJKRwL9e8BQHLQum6PLaxjeRC2k";
 
     // getting articles
-    public static Observable<APIArticles> streamFetchArticles (String section){
+    public static Observable<APIArticles> streamFetchArticles(String section) {
         NYTServices nytService = NYTServices.retrofit.get().create(NYTServices.class);
         return nytService.getBySection(section, API_KEY)
                 .subscribeOn(Schedulers.io())
@@ -23,7 +23,7 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<APIArticles> streamFetchArticlesMP (String section){
+    public static Observable<APIArticles> streamFetchArticlesMP(String section) {
         NYTServices nytService = NYTServices.retrofit.get().create(NYTServices.class);
         return nytService.getBySectionMP(section, API_KEY)
                 .subscribeOn(Schedulers.io())
@@ -33,7 +33,7 @@ public class NYTStreams {
 
     // getting searched articles
     public static Observable<APISearch> streamFetchSearchArticles
-    (String search, List<String> category, String beginDate, String endDate){
+    (String search, List<String> category, String beginDate, String endDate) {
         NYTServices nytService = NYTServices.retrofit.get().create(NYTServices.class);
         return nytService.getSearch(API_KEY, search, category, beginDate, endDate, "relevance")
                 .subscribeOn(Schedulers.io())

@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/relativeLayoutSearch"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
-
+        android:layout_height="100dp"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/fragment_search_item_image"
@@ -19,48 +19,47 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
             android:background="@drawable/y_u_no_image"
-            tools:ignore="UnknownId"/>
+            tools:ignore="ContentDescription,UnknownId" />
 
         <TextView
             android:id="@+id/fragment_search_item_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/fragment_search_item_image"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/fragment_search_item_image"
             android:text="@string/section"
-            tools:ignore="UnknownId"/>
+            tools:ignore="UnknownId" />
 
         <TextView
             android:id="@+id/fragment_search_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:layout_alignStart="@+id/fragment_search_item_section"
+            android:layout_marginTop="40dp"
             android:maxLines="2"
+            android:text="@string/title"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@string/title"
-            tools:ignore="UnknownId"
-            />
+            tools:ignore="UnknownId" />
 
         <TextView
             android:id="@+id/fragment_search_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/fragment_search_item_section"
             android:layout_marginStart="80dp"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/fragment_search_item_section"
             android:maxLines="1"
             android:text="@string/empty_date"
-            tools:ignore="UnknownId"/>
+            tools:ignore="UnknownId" />
 
-        <View android:background="@color/mainBackground"
-            android:layout_width = "match_parent"
+        <View
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="99dp"
             android:layout_marginStart="90dp"
-            />
+            android:layout_marginTop="99dp"
+            android:background="@color/mainBackground" />
 
     </RelativeLayout>
 

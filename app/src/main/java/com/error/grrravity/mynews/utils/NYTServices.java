@@ -27,8 +27,8 @@ public interface NYTServices {
     Observable<APISearch> getSearch(@Query("api-key") String API_KEY,
                                     @Query("q") String search,
                                     @Query("fq") List<String> category,
-                                    @Query("begin_date")String beginDate,
-                                    @Query("end_date")String endDate,
+                                    @Query("begin_date") String beginDate,
+                                    @Query("end_date") String endDate,
                                     @Query("sort") String sort
 
     );
