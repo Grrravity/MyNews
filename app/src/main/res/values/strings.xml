@@ -18,13 +18,13 @@
 
     // Http request
     <string name="onErrorTopStories">onError on TopStories http request</string>
-    <string name="onCompleteTopStories">TopStories charged at position : </string>
+    <string name="onCompleteTopStories">TopStories charged at position :\u0020</string>
     <string name="onErrorMostPopular">onError on MostPopular http request</string>
-    <string name="onCompleteMostPopular">MostPopular charged at position : </string>
+    <string name="onCompleteMostPopular">MostPopular charged at position :\u0020</string>
     <string name="onErrorSelectedSection">onError on Selected Section article http request</string>
-    <string name="onCompleteSelectedSection"> is charged at position : </string>
+    <string name="onCompleteSelectedSection">\u0020is charged at position :\u0020</string>
     <string name="onErrorSearch">onError on Search http request</string>
-    <string name="onCompleteSearch">Search charged at position : </string>
+    <string name="onCompleteSearch">Search charged at position :\u0020</string>
     <string name="onErrorNotif">onError on notification http request</string>
     <string name="onCompleteNotif">Notification articles complete</string>
     <string name="section_viewed">viewed</string>
@@ -74,7 +74,8 @@
     <string name="notification_time">Notification time :</string>
 
     //Help
-    <string name="helpt_TV">If you encounter any issue or bug using this app, do not hesitate to tell me by using the form below.</string>
+    <string name="helpt_TV">"If you encounter any issue or bug using this app, do not hesitate to tell me by using the form below.
+        If you want to send screenshots, feels free to add them using you mail app after clicking on submit button."</string>
     <string name="help_subject">Subject</string>
     <string name="help_hint">Describe your issue or bug here.</string>
     <string name="help_submit">Submit</string>
@@ -90,22 +91,22 @@
     <string name="about_thanks">All thanks goes for OpenClassrooms that makes this project possible app and to my Mentor, Nathan B. who provided a huge help during development.</string>
 
     //log text
-    <string name="on_create_frag_number">onCreateView called for framgent number : </string>
+    <string name="on_create_frag_number">onCreateView called for framgent number :\u0020</string>
     <string name="on_attach_main">onAttach: parent activity must implement MainFragmentListener</string>
     <string name="on_attach_page">onAttach: parent activity must implement PageFragmentListener</string>
     <string name="tag_topstories">onCreateView // TS</string>
     <string name="tag_mostpopular">onCreateView // MP</string>
     <string name="tag_selectedcat">onCreateView // Cat</string>
-    <string name="position">position  :</string>
+    <string name="position">position  :\u0020</string>
     <string name="mailto">mailto:</string>
-    <string name="alarm_settings"> keyword search for article at date yyyyMMdd : </string>
-    <string name="my_log">– Grrravity</string>
+    <string name="alarm_settings">\u0020keyword search for article at date yyyyMMdd :\u0020</string>
+    <string name="my_log">\u0020- Grrravity</string>
 
     // Notification
     <string name="notification_title">Notification</string>
-    <string name="notif_pre_keyword">Your search "</string>
-    <string name="notif_post_keyword">" on Mynews found </string>
-    <string name="notif_post_result"> articles.</string>
+    <string name="notif_pre_keyword">Your search\u0020</string>
+    <string name="notif_post_keyword">\u0020on Mynews found\u0020</string>
+    <string name="notif_post_result">\u0020articles.</string>
     <string name="chanel_id">chanel_ID</string>
     <string name="notif_other_sdk">Mynews have a message for you</string>
 </resources>

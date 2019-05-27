@@ -152,6 +152,7 @@ public class MainActivityTest {
         onView(withId(R.id.switchButtonNotif)).check(matches(isCompletelyDisplayed()));
     }
 
+    //Please delete app cache if this test is failing.
     @Test
     public void swipeFragmentTest() throws Exception {
         onView(allOf(isDescendantOfA(withId(R.id.activity_main_tabs))
@@ -163,13 +164,13 @@ public class MainActivityTest {
         onView(withId(R.id.activity_main_viewpager)).check(matches(inPage(0)));
     }
 
-    //Currently not working due to espresso error on recyclerview items
-   // @Test
-   // public void clickRecyclerView() {
-   //     // Click on the RecyclerView item at position 2
-   //     onView(allOf(withId(R.id.fragment_page_recycler_view), isDisplayed()))
-   //             .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-   // }
+  //Currently not working due to espresso error on recycler view items
+  //@Test
+  //public void clickRecyclerView() {
+  //    // Click on the RecyclerView item at position 2
+  //    onView(allOf(withId(R.id.fragment_page_recycler_view), isDisplayed()))
+  //            .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+  //}
 
     @NonNull
     public static Matcher<View> inPage(final int page) {

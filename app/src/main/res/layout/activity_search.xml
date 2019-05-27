@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/searchField"
         android:layout_alignTop="@+id/searchField"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
         android:text="@string/arts"
         android:textColor="@color/mainText"
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/searchField"
         android:layout_alignTop="@+id/searchField"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="100dp"
         android:text="@string/sciences"
         android:textColor="@color/mainText"
@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/bar"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="60dp"
         android:text="@string/begin_date" />
 
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/searchBeginDateTV"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:clickable="true"
         android:drawableEnd="@drawable/drop_down_arrow"
@@ -163,7 +163,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/bar"
-        android:layout_marginStart="250dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="60dp"
         android:text="@string/end_date" />
 

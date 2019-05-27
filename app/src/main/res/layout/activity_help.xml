@@ -11,62 +11,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:gravity="center"
-            android:text="@string/helpt_TV"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/help_subject" />
-
-        <Spinner
-            android:id="@+id/spinner_help"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="40dp"
-            android:background="@color/backgroundSmoothColor"
-            android:clickable="true"
-            android:entries="@array/subject_entries"
+            android:orientation="vertical"
+            android:padding="10dp"
             android:focusable="true"
-            android:longClickable="false"
+            android:focusableInTouchMode="true">
 
-            android:prompt="@string/subject_prompt"
-            android:textSize="20sp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="@string/helpt_TV"
+                android:textSize="18sp" />
 
-        </Spinner>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/help_subject" />
 
-        <EditText
-            android:id="@+id/help_activity_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:background="@color/backgroundSmoothColor"
-            android:hint="@string/help_hint"
-            android:minHeight="55dp"
-            android:padding="20dp"
-            tools:ignore="Autofill,TextFields" />
+            <Spinner
+                android:id="@+id/spinner_help"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="@color/backgroundSmoothColor"
+                android:clickable="true"
+                android:entries="@array/subject_entries"
+                android:focusable="true"
+                android:longClickable="false"
 
-        <Button
-            android:id="@+id/help_activity_submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/mainBackground"
-            android:text="@string/help_submit"
-            android:textColor="@color/mainTextHighlight" />
+                android:prompt="@string/subject_prompt"
+                android:textSize="20sp">
 
-    </LinearLayout>
+            </Spinner>
+
+            <EditText
+                android:id="@+id/help_activity_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:background="@color/backgroundSmoothColor"
+                android:hint="@string/help_hint"
+                android:minHeight="55dp"
+                android:padding="20dp"
+                tools:ignore="Autofill,TextFields" />
+
+            <Button
+                android:id="@+id/help_activity_submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/mainBackground"
+                android:text="@string/help_submit"
+                android:textColor="@color/mainTextHighlight" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

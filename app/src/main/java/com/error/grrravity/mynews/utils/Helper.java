@@ -104,19 +104,16 @@ public class Helper {
      */
 
     public static int validateHelpInfo(String subject, String message, Context context) {
-        int validation;
         if (subject.equals("- Please select a subject -")) {
-            validation = 0;
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_help_object),
                     Toast.LENGTH_LONG).show();
+            return 0;
         }
         if (message.isEmpty()) {
-            validation = 1;
-        } else {
-            validation = 2;
+            return 1;
         }
-        return validation;
+        return 2;
     }
 
     /**

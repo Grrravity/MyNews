@@ -69,6 +69,7 @@ public class DateHelper {
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         Calendar tempCalendar = Calendar.getInstance(Locale.getDefault());
+
         if (!savedTime.equals("")) {
             Date date = null;
             @SuppressLint("SimpleDateFormat")
@@ -82,7 +83,9 @@ public class DateHelper {
             tempCalendar.setTime(date);
 
             if (tempCalendar.get(Calendar.HOUR_OF_DAY) <= calendar.get(Calendar.HOUR_OF_DAY) ){
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK)+1);
+                if (tempCalendar.get(Calendar.MINUTE) <= calendar.get(Calendar.MINUTE)){
+                    calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK)+1);
+                }
             }
             calendar.set(Calendar.HOUR_OF_DAY, tempCalendar.get(Calendar.HOUR_OF_DAY));
             calendar.set(Calendar.MINUTE, tempCalendar.get(Calendar.MINUTE));

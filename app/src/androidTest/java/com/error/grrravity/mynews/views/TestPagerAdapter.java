@@ -48,7 +48,7 @@ public class TestPagerAdapter {
         assertEquals("Most Popular",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(1));
- // May fail cause of selected section. Please make sure to clean mobile cache before starting test
+        // May fail cause of selected section. Please make sure to clean mobile cache before starting test
         assertEquals("Section not\nyet selected",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(2));
