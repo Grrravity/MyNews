@@ -112,7 +112,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
         // To know if its search or notification
         mTargetActivity = Objects.requireNonNull(getIntent().getExtras())
-                .getBoolean("boolean");
+                .getBoolean(getString(R.string.bool_intent));
 
         configureToolbar();
 
@@ -249,25 +249,25 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     private void configureCheckbox() {
         mCategories = mPreferences.getNotifCategories();
         if (mCategories != null) {
-            if (mCategories.contains("arts")) {
+            if (mCategories.contains(getString(R.string.arts_lower))) {
                 mCBArts.setChecked(true);
             }
-            if (mCategories.contains("business")) {
+            if (mCategories.contains(getString(R.string.business_lower))) {
                 mCBBusiness.setChecked(true);
             }
-            if (mCategories.contains("food")) {
+            if (mCategories.contains(getString(R.string.food_lower))) {
                 mCBFood.setChecked(true);
             }
-            if (mCategories.contains("politics")) {
+            if (mCategories.contains(getString(R.string.politics_lower))) {
                 mCBPolitics.setChecked(true);
             }
-            if (mCategories.contains("sciences")) {
+            if (mCategories.contains(getString(R.string.sciences_lower))) {
                 mCBSciences.setChecked(true);
             }
-            if (mCategories.contains("sports")) {
+            if (mCategories.contains(getString(R.string.sports_lower))) {
                 mCBSports.setChecked(true);
             }
-            if (mCategories.contains("technology")) {
+            if (mCategories.contains(getString(R.string.technology_lower))) {
                 mCBTechnology.setChecked(true);
             }
         }
@@ -286,7 +286,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     }
 
     // Save if notifications is enable
-    // set a listener on the switch and verify if all criterias are filled
+    // set a listener on the switch and verify if all criteria are filled
     public void configureSwitch() {
         if (mNotifEnable) {
             mSwitchNotif.setChecked(true);
@@ -297,7 +297,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                mSwitchNotif.setChecked(Helper.validateNotifParams
+                mSwitchNotif.setChecked(Helper.validateNotifParam
                         (SearchAndNotifActivity.this,
                                 mNotifQuery, mCategories, mTime, mSwitchNotif));
                 savePrefs();
@@ -347,7 +347,6 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     //
 
     // Make onclick happens when Query and Checkbox are filled
-    //
     @Override
     public void onClick(View view) {
 
@@ -368,7 +367,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         switch (view.getId()) {
             //Check if there's a query in search field. If ok, start search
             case R.id.searchButton:
-                if (Helper.validateParameters(this, mSearchField, mCBArts, mCBBusiness,
+                if (Helper.validateSearchParam(this, mSearchField, mCBArts, mCBBusiness,
                         mCBFood, mCBPolitics, mCBSciences, mCBSports, mCBTechnology)
                         && DateHelper.datesAreValid(this, mBeginDate, mEndDate)) {
                     executeSearchRequest();
@@ -394,135 +393,135 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                     // Check if it's search or notif
                     if (mTargetActivity) {
                         // case search, store for http request
-                        addCategory("arts");
+                        addCategory(getString(R.string.arts_lower));
                     } else {
                         // case notification, store for notifications.
-                        if (!mCategories.contains("arts")) {
-                            mCategories.add("arts");
+                        if (!mCategories.contains(getString(R.string.arts_lower))) {
+                            mCategories.add(getString(R.string.arts_lower));
                         } else {
-                            mCategories.remove("arts");
+                            mCategories.remove(getString(R.string.arts_lower));
                         }
                     }
                 } else {
                     //Removing if unchecked.
                     if (mTargetActivity) {
-                        removeCategory("arts");
+                        removeCategory(getString(R.string.arts_lower));
                     } else {
-                        mCategories.remove("arts");
+                        mCategories.remove(getString(R.string.arts_lower));
                     }
                 }
                 break;
             case R.id.cbBusiness:
                 if (mCBBusiness.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("business");
+                        addCategory(getString(R.string.business_lower));
                     } else {
-                        if (!mCategories.contains("business")) {
-                            mCategories.add("business");
+                        if (!mCategories.contains(getString(R.string.business_lower))) {
+                            mCategories.add(getString(R.string.business_lower));
                         } else {
-                            mCategories.remove("business");
+                            mCategories.remove(getString(R.string.business_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("business");
+                        removeCategory(getString(R.string.business_lower));
                     } else {
-                        mCategories.remove("business");
+                        mCategories.remove(getString(R.string.business_lower));
                     }
                 }
                 break;
             case R.id.cbFood:
                 if (mCBFood.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("food");
+                        addCategory(getString(R.string.food_lower));
                     } else {
-                        if (!mCategories.contains("food")) {
-                            mCategories.add("food");
+                        if (!mCategories.contains(getString(R.string.food_lower))) {
+                            mCategories.add(getString(R.string.food_lower));
                         } else {
-                            mCategories.remove("food");
+                            mCategories.remove(getString(R.string.food_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("food");
+                        removeCategory(getString(R.string.food_lower));
                     } else {
-                        mCategories.remove("food");
+                        mCategories.remove(getString(R.string.food_lower));
                     }
                 }
                 break;
             case R.id.cbPolitics:
                 if (mCBPolitics.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("politics");
+                        addCategory(getString(R.string.politics_lower));
                     } else {
-                        if (!mCategories.contains("politics")) {
-                            mCategories.add("politics");
+                        if (!mCategories.contains(getString(R.string.politics_lower))) {
+                            mCategories.add(getString(R.string.politics_lower));
                         } else {
-                            mCategories.remove("politics");
+                            mCategories.remove(getString(R.string.politics_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("politics");
+                        removeCategory(getString(R.string.politics_lower));
                     } else {
-                        mCategories.remove("politics");
+                        mCategories.remove(getString(R.string.politics_lower));
                     }
                 }
                 break;
             case R.id.cbSciences:
                 if (mCBSciences.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("sciences");
+                        addCategory(getString(R.string.sciences_lower));
                     } else {
-                        if (!mCategories.contains("sciences")) {
-                            mCategories.add("sciences");
+                        if (!mCategories.contains(getString(R.string.sciences_lower))) {
+                            mCategories.add(getString(R.string.sciences_lower));
                         } else {
-                            mCategories.remove("sciences");
+                            mCategories.remove(getString(R.string.sciences_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("sciences");
+                        removeCategory(getString(R.string.sciences_lower));
                     } else {
-                        mCategories.remove("sciences");
+                        mCategories.remove(getString(R.string.sciences_lower));
                     }
                 }
                 break;
             case R.id.cbSports:
                 if (mCBSports.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("sports");
+                        addCategory(getString(R.string.sports_lower));
                     } else {
-                        if (!mCategories.contains("sports")) {
-                            mCategories.add("sports");
+                        if (!mCategories.contains(getString(R.string.sports_lower))) {
+                            mCategories.add(getString(R.string.sports_lower));
                         } else {
-                            mCategories.remove("sports");
+                            mCategories.remove(getString(R.string.sports_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("sports");
+                        removeCategory(getString(R.string.sports_lower));
                     } else {
-                        mCategories.remove("sports");
+                        mCategories.remove(getString(R.string.sports_lower));
                     }
                 }
                 break;
             case R.id.cbTechnology:
                 if (mCBTechnology.isChecked()) {
                     if (mTargetActivity) {
-                        addCategory("technology");
+                        addCategory(getString(R.string.technology_lower));
                     } else {
-                        if (!mCategories.contains("technology")) {
-                            mCategories.add("technology");
+                        if (!mCategories.contains(getString(R.string.technology_lower))) {
+                            mCategories.add(getString(R.string.technology_lower));
                         } else {
-                            mCategories.remove("technology");
+                            mCategories.remove(getString(R.string.technology_lower));
                         }
                     }
                 } else {
                     if (mTargetActivity) {
-                        removeCategory("technology");
+                        removeCategory(getString(R.string.technology_lower));
                     } else {
-                        mCategories.remove("technology");
+                        mCategories.remove(getString(R.string.technology_lower));
                     }
                 }
                 break;
@@ -554,19 +553,22 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("HttpRequest Search", e.getMessage());
+                        Log.i(getClass().getSimpleName(), getString(R.string.onErrorSearch)
+                                + getString(R.string.my_log));
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("HttpRequest Search", "Search is charged");
+                        Log.i(getClass().getSimpleName(), getString(R.string.onCompleteSearch)
+                                + getString(R.string.my_log));
                     }
                 });
     }
 
     private void setSearchFragment(APISearch articles) {
         if (articles.getResponse().getDocs().isEmpty()) {
-            Toast.makeText(this, R.string.list_empty, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.list_empty,
+                    Toast.LENGTH_LONG).show();
         } else {
             Bundle bundle = new Bundle();
             bundle.putParcelable(SEARCHED_ARTICLE, articles);

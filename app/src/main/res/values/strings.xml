@@ -5,22 +5,33 @@
     <string name="verification_search_field">Please enter something to search</string>
     <string name="verification_checkbox">Please select at least one category</string>
     <string name="verification_section_tab">Please select a category to display in the menu (top left)</string>
-    <string name="verification_dates">Please make sure that \"Begin date\" is younger than \"End date\"</string>
+    <string name="verification_dates_correct">Please make sure that begin date is older than end date</string>
+    <string name="verification_dates_set">Please select dates for your search</string>
     <string name="verification_notif_time">Please select the time when you want to get notify</string>
     <string name="verification_help_object">Please select a subject that match the best your issue</string>
     <string name="alarm_on">Alarm enable</string>
     <string name="alamr_off">Alarm disable</string>
+    <string name="bool_intent">boolean</string>
 
     // Research message
     <string name="list_empty">Oops, could not find any articles matching your search</string>
 
     // Http request
     <string name="onErrorTopStories">onError on TopStories http request</string>
-    <string name="onCompleteTopStories">TopStories charged</string>
+    <string name="onCompleteTopStories">TopStories charged at position : </string>
     <string name="onErrorMostPopular">onError on MostPopular http request</string>
-    <string name="onCompleteMostPopular">MostPopular charged</string>
-    <string name="onErrorSearch">onError on SearchedArticle http request</string>
-    <string name="onCompleteSearch">SearchedArticle charged</string>
+    <string name="onCompleteMostPopular">MostPopular charged at position : </string>
+    <string name="onErrorSelectedSection">onError on Selected Section article http request</string>
+    <string name="onCompleteSelectedSection"> is charged at position : </string>
+    <string name="onErrorSearch">onError on Search http request</string>
+    <string name="onCompleteSearch">Search charged at position : </string>
+    <string name="onErrorNotif">onError on notification http request</string>
+    <string name="onCompleteNotif">Notification articles complete</string>
+    <string name="section_viewed">viewed</string>
+    <string name="section_home">home</string>
+    <string name="articles_null">articles.getResult() is null</string>
+    <string name="search_null">mAPISearch.getResponse().getDocs() is null</string>
+
 
     // Categories
     <string name="arts">Arts</string>
@@ -30,16 +41,23 @@
     <string name="sciences">Science</string>
     <string name="sports">Sports</string>
     <string name="technology">Technology</string>
+    <string name="arts_lower">arts</string>
+    <string name="business_lower">business</string>
+    <string name="food_lower">food</string>
+    <string name="politics_lower">politics</string>
+    <string name="sciences_lower">science</string>
+    <string name="sports_lower">sports</string>
+    <string name="technology_lower">technology</string>
 
-    //Main xml
+    //Main
     <string name="nav_drawer_open">Open</string>
     <string name="nav_drawer_close">Close</string>
 
-    //Drawer xml
+    //Drawer
     <string name="categories_drawer">Catégories :</string>
     <string name="sections_drawer">Sections :</string>
 
-    //Fragment xml
+    //Fragment
     <string name="empty_date">date is empty</string>
     <string name="title">No title</string>
     <string name="section">No section</string>
@@ -47,7 +65,7 @@
     <string name="end_date">End date</string>
     <string name="no_internet">No internet connection, please check your internet status and refresh this</string>
 
-    //Search and notif xml
+    //Search and notif
     <string name="search_field">Search</string>
     <string name="search_hint">Search query term</string>
     <string name="enable_notifications">Enable notifications :</string>
@@ -55,16 +73,39 @@
     <string name="date_empty">dd/mm/yyyy</string>
     <string name="notification_time">Notification time :</string>
 
-    //Help xml
+    //Help
     <string name="helpt_TV">If you encounter any issue or bug using this app, do not hesitate to tell me by using the form below.</string>
     <string name="help_subject">Subject</string>
     <string name="help_hint">Describe your issue or bug here.</string>
     <string name="help_submit">Submit</string>
     <string name="subject_prompt">Select a subject</string>
+    <string name="mail_object_separator"> - </string>
+    <string name="missing_message">A message is required</string>
+    <string name="send_mail">Send mail</string>
 
-    //About xml
+    //About
     <string name="about_developer">This app is developed by Grrravity.</string>
     <string name="about_gitlink">https://github.com/Grrravity/MyNews</string>
     <string name="about_uses">The main utilisation of this app is to use the New York Times API to get and display data.</string>
     <string name="about_thanks">All thanks goes for OpenClassrooms that makes this project possible app and to my Mentor, Nathan B. who provided a huge help during development.</string>
+
+    //log text
+    <string name="on_create_frag_number">onCreateView called for framgent number : </string>
+    <string name="on_attach_main">onAttach: parent activity must implement MainFragmentListener</string>
+    <string name="on_attach_page">onAttach: parent activity must implement PageFragmentListener</string>
+    <string name="tag_topstories">onCreateView // TS</string>
+    <string name="tag_mostpopular">onCreateView // MP</string>
+    <string name="tag_selectedcat">onCreateView // Cat</string>
+    <string name="position">position  :</string>
+    <string name="mailto">mailto:</string>
+    <string name="alarm_settings"> keyword search for article at date yyyyMMdd : </string>
+    <string name="my_log">– Grrravity</string>
+
+    // Notification
+    <string name="notification_title">Notification</string>
+    <string name="notif_pre_keyword">Your search "</string>
+    <string name="notif_post_keyword">" on Mynews found </string>
+    <string name="notif_post_result"> articles.</string>
+    <string name="chanel_id">chanel_ID</string>
+    <string name="notif_other_sdk">Mynews have a message for you</string>
 </resources>

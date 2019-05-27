@@ -22,8 +22,6 @@ import java.util.Locale;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static android.content.ContentValues.TAG;
-
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static Preferences mPreferences;
@@ -43,8 +41,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String date = dateFormat.format(calendar.getTime());
-        Log.i(TAG, "Notif for article at date yyyyMMdd : " + date +
-                " and query is " + keywords);
+        Log.i(getClass().getSimpleName(),
+                keywords + mContext.getResources().getString(R.string.alarm_settings)+ date
+                        + mContext.getResources().getString(R.string.my_log));
 
         Disposable disposable = NYTStreams.streamFetchSearchArticles
                 (keywords, categories, date, date)
@@ -56,12 +55,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("test", e.getMessage());
-                    }
+                        Log.e(getClass().getSimpleName(),
+                                mContext.getResources().getString(R.string.onErrorNotif)
+                                        + mContext.getResources().getString(R.string.my_log));
+                }
 
                     @Override
                     public void onComplete() {
-                        Log.e("Test", "Search is charged");
+                        Log.e(getClass().getSimpleName(),
+                                mContext.getResources().getString(R.string.onCompleteNotif)
+                                        + mContext.getResources().getString(R.string.my_log));
                     }
                 });
     }
@@ -70,20 +73,26 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void showNotification(APISearch articles) {
         String keywords = mPreferences.getNotifQuery();
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        inboxStyle.setBigContentTitle("Notification");
-        inboxStyle.addLine("Your search '" + keywords + "' on MyNews found "
+        inboxStyle.setBigContentTitle(mContext.getResources()
+                .getString(R.string.notification_title));
+        inboxStyle.addLine(mContext.getResources().getString(R.string.notif_pre_keyword)
+                + keywords +
+                mContext.getResources().getString(R.string.notif_post_keyword)
                 + articles.getResponse().getDocs().size() +
-                " articles.");
+                mContext.getResources().getString(R.string.notif_post_result));
 
-        String chanelID = "chanel_ID";
+        String chanelID = mContext.getResources().getString(R.string.chanel_id);
 
         NotificationCompat.Builder notifBuilder = new NotificationCompat
                 .Builder(mContext, chanelID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("MyNews")
-                .setContentText("Your search '" + keywords + "' on MyNews found "
+                .setContentTitle(mContext.getResources()
+                        .getString(R.string.notification_title))
+                .setContentText(mContext.getResources().getString(R.string.notif_pre_keyword)
+                        + keywords +
+                        mContext.getResources().getString(R.string.notif_post_keyword)
                         + articles.getResponse().getDocs().size() +
-                        " articles.")
+                        mContext.getResources().getString(R.string.notif_post_result))
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setStyle(inboxStyle);
@@ -92,7 +101,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence chanelName = "MyNews have a message for you";
+            CharSequence chanelName = mContext.getResources().getString(R.string.notif_other_sdk);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel notifChanel = new NotificationChannel(chanelID,
                     chanelName,

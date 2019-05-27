@@ -26,7 +26,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.support.constraint.Constraints.TAG;
 import static com.error.grrravity.mynews.controllers.activities.SearchAndNotifActivity.SEARCHED_ARTICLE;
 
 public class SearchResultFragment extends Fragment implements View.OnClickListener,
@@ -56,7 +55,9 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
         if (context instanceof SearchResultFragmentListener) {
             mListener = (SearchResultFragmentListener) context;
         } else {
-            Log.d(TAG, "onAttach: parrent Activity must implement MainFragmentListener");
+            Log.d(getClass().getSimpleName(),
+                    getString(R.string.on_attach_main)
+                            + getString(R.string.my_log));
         }
 
     }
@@ -95,7 +96,7 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
         //creating adapter using user data sample
         this.mAdapter = new SearchRecyclerViewAdapter(this.response,
                 Glide.with(this), this);
-        // attach adapter to recyclerview
+        // attach adapter to recycler view
         this.mRecyclerView.setAdapter(this.mAdapter);
         // set layout manager
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -126,7 +127,8 @@ public class SearchResultFragment extends Fragment implements View.OnClickListen
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         } else {
-            Log.e("Test", "mAPISearch.getResponse().getDocs() is null");
+            Log.e(getClass().getSimpleName(), getString(R.string.search_null)
+                    + getString(R.string.my_log));
         }
     }
 

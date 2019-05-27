@@ -29,8 +29,8 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
     Button mSubmit;
 
     //DATA
-    public static final String MAIL = "julienne.prof@gmail.com";
-    public static final String MAIL_SUBJECT = "MyNews";
+    public final String MAIL = "julienne.prof@gmail.com";
+    public final String MAIL_SUBJECT = "MyNews";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +64,19 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
                     mSubject.requestFocus();
                     break;
                 case 1:
-                    mMessage.setError("A message is required");
+                    mMessage.setError(getString(R.string.missing_message));
                     mMessage.requestFocus();
                     break;
                 case 2:
                     Intent sendMail = new Intent(Intent.ACTION_SENDTO);
 
-                    sendMail.setData(Uri.parse("mailto:"));
+                    sendMail.setData(Uri.parse(this.getResources().getString(R.string.mailto)));
                     sendMail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{MAIL});
                     sendMail.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                            MAIL_SUBJECT + " - " + subject);
+                            MAIL_SUBJECT +getString(R.string.mail_object_separator)+ subject);
                     sendMail.putExtra(android.content.Intent.EXTRA_TEXT, mailcontent);
 
-                    startActivity(Intent.createChooser(sendMail, "Send mail"));
+                    startActivity(Intent.createChooser(sendMail, getString((R.string.send_mail))));
             }
 
         }

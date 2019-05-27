@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
             case R.id.menu_activity_main_params_Notification:
                 Intent notificationIntent = new Intent(MainActivity.this,
                         SearchAndNotifActivity.class);
-                notificationIntent.putExtra("boolean", false);
+                notificationIntent.putExtra(getString(R.string.bool_intent), false);
                 startActivity(notificationIntent);
                 return true;
             case R.id.menu_activity_main_params_help:
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
             case R.id.menu_activity_main_search:
                 Intent searchActivityIntent = new Intent(MainActivity.this,
                         SearchAndNotifActivity.class);
-                searchActivityIntent.putExtra("boolean", true);
+                searchActivityIntent.putExtra(getString(R.string.bool_intent), true);
                 startActivity(searchActivityIntent);
                 return true;
             default:
@@ -129,31 +129,31 @@ public class MainActivity extends AppCompatActivity implements PageFragment.Page
 
         switch (id) {
             case R.id.menu_drawer_arts_section:
-                selectedSection = "arts";
+                selectedSection = getString(R.string.arts_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_business_section:
-                selectedSection = "business";
+                selectedSection = getString(R.string.business_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_food_section:
-                selectedSection = "food";
+                selectedSection = getString(R.string.food_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_science_section:
-                selectedSection = "science";
+                selectedSection = getString(R.string.sciences_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_sports_section:
-                selectedSection = "sports";
+                selectedSection = getString(R.string.sports_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_politics_section:
-                selectedSection = "politics";
+                selectedSection = getString(R.string.politics_lower);
                 updateSelectedSection(selectedSection);
                 break;
             case R.id.menu_drawer_technology_section:
-                selectedSection = "technology";
+                selectedSection = getString(R.string.technology_lower);
                 updateSelectedSection(selectedSection);
                 break;
             default:

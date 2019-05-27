@@ -48,7 +48,7 @@ public class ArticleActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void onConfigureWebView() {
-        //Configure webview to use javascript
+        //Configure web view to use javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         // Allows windows opening

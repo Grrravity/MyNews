@@ -34,7 +34,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchViewHo
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        //Creating viewholder and inflate layout
+        //Creating view holder and inflate layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_search_item, parent, false);

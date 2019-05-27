@@ -32,7 +32,7 @@ public class Preferences {
     }
 
     /**
-     * uses gson to store categories as an Arraylist of strings.
+     * uses gson to store categories as an Array list of strings.
      *
      * @param category : (ArrayList) list of categories.
      * @param source   : (int) 0 is for tab category

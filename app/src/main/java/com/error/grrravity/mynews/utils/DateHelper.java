@@ -20,15 +20,16 @@ public class DateHelper {
 
     // Puts the date in DD/MM/YYYY format
     @SuppressLint("SetTextI18n")
-    public static String pickerFormatDate(int yearInt, int monthInt, int dayInt, TextView spinner) {
+    public static String pickerFormatDate(int yearInt, int monthInt, int dayInt, TextView textDate) {
         String year = Integer.toString(yearInt);
         String month = (monthInt + 1 < 10) ? "0" +
                 (monthInt + 1) : Integer.toString(monthInt + 1);
         String day = (dayInt < 10) ? "0" + dayInt : Integer.toString(dayInt);
-        spinner.setText(day + "/" + month + "/" + year);
+        textDate.setText(day + "/" + month + "/" + year);
         return year + month + day;
     }
 
+    //Only for test, removed spinner to work properly.
     @SuppressLint("SetTextI18n")
     public static String pickerFormatDateTest(int yearInt, int monthInt, int dayInt) {
         String year = Integer.toString(yearInt);
@@ -42,18 +43,32 @@ public class DateHelper {
     public static boolean datesAreValid(Context context, String beginDate, String endDate) {
         if (!beginDate.isEmpty() && !endDate.isEmpty()
                 && Integer.parseInt(beginDate) > Integer.parseInt(endDate)) {
-            Toast.makeText(context, context.getResources().getString(R.string.verification_dates),
+            Toast.makeText(context,
+                    context.getResources().getString(R.string.verification_dates_correct),
+                    Toast.LENGTH_LONG).show();
+            return false;
+        } else if (beginDate.isEmpty() || endDate.isEmpty()){
+            Toast.makeText(context,
+                    context.getResources().getString(R.string.verification_dates_set),
                     Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
     }
 
-    static Calendar setTimeNotif(String savedTime) {
+    //Only for test. removed context as toast isn't needed.
+    public static boolean testDatesAreValid(String beginDate, String endDate) {
+        if (!beginDate.isEmpty() && !endDate.isEmpty()
+                && Integer.parseInt(beginDate) > Integer.parseInt(endDate)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static Calendar setTimeNotif(String savedTime) {
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         Calendar tempCalendar = Calendar.getInstance(Locale.getDefault());
-        // TODO ajouter 1 jour si date est passée
         if (!savedTime.equals("")) {
             Date date = null;
             @SuppressLint("SimpleDateFormat")
@@ -66,10 +81,15 @@ public class DateHelper {
             assert date != null;
             tempCalendar.setTime(date);
 
-            calendar.set(Calendar.HOUR, tempCalendar.get(Calendar.HOUR_OF_DAY));
+            if (tempCalendar.get(Calendar.HOUR_OF_DAY) <= calendar.get(Calendar.HOUR_OF_DAY) ){
+                calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK)+1);
+            }
+            calendar.set(Calendar.HOUR_OF_DAY, tempCalendar.get(Calendar.HOUR_OF_DAY));
             calendar.set(Calendar.MINUTE, tempCalendar.get(Calendar.MINUTE));
             calendar.set(Calendar.SECOND, 0);
-            Log.i(TAG, "Notification time set at: " + calendar.getTime());
+
+            Log.i(TAG, "Notification time set at: " + calendar.getTime()
+                    + "- Grrravity");
         }
         return calendar;
     }

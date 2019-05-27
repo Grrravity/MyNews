@@ -32,10 +32,10 @@ public class Helper {
      * @return true if all criteria are filled
      */
 
-    public static boolean validateParameters(Context context, EditText searchField,
-                                             CheckBox cbArts, CheckBox cbBusiness, CheckBox cbFood,
-                                             CheckBox cbPolitics, CheckBox cbScience,
-                                             CheckBox cbSport, CheckBox cbTechnology) {
+    public static boolean validateSearchParam(Context context, EditText searchField,
+                                              CheckBox cbArts, CheckBox cbBusiness, CheckBox cbFood,
+                                              CheckBox cbPolitics, CheckBox cbScience,
+                                              CheckBox cbSport, CheckBox cbTechnology) {
         if (searchField.getText().toString().trim().isEmpty()) {
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_search_field),
@@ -60,15 +60,15 @@ public class Helper {
      *
      * @param context     (context) context from the activity
      * @param keywords    (string) query entered in search field
-     * @param categories  (liststring) categories
+     * @param categories  (list string) categories
      * @param time        (string) hour for notification (hh:mm)
      * @param switchNotif (Switch) notif state
      * @return true if all criteria are filled
      */
 
-    public static boolean validateNotifParams(Context context,
-                                              String keywords, List<String> categories,
-                                              String time, Switch switchNotif) {
+    public static boolean validateNotifParam(Context context,
+                                             String keywords, List<String> categories,
+                                             String time, Switch switchNotif) {
         if (switchNotif.isChecked()) {
             if (keywords == null || keywords.isEmpty()) {
                 Toast.makeText(context,
@@ -122,11 +122,11 @@ public class Helper {
     /**
      * send a toast when alarm is set or unset
      *
-     * @param state   : (bool) true is enable, false is deseanble
+     * @param state   : (bool) true is enable, false is disable
      * @param context : (context) activity context
      */
 
-    public static void alarmToast(boolean state, Context context) {
+    static void alarmToast(boolean state, Context context) {
         if (state) {
             Toast.makeText(context,
                     context.getResources().getString(R.string.alarm_on),
