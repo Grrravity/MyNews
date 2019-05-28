@@ -38,7 +38,7 @@ public class DateHelperTest {
     // actual
     @Test
     public void testTimeNotif(){
-        String time = "16:11";
+        String time = "20:10";
         if (time.contains(":0")){
             time = time.replace(":0", ":");
         }
@@ -51,9 +51,11 @@ public class DateHelperTest {
 
         Calendar calendarTestNow = Calendar.getInstance(Locale.getDefault());
 
-                if (calendarTest.get(Calendar.HOUR_OF_DAY) <= calendarTestNow.get(Calendar.HOUR_OF_DAY)){
-            assertNotEquals(calendarTest.get(Calendar.DAY_OF_WEEK),
-                    calendarTestNow.get(Calendar.DAY_OF_WEEK));
+        if (calendarTest.get(Calendar.HOUR_OF_DAY) <= calendarTestNow.get(Calendar.HOUR_OF_DAY)){
+            if (calendarTest.get(Calendar.MINUTE) <= calendarTestNow.get(Calendar.MINUTE)) {
+                assertNotEquals(calendarTest.get(Calendar.DAY_OF_WEEK),
+                        calendarTestNow.get(Calendar.DAY_OF_WEEK));
+            }
         } else {
             assertEquals(calendarTest.get(Calendar.DAY_OF_WEEK),
                     calendarTestNow.get(Calendar.DAY_OF_WEEK));
