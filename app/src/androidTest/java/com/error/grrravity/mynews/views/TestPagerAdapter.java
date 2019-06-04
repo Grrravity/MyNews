@@ -49,7 +49,7 @@ public class TestPagerAdapter {
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(1));
         // May fail cause of selected section. Please make sure to clean mobile cache before starting test
-        assertEquals("Section not\nyet selected",
+        assertEquals("Section not\r\nyet selected",
                 Objects.requireNonNull(mActivity.mViewPager.getAdapter())
                         .getPageTitle(2));
     }

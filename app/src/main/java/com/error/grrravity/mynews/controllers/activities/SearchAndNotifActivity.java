@@ -109,7 +109,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search_and_notif);
         ButterKnife.bind(this);
 
         // To know if its search or notification
@@ -300,7 +300,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 mSwitchNotif.setChecked(validationNotif());
-                savePrefs();
+                saveNotifPrefs();
             }
         });
     }
@@ -338,7 +338,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
     // Save to preferences
     // Also configure the alarm.
-    private void savePrefs() {
+    private void saveNotifPrefs() {
         mPreferences.storeNotifQuery(mNotifQuery);
         mNotifEnable = mSwitchNotif.isChecked();
         mPreferences.storeNotifBoolean(mNotifEnable);
@@ -615,7 +615,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     protected void onPause() {
         super.onPause();
         if (!mTargetActivity) {
-            savePrefs();
+            saveNotifPrefs();
         }
     }
 
