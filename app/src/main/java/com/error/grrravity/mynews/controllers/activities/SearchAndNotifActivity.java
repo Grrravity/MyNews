@@ -28,7 +28,8 @@ import com.error.grrravity.mynews.models.APIDoc;
 import com.error.grrravity.mynews.models.APISearch;
 import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.DateHelper;
-import com.error.grrravity.mynews.utils.Helper;
+import com.error.grrravity.mynews.utils.ErrorListener;
+import com.error.grrravity.mynews.utils.SearchAndNotifHelper;
 import com.error.grrravity.mynews.utils.NYTStreams;
 import com.error.grrravity.mynews.utils.Preferences;
 
@@ -45,7 +46,8 @@ import io.reactivex.observers.DisposableObserver;
 import static com.error.grrravity.mynews.models.APIResult.TOPSTORIES_EXTRA;
 
 public class SearchAndNotifActivity extends AppCompatActivity implements View.OnClickListener,
-        SearchResultFragment.SearchResultFragmentListener {
+        SearchResultFragment.SearchResultFragmentListener,
+        ErrorListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -297,12 +299,16 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                mSwitchNotif.setChecked(Helper.validateNotifParam
-                        (SearchAndNotifActivity.this,
-                                mNotifQuery, mCategories, mTime, mSwitchNotif));
+                mSwitchNotif.setChecked(validationNotif());
                 savePrefs();
             }
         });
+    }
+
+    //To use error listener within onCheckedChangedListener
+    public boolean validationNotif(){
+        return SearchAndNotifHelper.validateNotifParam (mNotifQuery, mCategories, mTime,
+                mSwitchNotif.isChecked(),this);
     }
 
     //
@@ -338,7 +344,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         mPreferences.storeNotifBoolean(mNotifEnable);
         mPreferences.storeNotifCategories(mCategories);
         mPreferences.storeNotifTime(mTime);
-        (new AlarmHelper()).configureAlarmNotif(SearchAndNotifActivity.this);
+        (new AlarmHelper()).configureAlarmNotif(SearchAndNotifActivity.this,
+                mPreferences.getNotifBoolean(),
+                DateHelper.setTimeNotif(mPreferences.getNotifTime()));
     }
 
 
@@ -367,10 +375,16 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         switch (view.getId()) {
             //Check if there's a query in search field. If ok, start search
             case R.id.searchButton:
-                if (Helper.validateSearchParam(this, mSearchField, mCBArts, mCBBusiness,
-                        mCBFood, mCBPolitics, mCBSciences, mCBSports, mCBTechnology)
+                if (SearchAndNotifHelper.validateSearchParam( mSearchField.getText().toString(), mCBArts.isChecked(),
+                        mCBBusiness.isChecked(), mCBFood.isChecked(), mCBPolitics.isChecked(),
+                        mCBSciences.isChecked(), mCBSports.isChecked(), mCBTechnology.isChecked(),
+                        this)
                         && DateHelper.datesAreValid(this, mBeginDate, mEndDate)) {
                     executeSearchRequest();
+                } else {
+                    if (SearchAndNotifHelper.getFocus()){
+                        mSearchField.requestFocus();
+                    }
                 }
                 break;
             // Time picker for notification
@@ -538,7 +552,6 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         }
     }
 
-
     // SEARCH HTTP PURPOSE
 
     private void executeSearchRequest() {
@@ -568,7 +581,7 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
     private void setSearchFragment(APISearch articles) {
         if (articles.getResponse().getDocs().isEmpty()) {
             Toast.makeText(this, R.string.list_empty,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         } else {
             Bundle bundle = new Bundle();
             bundle.putParcelable(SEARCHED_ARTICLE, articles);
@@ -622,4 +635,18 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
             mEndDate = DateHelper.pickerFormatDate(year, month, day, mEditEnd);
         }
     };
+
+    @Override
+    public void onShowErrorString(String error) {
+        Toast.makeText(this,
+                error,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onShowErrorFromResources(int error) {
+        Toast.makeText(this,
+                getString(error),
+                Toast.LENGTH_SHORT).show();
+    }
 }

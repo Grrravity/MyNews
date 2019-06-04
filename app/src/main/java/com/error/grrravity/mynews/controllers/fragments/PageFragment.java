@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide;
 import com.error.grrravity.mynews.R;
 import com.error.grrravity.mynews.models.APIArticles;
 import com.error.grrravity.mynews.models.APIResult;
-import com.error.grrravity.mynews.utils.Helper;
 import com.error.grrravity.mynews.utils.NYTStreams;
+import com.error.grrravity.mynews.utils.NetworkHelper;
 import com.error.grrravity.mynews.utils.Preferences;
 import com.error.grrravity.mynews.views.RecyclerViewAdapter;
 
@@ -123,7 +123,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
     private void fragmentSwitchRequest() {
         switch (position) {
             case 0:
-                if (Helper.isNetworkAvailable(getActivity())) {
+                if (NetworkHelper.isNetworkAvailable(getActivity())) {
                     executeHttpRequestTopStories();
                     Log.i(this.getResources().getString(R.string.tag_topstories),
                             this.getResources().getString(R.string.position) + position
@@ -133,7 +133,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                 }
                 break;
             case 1:
-                if (Helper.isNetworkAvailable(getActivity())) {
+                if (NetworkHelper.isNetworkAvailable(getActivity())) {
                     executeHttpRequestMostPopular();
                     Log.i(this.getResources().getString(R.string.tag_mostpopular),
                             this.getResources().getString(R.string.position) + position
@@ -143,7 +143,7 @@ public class PageFragment extends Fragment implements RecyclerViewAdapter.onPage
                 }
                 break;
             case 2:
-                if (Helper.isNetworkAvailable(getActivity())) {
+                if (NetworkHelper.isNetworkAvailable(getActivity())) {
                     ArrayList<String> category = mPreferences.getCategory(0);
                     if (category.contains(getString(R.string.section_viewed)) || category.size() < 1) {
                         progressBar.setVisibility(View.GONE);

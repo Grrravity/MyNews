@@ -45,12 +45,12 @@ public class DateHelper {
                 && Integer.parseInt(beginDate) > Integer.parseInt(endDate)) {
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_dates_correct),
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             return false;
         } else if (beginDate.isEmpty() || endDate.isEmpty()){
             Toast.makeText(context,
                     context.getResources().getString(R.string.verification_dates_set),
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
