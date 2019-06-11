@@ -29,12 +29,13 @@ public class SearchAndNotifHelper {
                                               Boolean cbArts, Boolean cbBusiness, Boolean cbFood,
                                               Boolean cbPolitics, Boolean cbScience,
                                               Boolean cbSport, Boolean cbTechnology,
-                                              ErrorListener errorListener) {
+                                              ErrorListener errorListener,
+                                              FocusListener focusListener) {
         if (searchField == null || searchField.equals("")) {
             if (errorListener != null) {
                 errorListener.onShowErrorFromResources(R.string.verification_search_field);
             }
-            mFocus = true;
+            focusListener.onGetRequestFocus(true);
             return false;
         }
         if (!cbArts && !cbBusiness && !cbFood && !cbPolitics && !cbScience && !cbSport &&
@@ -42,16 +43,11 @@ public class SearchAndNotifHelper {
             if (errorListener != null) {
                 errorListener.onShowErrorFromResources(R.string.verification_checkbox);
             }
-            mFocus = false;
+            focusListener.onGetRequestFocus(false);
             return false;
         }
-        mFocus = false;
+        focusListener.onGetRequestFocus(false);
         return true;
-    }
-
-    //get focus value. required to make validateSearchParam() working on unit testing.
-    public static boolean getFocus(){
-        return mFocus;
     }
 
     /**

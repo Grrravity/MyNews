@@ -83,7 +83,7 @@ public class DateHelper {
             tempCalendar.setTime(date);
 
             if (tempCalendar.get(Calendar.HOUR_OF_DAY) <= calendar.get(Calendar.HOUR_OF_DAY) ){
-                if (tempCalendar.get(Calendar.MINUTE) <= calendar.get(Calendar.MINUTE)){
+                if (tempCalendar.get(Calendar.MINUTE) < calendar.get(Calendar.MINUTE)){
                     calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK)+1);
                 }
             }

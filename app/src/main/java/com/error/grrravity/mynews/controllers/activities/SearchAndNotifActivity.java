@@ -29,9 +29,10 @@ import com.error.grrravity.mynews.models.APISearch;
 import com.error.grrravity.mynews.utils.AlarmHelper;
 import com.error.grrravity.mynews.utils.DateHelper;
 import com.error.grrravity.mynews.utils.ErrorListener;
-import com.error.grrravity.mynews.utils.SearchAndNotifHelper;
+import com.error.grrravity.mynews.utils.FocusListener;
 import com.error.grrravity.mynews.utils.NYTStreams;
 import com.error.grrravity.mynews.utils.Preferences;
+import com.error.grrravity.mynews.utils.SearchAndNotifHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,7 +48,7 @@ import static com.error.grrravity.mynews.models.APIResult.TOPSTORIES_EXTRA;
 
 public class SearchAndNotifActivity extends AppCompatActivity implements View.OnClickListener,
         SearchResultFragment.SearchResultFragmentListener,
-        ErrorListener {
+        ErrorListener, FocusListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -378,13 +379,9 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
                 if (SearchAndNotifHelper.validateSearchParam( mSearchField.getText().toString(), mCBArts.isChecked(),
                         mCBBusiness.isChecked(), mCBFood.isChecked(), mCBPolitics.isChecked(),
                         mCBSciences.isChecked(), mCBSports.isChecked(), mCBTechnology.isChecked(),
-                        this)
+                        this, this)
                         && DateHelper.datesAreValid(this, mBeginDate, mEndDate)) {
                     executeSearchRequest();
-                } else {
-                    if (SearchAndNotifHelper.getFocus()){
-                        mSearchField.requestFocus();
-                    }
                 }
                 break;
             // Time picker for notification
@@ -648,5 +645,12 @@ public class SearchAndNotifActivity extends AppCompatActivity implements View.On
         Toast.makeText(this,
                 getString(error),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onGetRequestFocus(boolean bool) {
+        if (bool) {
+            mSearchField.requestFocus();
+        }
     }
 }
