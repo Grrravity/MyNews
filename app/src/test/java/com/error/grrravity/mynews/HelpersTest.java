@@ -2,6 +2,7 @@ package com.error.grrravity.mynews;
 
 import com.error.grrravity.mynews.utils.DateHelper;
 import com.error.grrravity.mynews.utils.ErrorListener;
+import com.error.grrravity.mynews.utils.FocusListener;
 import com.error.grrravity.mynews.utils.HelpHelper;
 import com.error.grrravity.mynews.utils.SearchAndNotifHelper;
 
@@ -92,7 +93,8 @@ public class HelpersTest {
         }
 
         assertEquals(conditions, SearchAndNotifHelper.validateSearchParam(searchField, cbArts,
-                cbBusiness, cbFood, cbPolitics, cbScience, cbSport, cbTechnology, errorListener));
+                cbBusiness, cbFood, cbPolitics, cbScience, cbSport, cbTechnology,
+                errorListener, focusListener));
     }
 
     @Test
@@ -145,6 +147,13 @@ public class HelpersTest {
         assertEquals(conditions, HelpHelper.validateHelpInfo(subject, message, errorListener));
 
     }
+
+    private FocusListener focusListener = new FocusListener() {
+        @Override
+        public void onGetRequestFocus(boolean bool) {
+
+        }
+    };
 
     //just to have listener in unit test.
     private ErrorListener errorListener = new ErrorListener() {
